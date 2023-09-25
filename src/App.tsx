@@ -1,26 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Grid from '@mui/material/Grid'
+import './App.css'
+import ClueBox from './components/ClueBox'
+import Button from '@mui/material/Button'
+import { useState } from 'react'
+import DescriptionBox from './components/DescriptionBox'
 
-function App() {
+function App () {
+  const [answers, setAnswers] = useState({})
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Grid container spacing={2} justifyContent='center' alignItems='center' direction='column' height='100%' >
+      <Grid item >
+        <Grid container spacing={2} justifyContent='center' direction='row'>
+          <Grid item >
+            <ClueBox placeholder="Clue 1" onChange={(event) => {
+              setAnswers({ ...answers, 1: event.target.value })
+            }}/>
+          </Grid>
+          <Grid item >
+            <ClueBox placeholder="Clue 2" onChange={(event) => {
+              setAnswers({ ...answers, 2: event.target.value })
+            }}/>
+          </Grid>
+          <Grid item >
+            <ClueBox placeholder="Clue 3" onChange={(event) => {
+              setAnswers({ ...answers, 3: event.target.value })
+            }}/>
+          </Grid>
+          <Grid item >
+            <ClueBox placeholder="Clue 4" onChange={(event) => {
+              setAnswers({ ...answers, 4: event.target.value })
+            }}/>
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item >
+        <DescriptionBox onChange={(event) => {
+          setAnswers({ ...answers, description: event.target.value })
+        }} placeholder="What is the connection?"/>
+      </Grid>
+      <Grid item >
+        <Button onClick={() => { console.log(answers) }}>
+          Create
+        </Button>
+      </Grid>
+    </Grid>
+  )
 }
 
-export default App;
+export default App
