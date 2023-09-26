@@ -1,26 +1,29 @@
 import { styled } from '@mui/system'
-import { Box, TextField } from '@mui/material'
+import { Box, Input } from '@mui/joy'
 import { type ChangeEventHandler } from 'react'
 
-export default function DescriptionBox({ onChange, placeholder }: { onChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> | undefined, placeholder?: string }) {
+export default function DescriptionBox({
+  onChange,
+  placeholder
+}: {
+  onChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> | undefined,
+  placeholder?: string
+}) {
   return (
-    <Box width="800px" display="flex">
-      <StyledTextField
+    <Box width='100%'>
+      <StyledInput
         onChange={onChange}
-        multiline
         placeholder={placeholder}
       />
     </Box>
   )
 }
 
-const StyledTextField = styled(TextField)(({ theme }) => ({
-  '& .MuiInputBase-input': {
+const StyledInput = styled(Input)(({ theme }) => ({
+  'input': {
     textAlign: 'center'
   },
-  '& .MuiInputBase-input:focus::placeholder': {
+  'input:focus::placeholder': {
     color: 'transparent'
   },
-  flexDirection: 'column',
-  width: '100%'
 }))

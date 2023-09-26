@@ -1,30 +1,31 @@
 import { styled } from '@mui/system'
-import { Box, TextField } from '@mui/material'
+import { Box, Input } from '@mui/joy'
 import { type ChangeEventHandler } from 'react'
 
 export default function ClueBox({
   onChange,
-  placeholder
+  placeholder,
+  height = 'tall'
 }: {
   onChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> | undefined,
-  placeholder?: string
+  placeholder?: string,
+  height?: 'short' | 'tall'
 }) {
   return (
-    <Box height="128px" display="flex">
-      <StyledTextField
+    <Box height={height === 'tall' ? '128px' : ''} width='100%'>
+      <StyledInput
         onChange={onChange}
-        multiline
         placeholder={placeholder}
       />
     </Box>
   )
 }
 
-const StyledTextField = styled(TextField)(({ theme }) => ({
-  '& .MuiInputBase-input': {
+const StyledInput = styled(Input)(({ theme }) => ({
+  'input': {
     textAlign: 'center'
   },
-  '& .MuiInputBase-input:focus::placeholder': {
+  'input:focus::placeholder': {
     color: 'transparent'
   },
   overflow: 'clip',
