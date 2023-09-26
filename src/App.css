@@ -24,6 +24,9 @@
   color: white;
 }
 
-html, body, #root  {
-  height: 100%
+html,
+body,
+#root {
+  height: 100%;
+  min-width: 1080px;
 }

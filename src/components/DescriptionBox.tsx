@@ -2,10 +2,9 @@ import { styled } from '@mui/system'
 import { Box, TextField } from '@mui/material'
 import { type ChangeEventHandler } from 'react'
 
-export default function DescriptionBox ({ onChange, placeholder }: { onChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> | undefined, placeholder?: string }) {
-  // const [placeholderText, setPlaceholderText] = useState<string>(placeholder ?? '')
+export default function DescriptionBox({ onChange, placeholder }: { onChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> | undefined, placeholder?: string }) {
   return (
-    <Box width='800px' display='flex'>
+    <Box width="800px" display="flex">
       <StyledTextField
         onChange={onChange}
         multiline
