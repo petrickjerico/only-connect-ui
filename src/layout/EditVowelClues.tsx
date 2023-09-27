@@ -2,7 +2,7 @@ import ClueBox from '../components/ClueBox'
 import ArrowForward from '@mui/icons-material/ArrowForward'
 import { useState } from 'react'
 import DescriptionBox from '../components/DescriptionBox'
-import { Stack } from '@mui/joy'
+import { Box, Stack } from '@mui/joy'
 
 export default function EditVowelClues({
   group,
@@ -38,7 +38,15 @@ export default function EditVowelClues({
                 setAnswers({ ...answers, 1: event.target.value })
               }}
             />
-            <ArrowForward sx={{ height: '100%' }} />
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center'
+              }}
+            >
+              <ArrowForward />
+            </Box>
             <ClueBox
               placeholder={`Solution ${clue}`}
               height='short'
