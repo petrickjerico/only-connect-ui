@@ -6,6 +6,8 @@ import {
   List,
   ListItem,
   ListItemButton,
+  Modal,
+  ModalClose,
   Sheet,
   Stack,
   ThemeProvider,
@@ -15,19 +17,23 @@ import {
 } from '@mui/joy'
 import './App.css'
 import EditClues from './layout/EditClues'
-import GroupSelection from './layout/GroupSelection'
-import { useContext, useReducer, useState } from 'react'
-import { Game, RoundGroup, RoundType } from './types/QuizTypes'
+import { useState } from 'react'
 import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown'
 import EditVowelClues from './layout/EditVowelClues'
-import GameProvider, { AppContext } from './utils/GameProvider'
+import GameProvider, { useGame } from './utils/context/GameProvider'
+import GameModalSheet from './layout/GameModalSheet'
 
 function App() {
+  const groups = ['1', '2', '3', '4', '5', '6']
+  const walls = ['A', 'B']
+  const vowelsCategoryMaxCount = 5
+  const vowelsCategory = Array.from(Array(vowelsCategoryMaxCount).keys()).map((x) => x + 1)
+
   const theme = useTheme()
+
   const [open, setOpen] = useState(true)
   const [open2, setOpen2] = useState(true)
-
-  const { state } = useContext(AppContext)
+  const [modalOpen, setModalOpen] = useState(false)
 
   return (
     <ThemeProvider theme={theme}>
@@ -179,11 +185,11 @@ function App() {
                   <Typography level='h1' sx={{ pb: '24px' }}>Round 1: Connections</Typography>
                   <Stack spacing={8}>
                     {
-                      [1, 2, 3, 4, 5, 6].map((group) => {
+                      groups.map((group) => {
                         return (
                           <Stack spacing={2} key={group}>
                             <Typography level='h2'>{`Connection ${group}`}</Typography>
-                            <EditClues group={group} round={'wall'} descriptionPlaceholder='What is the connection?' />
+                            <EditClues group={group} round={'connection'} descriptionPlaceholder='What is the connection?' />
                           </Stack>
                         )
                       })
@@ -194,7 +200,7 @@ function App() {
                   <Typography level='h1' sx={{ pb: '24px' }}>Round 2: Sequences</Typography>
                   <Stack spacing={8}>
                     {
-                      [1, 2, 3, 4, 5, 6].map((group) => {
+                      groups.map((group) => {
                         return (
                           <Stack spacing={2} key={group}>
                             <Typography level='h2'>{`Sequence ${group}`}</Typography>
@@ -209,14 +215,14 @@ function App() {
                   <Typography level='h1' sx={{ pb: '24px' }}>Round 3: Connecting Wall</Typography>
                   <Stack spacing={8}>
                     {
-                      ['A', 'B'].map((wall) => {
+                      walls.map((wall) => {
                         return (
                           <Stack spacing={2} key={wall}>
                             <Typography level='h2'>{`Wall ${wall}`}</Typography>
                             <Sheet variant='outlined' sx={{ borderRadius: 'sm', background: 'white' }}>
                               <Stack spacing={6} p={4}>
                                 {
-                                  [1, 2, 3, 4].map((group) => {
+                                  ['1', '2', '3', '4'].map((group) => {
                                     return (
                                       <Stack spacing={2} key={group}>
                                         <Typography level='h3'>{`Group ${group}`}</Typography>
@@ -237,7 +243,7 @@ function App() {
                   <Typography level='h1' sx={{ pb: '24px' }}>Round 4: Missing vowels</Typography>
                   <Stack spacing={8}>
                     {
-                      [1, 2, 3, 4, 5].map((group) => {
+                      vowelsCategory.map((group) => {
                         return (
                           <Stack spacing={2} key={group}>
                             <Typography level='h2'>{`Category ${group}`}</Typography>
@@ -253,9 +259,18 @@ function App() {
           </Box>
           <Divider orientation="vertical" />
           <Box padding={4} display='flex' alignItems='flex-end'>
-            <Button onClick={() => console.log(state.game)}>
+            <Button onClick={() => setModalOpen(true)}>
               Check
             </Button>
+            <Modal
+              aria-labelledby="modal-title"
+              aria-describedby="modal-desc"
+              open={modalOpen}
+              onClose={() => setModalOpen(false)}
+              sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+            >
+              <GameModalSheet />
+            </Modal>
           </Box>
         </Stack>
       </GameProvider>

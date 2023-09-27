@@ -1,9 +1,8 @@
 import ClueBox from '../components/ClueBox'
-import React, { useContext, useState } from 'react'
 import DescriptionBox from '../components/DescriptionBox'
 import { Stack } from '@mui/joy'
-import { Game, RoundType } from '../types/QuizTypes'
-import { AppContext, GameActionKind } from '../utils/GameProvider'
+import { RoundType } from '../utils/types/QuizTypes'
+import { GameActionKind, GamePayload, useGameDispatch } from '../utils/context/GameProvider'
 
 export default function EditClues({
   group,
@@ -11,12 +10,13 @@ export default function EditClues({
   wall,
   descriptionPlaceholder,
 }: {
-  group: number,
+  group: string,
   round: RoundType
   wall?: string,
   descriptionPlaceholder: string
 }) {
-  const { state, dispatch } = useContext(AppContext)
+  const dispatch = useGameDispatch()
+
   return (
     <Stack
       spacing={2}
@@ -32,27 +32,20 @@ export default function EditClues({
               key={clue}
               placeholder="Clue 1"
               onChange={(event) => {
-                const newGame: Game = wall ? {
-                  [round]: {
-                    [wall]: {
-                      [group]: {
-                        clues: {
-                          [clue]: event.target.value
-                        }
-                      }
-                    }
-                  }
-                } : {
-                  [round]: {
-                    [group]: {
-                      clues: {
-                        [clue]: event.target.value
-                      }
-                    }
+                const key: string = wall
+                  ? `${round}_wall${wall}_group${group}_clue${clue}`
+                  : `${round}_group${group}_clue${clue}`
+                const payload: GamePayload = {
+                  key: key,
+                  value: {
+                    value: event.target.value,
+                    round: round,
+                    wall: wall ?? undefined,
+                    group: group,
+                    type: 'clue'
                   }
                 }
-                console.log(state)
-                dispatch({ type: GameActionKind.UPDATE_CONNECTION, payload: newGame })
+                dispatch({ type: GameActionKind.UPDATE, payload: payload })
               }}
             />
           )
@@ -60,22 +53,20 @@ export default function EditClues({
       </Stack>
       <DescriptionBox
         onChange={(event) => {
-          const newGame: Game = wall ? {
-            [round]: {
-              [wall]: {
-                [group]: {
-                  description: event.target.value
-                }
-              }
-            }
-          } : {
-            [round]: {
-              [group]: {
-                description: event.target.value
-              }
+          const key: string = wall
+            ? `${round}_wall${wall}_group${group}_description`
+            : `${round}_group${group}_description`
+          const payload: GamePayload = {
+            key: key,
+            value: {
+              value: event.target.value,
+              round: round,
+              wall: wall ?? undefined,
+              group: group,
+              type: 'description'
             }
           }
-          dispatch({ type: GameActionKind.UPDATE_CONNECTION, payload: newGame })
+          dispatch({ type: GameActionKind.UPDATE, payload: payload })
         }}
         placeholder={descriptionPlaceholder}
       />
