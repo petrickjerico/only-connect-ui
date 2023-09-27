@@ -26,6 +26,7 @@ export default function Sidebar() {
       sx={{
         width: 480,
         pl: '24px',
+        pt: '24px',
         overflow: 'scroll'
       }}
     >
@@ -61,6 +62,11 @@ export default function Sidebar() {
           },
         })}
       >
+        <ListItem>
+          <Typography level='title-md'>
+            QUICK ACCESS
+          </Typography>
+        </ListItem>
         {Object.entries(gameHeaders).map(([round, { title, subtitles }]) => (
           <ListItem
             nested
