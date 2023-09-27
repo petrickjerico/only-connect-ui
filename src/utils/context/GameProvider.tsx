@@ -1,5 +1,5 @@
-import React, { Dispatch, createContext, useContext, useReducer } from "react";
-import { Game, GameAttribute, RoundType } from "../types/QuizTypes";
+import React, { Dispatch, createContext, useContext, useReducer } from 'react'
+import { Game, GameAttribute } from '../types/QuizTypes'
 
 export const enum GameActionKind {
   UPDATE = 'UPDATE',
@@ -20,7 +20,7 @@ interface GameState {
 }
 
 const initialGameState: GameState = {
-  game: {}
+  game: {},
 }
 
 // Our reducer function that uses a switch statement to handle our actions
@@ -34,11 +34,11 @@ function gameReducer(state: GameState, action: GameAction) {
         ...state,
         game: {
           ...state.game,
-          [payload.key]: payload.value
-        }
+          [payload.key]: payload.value,
+        },
       }
     default:
-      return state;
+      return state
   }
 }
 
@@ -58,9 +58,7 @@ export default function GameProvider({ children }: { children: React.ReactNode }
 
   return (
     <GameContext.Provider value={state}>
-      <GameDispatchContext.Provider value={dispatch}>
-        {children}
-      </GameDispatchContext.Provider >
+      <GameDispatchContext.Provider value={dispatch}>{children}</GameDispatchContext.Provider>
     </GameContext.Provider>
   )
 }

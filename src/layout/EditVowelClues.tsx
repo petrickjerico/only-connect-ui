@@ -6,19 +6,19 @@ import { Stack } from '@mui/joy'
 
 export default function EditVowelClues({
   group,
-  descriptionPlaceholder
+  descriptionPlaceholder,
 }: {
-  group: number,
+  group: number
   descriptionPlaceholder: string
 }) {
   const [answers, setAnswers] = useState({})
   return (
     <Stack
       spacing={2}
-      justifyContent="center"
-      alignItems="center"
-      direction="column"
-      display="flex"
+      justifyContent='center'
+      alignItems='center'
+      direction='column'
+      display='flex'
     >
       <DescriptionBox
         onChange={(event) => {
@@ -29,7 +29,7 @@ export default function EditVowelClues({
       />
       {[1, 2, 3, 4].map((clue) => {
         return (
-          <Stack key={clue} spacing={2} justifyContent='space-between' direction="row" width="100%">
+          <Stack key={clue} spacing={2} justifyContent='space-between' direction='row' width='100%'>
             <ClueBox
               placeholder={`Clue ${clue}`}
               height='short'

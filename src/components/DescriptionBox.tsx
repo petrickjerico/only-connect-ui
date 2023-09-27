@@ -19,7 +19,7 @@ export default function DescriptionBox({
   )
 }
 
-const StyledInput = styled(Input)(({ theme }) => ({
+const StyledInput = styled(Input)(() => ({
   'input': {
     textAlign: 'center'
   },

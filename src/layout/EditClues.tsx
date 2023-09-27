@@ -10,9 +10,9 @@ export default function EditClues({
   wall,
   descriptionPlaceholder,
 }: {
-  group: string,
+  group: string
   round: RoundType
-  wall?: string,
+  wall?: string
   descriptionPlaceholder: string
 }) {
   const dispatch = useGameDispatch()
@@ -20,17 +20,17 @@ export default function EditClues({
   return (
     <Stack
       spacing={2}
-      justifyContent="center"
-      alignItems="center"
-      direction="column"
-      display="flex"
+      justifyContent='center'
+      alignItems='center'
+      direction='column'
+      display='flex'
     >
-      <Stack spacing={2} justifyContent='space-between' direction="row" width="100%">
+      <Stack spacing={2} justifyContent='space-between' direction='row' width='100%'>
         {[1, 2, 3, 4].map((clue) => {
           return (
             <ClueBox
               key={clue}
-              placeholder="Clue 1"
+              placeholder='Clue 1'
               onChange={(event) => {
                 const key: string = wall
                   ? `${round}_wall${wall}_group${group}_clue${clue}`
@@ -42,8 +42,8 @@ export default function EditClues({
                     round: round,
                     wall: wall ?? undefined,
                     group: group,
-                    type: 'clue'
-                  }
+                    type: 'clue',
+                  },
                 }
                 dispatch({ type: GameActionKind.UPDATE, payload: payload })
               }}
@@ -63,8 +63,8 @@ export default function EditClues({
               round: round,
               wall: wall ?? undefined,
               group: group,
-              type: 'description'
-            }
+              type: 'description',
+            },
           }
           dispatch({ type: GameActionKind.UPDATE, payload: payload })
         }}

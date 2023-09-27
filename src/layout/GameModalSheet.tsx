@@ -1,5 +1,5 @@
-import { ModalClose, Sheet, Typography } from "@mui/joy";
-import { useGame } from "../utils/context/GameProvider";
+import { ModalClose, Sheet, Typography } from '@mui/joy'
+import { useGame } from '../utils/context/GameProvider'
 
 export default function GameModalSheet() {
   const game = useGame()
@@ -7,7 +7,8 @@ export default function GameModalSheet() {
   return (<Sheet
     variant="outlined"
     sx={{
-      maxWidth: 500,
+      width: '30vw',
+      maxWidth: '50vw',
       borderRadius: 'md',
       p: 3,
       boxShadow: 'lg',
@@ -24,7 +25,16 @@ export default function GameModalSheet() {
     >
       Game check
     </Typography>
-    <Sheet variant='soft' color="neutral" sx={{ borderRadius: 'sm', padding: '16px', overflow: 'scroll', maxHeight: '50vh', width: '30vw' }}>
+    <Sheet
+      variant='soft'
+      color="neutral"
+      sx={{
+        borderRadius: 'sm',
+        padding: '16px',
+        overflow: 'scroll',
+        maxHeight: '50vh',
+      }}
+    >
       <code>
         <pre>
           {JSON.stringify(game.game, null, 2)}

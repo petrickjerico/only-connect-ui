@@ -1,12 +1,16 @@
-import { Button, Stack } from "@mui/joy"
-import { useState } from "react"
-import { styled } from "@mui/system"
+import { Button, Stack } from '@mui/joy'
+import { useState } from 'react'
+import { styled } from '@mui/system'
 
-export default function GroupSelection({ onSelected }: { onSelected: (selection: number) => void }) {
+export default function GroupSelection({
+  onSelected,
+}: {
+  onSelected: (selection: number) => void
+}) {
   const [selection, setSelection] = useState<number>(1)
   const selections = [
     [1, 2, 3],
-    [4, 5, 6]
+    [4, 5, 6],
   ]
 
   return (
@@ -29,7 +33,7 @@ export default function GroupSelection({ onSelected }: { onSelected: (selection:
                 </StyledButton>
               )
             })}
-          </Stack >
+          </Stack>
         )
       })}
     </Stack>
@@ -37,5 +41,5 @@ export default function GroupSelection({ onSelected }: { onSelected: (selection:
 }
 
 const StyledButton = styled(Button)<{ isSelected: boolean }>(({ theme, isSelected }) => ({
-  backgroundColor: isSelected ? theme.palette.primary[100] : 'transparent'
+  backgroundColor: isSelected ? theme.palette.primary[100] : 'transparent',
 }))
