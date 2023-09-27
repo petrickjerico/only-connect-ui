@@ -5,6 +5,7 @@ export type GameAttribute = {
   round: RoundType
   wall?: string
   group: string
+  order?: string
   type: 'clue' | 'description' | 'solution'
 }
 

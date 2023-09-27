@@ -1,8 +1,8 @@
 import ArrowForward from '@mui/icons-material/ArrowForward'
-import { useState } from 'react'
 import { Box, Stack } from '@mui/joy'
 import DescriptionBox from '../../components/DescriptionBox'
 import ClueBox from '../../components/ClueBox'
+import { GamePayload, GameActionKind, useGameDispatch } from '../../utils/context/GameProvider'
 
 export default function EditVowelClues({
   group,
@@ -11,7 +11,8 @@ export default function EditVowelClues({
   group: string
   descriptionPlaceholder: string
 }) {
-  const [answers, setAnswers] = useState({})
+  const dispatch = useGameDispatch()
+
   return (
     <Stack
       spacing={2}
@@ -22,7 +23,17 @@ export default function EditVowelClues({
     >
       <DescriptionBox
         onChange={(event) => {
-          setAnswers({ ...answers, description: event.target.value })
+          const key: string = `vowel_group${group}_description`
+          const payload: GamePayload = {
+            key: key,
+            value: {
+              value: event.target.value,
+              round: 'vowel',
+              group: group,
+              type: 'description',
+            },
+          }
+          dispatch({ type: GameActionKind.UPDATE, payload: payload })
         }}
         placeholder={descriptionPlaceholder}
       />
@@ -33,7 +44,18 @@ export default function EditVowelClues({
               placeholder={`Clue ${clue}`}
               height='short'
               onChange={(event) => {
-                setAnswers({ ...answers, 1: event.target.value })
+                const key: string = `vowel_group${group}_clue${clue}`
+                const payload: GamePayload = {
+                  key: key,
+                  value: {
+                    value: event.target.value,
+                    round: 'vowel',
+                    group: group,
+                    type: 'clue',
+                    order: `${clue}`
+                  },
+                }
+                dispatch({ type: GameActionKind.UPDATE, payload: payload })
               }}
             />
             <Box
@@ -49,8 +71,18 @@ export default function EditVowelClues({
               placeholder={`Solution ${clue}`}
               height='short'
               onChange={(event) => {
-                console.log(group)
-                setAnswers({ ...answers, 2: event.target.value })
+                const key: string = `vowel_group${group}_solution${clue}`
+                const payload: GamePayload = {
+                  key: key,
+                  value: {
+                    value: event.target.value,
+                    round: 'vowel',
+                    group: group,
+                    type: 'solution',
+                    order: `${clue}`
+                  },
+                }
+                dispatch({ type: GameActionKind.UPDATE, payload: payload })
               }}
             />
           </Stack>

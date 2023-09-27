@@ -43,6 +43,7 @@ export default function EditClues({
                     wall: wall ?? undefined,
                     group: group,
                     type: 'clue',
+                    order: wall ? undefined : `${clue}`
                   },
                 }
                 dispatch({ type: GameActionKind.UPDATE, payload: payload })
