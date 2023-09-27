@@ -1,8 +1,8 @@
-import ClueBox from '../components/ClueBox'
-import DescriptionBox from '../components/DescriptionBox'
+import ClueBox from '../../components/ClueBox'
+import DescriptionBox from '../../components/DescriptionBox'
 import { Stack } from '@mui/joy'
-import { RoundType } from '../utils/types/QuizTypes'
-import { GameActionKind, GamePayload, useGameDispatch } from '../utils/context/GameProvider'
+import { RoundType } from '../../utils/types/QuizTypes'
+import { GameActionKind, GamePayload, useGameDispatch } from '../../utils/context/GameProvider'
 
 export default function EditClues({
   group,

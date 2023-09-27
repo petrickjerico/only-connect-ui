@@ -29,7 +29,6 @@ function gameReducer(state: GameState, action: GameAction) {
 
   switch (type) {
     case GameActionKind.UPDATE:
-      console.log(payload)
       return {
         ...state,
         game: {

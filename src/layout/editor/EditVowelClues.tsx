@@ -1,14 +1,14 @@
-import ClueBox from '../components/ClueBox'
 import ArrowForward from '@mui/icons-material/ArrowForward'
 import { useState } from 'react'
-import DescriptionBox from '../components/DescriptionBox'
 import { Box, Stack } from '@mui/joy'
+import DescriptionBox from '../../components/DescriptionBox'
+import ClueBox from '../../components/ClueBox'
 
 export default function EditVowelClues({
   group,
   descriptionPlaceholder,
 }: {
-  group: number
+  group: string
   descriptionPlaceholder: string
 }) {
   const [answers, setAnswers] = useState({})
@@ -22,7 +22,6 @@ export default function EditVowelClues({
     >
       <DescriptionBox
         onChange={(event) => {
-          console.log(group)
           setAnswers({ ...answers, description: event.target.value })
         }}
         placeholder={descriptionPlaceholder}
@@ -34,7 +33,6 @@ export default function EditVowelClues({
               placeholder={`Clue ${clue}`}
               height='short'
               onChange={(event) => {
-                console.log(group)
                 setAnswers({ ...answers, 1: event.target.value })
               }}
             />
