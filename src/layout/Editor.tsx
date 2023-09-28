@@ -1,4 +1,4 @@
-import { Box, Divider, Sheet, Stack, Typography } from '@mui/joy'
+import { Box, Divider, Stack, Typography } from '@mui/joy'
 import EditClues from './editor/EditClues'
 import EditVowelClues from './editor/EditVowelClues'
 import EditWallPositions from './editor/EditWallPositions'
@@ -59,31 +59,11 @@ export default function Editor() {
               {gameHeaders.wall.title}
             </Typography>
             <Stack spacing={8}>
-              {gameHeaders.wall.subtitles.map(([wallId, wallHeader, wallConnectionSubtitles]) => {
+              {gameHeaders.wall.subtitles.map(([wallId, wallHeader, _]) => {
                 return (
                   <Stack spacing={2} key={wallId} id={`wall-${wallId}`}>
                     <Typography level='h2'>{wallHeader}</Typography>
-                    <Sheet
-                      variant='outlined'
-                      sx={{ borderRadius: 'sm', background: 'white' }}
-                    >
-                      <Stack spacing={6} p={4}>
-                        {wallConnectionSubtitles?.map((subtitles, index) => {
-                          return (
-                            <Stack spacing={2} key={index}>
-                              <Typography level='h3'>{subtitles}</Typography>
-                              <EditClues
-                                group={`${index + 1}`}
-                                wall={wallId}
-                                round={'wall'}
-                                descriptionPlaceholder='What is the connection in this group?'
-                              />
-                            </Stack>
-                          )
-                        })}
-                      </Stack>
-                    </Sheet>
-                    <EditWallPositions wallId={wallId} wallHeader={wallHeader} />
+                    <EditWallPositions wallId={wallId} />
                   </Stack>
                 )
               })}
