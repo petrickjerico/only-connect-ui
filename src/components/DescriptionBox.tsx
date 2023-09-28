@@ -1,5 +1,4 @@
-import { styled } from '@mui/system'
-import { Box, Input } from '@mui/joy'
+import { Box, Input, styled } from '@mui/joy'
 import { type ChangeEventHandler } from 'react'
 
 export default function DescriptionBox({

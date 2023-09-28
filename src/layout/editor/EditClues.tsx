@@ -1,7 +1,7 @@
 import ClueBox from '../../components/ClueBox'
 import DescriptionBox from '../../components/DescriptionBox'
 import { Stack } from '@mui/joy'
-import { RoundType } from '../../utils/types/QuizTypes'
+import { RoundType } from '../../utils/types/quizTypes'
 import { GameActionKind, GamePayload, useGameDispatch } from '../../utils/context/GameProvider'
 
 export default function EditClues({
@@ -29,8 +29,9 @@ export default function EditClues({
         {[1, 2, 3, 4].map((clue) => {
           return (
             <ClueBox
+              colorid={wall ? group : undefined}
               key={clue}
-              placeholder='Clue 1'
+              placeholder={`Clue ${clue}`}
               onChange={(event) => {
                 const key: string = wall
                   ? `${round}_wall${wall}_group${group}_clue${clue}`
@@ -43,7 +44,7 @@ export default function EditClues({
                     wall: wall ?? undefined,
                     group: group,
                     type: 'clue',
-                    order: wall ? undefined : `${clue}`
+                    order: `${clue}`,
                   },
                 }
                 dispatch({ type: GameActionKind.UPDATE, payload: payload })
@@ -74,3 +75,4 @@ export default function EditClues({
     </Stack>
   )
 }
+

@@ -1,7 +1,8 @@
 import { Box, Divider, Sheet, Stack, Typography } from '@mui/joy'
 import EditClues from './editor/EditClues'
 import EditVowelClues from './editor/EditVowelClues'
-import { getGameHeaders } from '../utils/Titles'
+import EditWallPositions from './editor/EditWallPositions'
+import { getGameHeaders } from '../utils/titles'
 
 export default function Editor() {
   const gameHeaders = getGameHeaders()
@@ -72,7 +73,8 @@ export default function Editor() {
                             <Stack spacing={2} key={index}>
                               <Typography level='h3'>{subtitles}</Typography>
                               <EditClues
-                                group={`${index}`}
+                                group={`${index + 1}`}
+                                wall={wallId}
                                 round={'wall'}
                                 descriptionPlaceholder='What is the connection in this group?'
                               />
@@ -81,6 +83,7 @@ export default function Editor() {
                         })}
                       </Stack>
                     </Sheet>
+                    <EditWallPositions wallId={wallId} wallHeader={wallHeader} />
                   </Stack>
                 )
               })}

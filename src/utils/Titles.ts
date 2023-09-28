@@ -1,5 +1,4 @@
-import _ from 'lodash'
-import { RoundType } from './types/QuizTypes'
+import { RoundType } from './types/quizTypes'
 
 const DEFAULT_VOWELS_CATEGORY_MAX_COUNT = 5
 const DEFAULT_WALL_CONNECTION_COUNT = 4
@@ -68,8 +67,6 @@ export function getGameHeaders(
       subtitles: vowelCategoriesEntries.map(([key, value]) => [key, value, undefined])
     }
   }
-
-  console.log('getGameHeaders', headers)
 
   return headers
 }
