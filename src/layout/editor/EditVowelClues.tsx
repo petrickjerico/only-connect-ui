@@ -1,7 +1,8 @@
 import ArrowForward from '@mui/icons-material/ArrowForward'
-import { Box, Stack } from '@mui/joy'
+import { Box, Stack, Tooltip } from '@mui/joy'
 import ShortInputBox from '../../components/ShortInputBox'
-import { GamePayload, GameActionKind, useGameDispatch } from '../../utils/context/GameProvider'
+import { GamePayload, GameActionKind, useGameDispatch, useGame } from '../../utils/context/GameProvider'
+import { Dangerous } from '@mui/icons-material'
 
 export default function EditVowelClues({
   group,
@@ -10,7 +11,25 @@ export default function EditVowelClues({
   group: string
   descriptionPlaceholder: string
 }) {
+  const gameState = useGame()
   const dispatch = useGameDispatch()
+
+  function isValidMatch(id: number) {
+    const clue: string = gameState.game[`vowel_group${group}_clue${id}`]?.value ?? ''
+    const solution: string = gameState.game[`vowel_group${group}_solution${id}`]?.value ?? ''
+
+    if (!clue || !solution) return true
+
+    return clue.replace(/[aeiou\s]/ig, '') === solution.replace(/[aeiou\s]/ig, '')
+  }
+
+  function isValidClue(id: number) {
+    const clue: string = gameState.game[`vowel_group${group}_clue${id}`]?.value ?? ''
+
+    if (!clue) return true
+
+    return !clue.match(/[aeiou\s]/ig)
+  }
 
   return (
     <Stack
@@ -41,8 +60,9 @@ export default function EditVowelClues({
         return (
           <Stack key={clue} spacing={2} justifyContent='space-between' direction='row' width='100%'>
             <ShortInputBox
-              clueKey={`vowel_group${group}_solution${clue}`}
+              clueKey={`vowel_group${group}_clue${clue}`}
               placeholder={`Clue ${clue}`}
+              upperCase
               onChange={(event) => {
                 const key: string = `vowel_group${group}_clue${clue}`
                 const payload: GamePayload = {
@@ -65,11 +85,20 @@ export default function EditVowelClues({
                 justifyContent: 'center'
               }}
             >
-              <ArrowForward />
+              <Tooltip
+                placement='top'
+                size='sm'
+                color={isValidClue(clue) && isValidMatch(clue) ? 'neutral' : 'danger'}
+                title={isValidClue(clue) && isValidMatch(clue)
+                  ? 'This clue-solution pair is valid.'
+                  : `${!isValidClue(clue) ? 'No vowels in clues.' : ''} ${!isValidMatch(clue) ? 'Consonants should be in matching order.' : ''}`.trim()}>
+                {isValidClue(clue) && isValidMatch(clue) ? <ArrowForward /> : <Dangerous htmlColor='firebrick' />}
+              </Tooltip>
             </Box>
             <ShortInputBox
               clueKey={`vowel_group${group}_solution${clue}`}
               placeholder={`Solution ${clue}`}
+              upperCase
               onChange={(event) => {
                 const key: string = `vowel_group${group}_solution${clue}`
                 const payload: GamePayload = {
@@ -88,6 +117,6 @@ export default function EditVowelClues({
           </Stack>
         )
       })}
-    </Stack>
+    </Stack >
   )
 }

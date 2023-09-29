@@ -5,6 +5,7 @@ import { useGame } from '../utils/context/GameProvider'
 
 export default function ShortInputBox({
   onChange,
+  upperCase = false,
   placeholder,
   height = 'short',
   colorId,
@@ -15,6 +16,7 @@ export default function ShortInputBox({
 }: {
   onChange?: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> | undefined
   placeholder?: string
+  upperCase?: boolean
   height?: 'short' | 'tall' | string
   colorId?: '1' | '2' | '3' | '4' | string
   initialValue?: string
@@ -49,7 +51,10 @@ export default function ShortInputBox({
         size={editSize}
         onFocus={() => setIsEditing(true)}
         onBlur={() => setIsEditing(false)}
-        onChange={onChange}
+        onChange={(event) => {
+          if (upperCase) event.target.value = event.target.value.toUpperCase()
+          if (onChange) onChange(event)
+        }}
         placeholder={placeholder}
       />
     </StyledDiv>
@@ -77,11 +82,7 @@ const StyledSheet = styled(Sheet)<{ colorid?: string }>(({ colorid }) => ({
   backgroundColor: colorid ? getGroupColor(colorid) : undefined
 }))
 
-const StyledInput = styled(Input)<{
-  isediting: string,
-  colorid?: string,
-  textalign?: 'left' | 'center' | 'right'
-}>(({ isediting, colorid, textalign }) => ({
+const StyledInput = styled(Input)<{ isediting: string, colorid?: string, textalign?: 'left' | 'center' | 'right' }>(({ isediting, colorid, textalign }) => ({
   'input::placeholder': {
     color: colors.grey[500]
   },
