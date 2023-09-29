@@ -1,11 +1,11 @@
-import { Button, IconButton, Input, Sheet, Stack, Switch, Typography, styled } from '@mui/joy'
+import { Button, IconButton, Sheet, Stack, Switch, Typography, styled } from '@mui/joy'
 import { GameActionKind, GamePayload, useGame, useGameDispatch } from '../../utils/context/GameProvider'
-import RGL, { Layout, WidthProvider } from 'react-grid-layout'
-import { getGroupColor } from '../../utils/colors'
+import { Layout, Responsive, WidthProvider } from 'react-grid-layout'
 import { useState } from 'react'
 import { Palette, BackHand, KeyboardArrowDown } from '@mui/icons-material'
+import ClueBox from '../../components/ClueBox'
 
-const ReactGridLayout = WidthProvider(RGL)
+const ResponsiveReactGridLayout = WidthProvider(Responsive)
 const MAXIMUM_CLUE_COUNT = 16
 
 export default function EditWallPositions({ wallId }: { wallId: string }) {
@@ -65,7 +65,7 @@ export default function EditWallPositions({ wallId }: { wallId: string }) {
       const descriptionKey: string = `wall_wall${wallId}_group${row}_description`
       dispatchWallUpdates({
         key: descriptionKey,
-        value: `Connection ${row}`,
+        value: '',
         wall: wallId,
         group: `${row}`,
         type: 'description'
@@ -74,7 +74,7 @@ export default function EditWallPositions({ wallId }: { wallId: string }) {
         const clueKey: string = `wall_wall${wallId}_group${row}_clue${col}`
         dispatchWallUpdates({
           key: clueKey,
-          value: `Connection ${row}; Clue ${col}`,
+          value: '',
           wall: wallId,
           group: `${row}`,
           order: `${col}`,
@@ -121,13 +121,13 @@ export default function EditWallPositions({ wallId }: { wallId: string }) {
               </IconButton>}>
               <b>EDITING THE WALL</b>
             </Typography>
-            <Typography display={isInfoOpen ? 'initial' : 'none'}>
+            <div style={{ display: `${isInfoOpen ? 'initial' : 'none'}` }}>
               <ul>
                 <li>Turn on <b>colors</b> in the SETTINGS (done for you). Enter clues into the colored GRID and the CONNECTIONS for all the same-colored clues.</li>
                 <li>Turn off <b>colors</b> and turn on <b>hand mode</b> in the SETTINGS. Shuffle the GRID to its desired initial state in the game.</li>
                 <li>During <b>hand mode</b>, the GRID may extend beyond the 4 × 4 layout. Keep moving tiles as needed to ensure that the GRID is 4 × 4 in size before submitting.</li>
               </ul>
-            </Typography>
+            </div>
           </Sheet>
           <Stack direction='row' spacing={2}>
             <Sheet sx={{ borderRadius: 'sm', padding: '10px', width: '100%' }} >
@@ -138,8 +138,8 @@ export default function EditWallPositions({ wallId }: { wallId: string }) {
                 <Sheet sx={{ backgroundColor: 'transparent' }} >
                   <StyledReactGridLayout
                     className='layout'
-                    cols={4}
-                    layout={layout}
+                    cols={{ lg: 4, md: 4, sm: 4, xs: 4, xxs: 4 }}
+                    layouts={{ lg: layout, md: layout, sm: layout, xs: layout, xxs: layout }}
                     isDraggable={isMoving}
                     isBounded
                     containerPadding={[0, 0]}
@@ -150,18 +150,16 @@ export default function EditWallPositions({ wallId }: { wallId: string }) {
                       }
                       return (
                         <Sheet
-                          variant='outlined'
+                          variant='plain'
                           key={key}
-                          sx={{
-                            borderRadius: 'sm',
-                            justifyContent: 'center',
-                            backgroundColor: `${isColored ? getGroupColor(group) : 'white'}`,
-                          }}
+                          sx={{ userSelect: 'none' }}
                         >
-                          <StyledInput
-                            variant='plain'
+                          <StyledClueBox
+                            height='100%'
                             disabled={isMoving}
-                            value={value}
+                            colorid={isColored ? group : 'white'}
+                            initialValue={value}
+                            placeholder={`Connection ${group}\nClue ${order}`}
                             onChange={(event) => {
                               const key: string = `wall_wall${wall}_group${group}_clue${order}`
                               dispatchWallUpdates({
@@ -190,27 +188,25 @@ export default function EditWallPositions({ wallId }: { wallId: string }) {
                     CONNECTIONS
                   </Typography>
                   {['1', '2', '3', '4'].map((groupId) => (
-                    <Sheet
-                      variant='outlined'
+                    <StyledClueBox
                       key={groupId}
-                      sx={{ borderRadius: 'sm', backgroundColor: `${getGroupColor(groupId)}`, py: '4px', px: '16px' }}>
-                      <Typography level='body-xs' noWrap textAlign='center'>
-                        <StyledInput
-                          size='sm'
-                          variant='plain'
-                          value={`${descriptions[groupId] ?? `Connection ${groupId}`}`}
-                          onChange={(event) => {
-                            const descriptionKey: string = `wall_wall${wallId}_group${groupId}_description`
-                            dispatchWallUpdates({
-                              key: descriptionKey,
-                              value: event.target.value,
-                              wall: wallId,
-                              group: `${groupId}`,
-                              type: 'description'
-                            })
-                          }} />
-                      </Typography>
-                    </Sheet>
+                      colorid={groupId}
+                      height='short'
+                      editSize='sm'
+                      displaySize='body-sm'
+                      initialValue={`${descriptions[groupId] ?? `Connection ${groupId}`}`}
+                      placeholder={`Connection ${groupId}`}
+                      onChange={(event) => {
+                        const descriptionKey: string = `wall_wall${wallId}_group${groupId}_description`
+                        dispatchWallUpdates({
+                          key: descriptionKey,
+                          value: event.target.value,
+                          wall: wallId,
+                          group: `${groupId}`,
+                          type: 'description'
+                        })
+                      }} />
+
                   ))}
                 </Stack>
               </Sheet>
@@ -259,7 +255,7 @@ export default function EditWallPositions({ wallId }: { wallId: string }) {
   )
 }
 
-const StyledReactGridLayout = styled(ReactGridLayout)(({ isDraggable }) => ({
+const StyledReactGridLayout = styled(ResponsiveReactGridLayout)(({ isDraggable }) => ({
   '.react-grid-item:active:hover': {
     zIndex: 10,
     cursor: 'grabbing',
@@ -271,15 +267,14 @@ const StyledReactGridLayout = styled(ReactGridLayout)(({ isDraggable }) => ({
   },
 }))
 
-const StyledInput = styled(Input)(() => ({
-  input: {
+const StyledClueBox = styled(ClueBox)(() => ({
+  textarea: {
     textAlign: 'center',
   },
-  'input:focus::placeholder': {
+  'textarea:focus::placeholder': {
     color: 'transparent',
   },
   overflow: 'clip',
   flexDirection: 'row',
   backgroundColor: 'transparent',
-  height: '100%'
 }))
