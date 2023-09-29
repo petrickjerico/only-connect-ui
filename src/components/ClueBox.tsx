@@ -1,4 +1,4 @@
-import { styled, Sheet, Textarea, Typography, TypographySystem } from '@mui/joy'
+import { styled, Sheet, Textarea, Typography, TypographySystem, colors } from '@mui/joy'
 import { type ChangeEventHandler, useState } from 'react'
 import { getGroupColor } from '../utils/colors'
 
@@ -6,38 +6,46 @@ export default function ClueBox({
   onChange,
   placeholder,
   height = 'tall',
-  colorid,
+  colorId,
   disabled,
   initialValue,
   editSize,
-  displaySize = 'body-md'
+  displaySize = 'body-md',
+  textAlign
 }: {
   onChange?: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> | undefined
   placeholder?: string
   height?: 'short' | 'tall' | string
-  colorid?: '1' | '2' | '3' | '4' | string
+  colorId?: '1' | '2' | '3' | '4' | string
   disabled?: boolean
   initialValue?: string
   editSize?: 'sm' | 'md' | 'lg'
   displaySize?: keyof TypographySystem
+  textAlign?: 'left' | 'center' | 'right'
 }) {
   const [value, setValue] = useState<string>(initialValue ?? '')
   const [isEditing, setIsEditing] = useState<boolean>(false)
 
   return (
     <StyledDiv height={height}>
-      <StyledSheet variant='outlined' colorid={colorid}>
-        <Typography sx={{ whiteSpace: 'pre-line', padding: '4px' }} level={displaySize}>
+      <StyledSheet variant='outlined' colorid={colorId}>
+        <Typography
+          textAlign={textAlign}
+          level={displaySize}
+          whiteSpace='pre-line'
+          p='4px'
+          noWrap
+          textOverflow='ellipsis'
+          sx={{ color: `${value ? undefined : colors.grey[400]}` }} >
           {value ? value : placeholder}
         </Typography>
       </StyledSheet>
       <StyledTextarea
         size={editSize}
-        colorid={colorid}
+        colorid={colorId}
         value={value}
         disabled={disabled}
         isediting={isEditing ? 'true' : 'false'}
-        placeholder={placeholder}
         onFocus={() => setIsEditing(true)}
         onBlur={() => setIsEditing(false)}
         onChange={(event) => {
@@ -70,6 +78,9 @@ const StyledSheet = styled(Sheet)<{ colorid?: string }>(({ colorid }) => ({
 }))
 
 const StyledTextarea = styled(Textarea)<{ isediting: string, colorid?: string }>(({ isediting, colorid }) => ({
+  'textarea::placeholder': {
+    color: colors.grey[500]
+  },
   height: '100%',
   width: '100%',
   textAlign: 'center',

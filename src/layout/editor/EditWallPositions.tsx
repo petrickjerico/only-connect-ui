@@ -4,6 +4,7 @@ import { Layout, Responsive, WidthProvider } from 'react-grid-layout'
 import { useState } from 'react'
 import { Palette, BackHand, KeyboardArrowDown } from '@mui/icons-material'
 import ClueBox from '../../components/ClueBox'
+import ShortInputBox from '../../components/ShortInputBox'
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive)
 const MAXIMUM_CLUE_COUNT = 16
@@ -21,10 +22,6 @@ export default function EditWallPositions({ wallId }: { wallId: string }) {
   const clues =
     gameEntries
       .filter(([_, { wall, type }]) => wall === wallId && type === 'clue')
-  const descriptions =
-    Object.fromEntries(gameEntries
-      .filter(([_, { wall, type }]) => wall === wallId && type === 'description')
-      .map(([_, { group, value }]) => [group, value]))
 
   const count = clues.length
   const isWallEnabled = count === MAXIMUM_CLUE_COUNT
@@ -157,7 +154,7 @@ export default function EditWallPositions({ wallId }: { wallId: string }) {
                           <StyledClueBox
                             height='100%'
                             disabled={isMoving}
-                            colorid={isColored ? group : 'white'}
+                            colorId={isColored ? group : 'white'}
                             initialValue={value}
                             placeholder={`Connection ${group}\nClue ${order}`}
                             onChange={(event) => {
@@ -188,13 +185,11 @@ export default function EditWallPositions({ wallId }: { wallId: string }) {
                     CONNECTIONS
                   </Typography>
                   {['1', '2', '3', '4'].map((groupId) => (
-                    <StyledClueBox
+                    <ShortInputBox
                       key={groupId}
-                      colorid={groupId}
-                      height='short'
-                      editSize='sm'
-                      displaySize='body-sm'
-                      initialValue={`${descriptions[groupId] ?? `Connection ${groupId}`}`}
+                      textAlign='left'
+                      colorId={groupId}
+                      size='sm'
                       placeholder={`Connection ${groupId}`}
                       onChange={(event) => {
                         const descriptionKey: string = `wall_wall${wallId}_group${groupId}_description`

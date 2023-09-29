@@ -1,7 +1,6 @@
 import ArrowForward from '@mui/icons-material/ArrowForward'
 import { Box, Stack } from '@mui/joy'
-import DescriptionBox from '../../components/DescriptionBox'
-import ClueBox from '../../components/ClueBox'
+import ShortInputBox from '../../components/ShortInputBox'
 import { GamePayload, GameActionKind, useGameDispatch } from '../../utils/context/GameProvider'
 
 export default function EditVowelClues({
@@ -21,7 +20,7 @@ export default function EditVowelClues({
       direction='column'
       display='flex'
     >
-      <DescriptionBox
+      <ShortInputBox
         onChange={(event) => {
           const key: string = `vowel_group${group}_description`
           const payload: GamePayload = {
@@ -40,9 +39,8 @@ export default function EditVowelClues({
       {[1, 2, 3, 4].map((clue) => {
         return (
           <Stack key={clue} spacing={2} justifyContent='space-between' direction='row' width='100%'>
-            <ClueBox
+            <ShortInputBox
               placeholder={`Clue ${clue}`}
-              height='short'
               onChange={(event) => {
                 const key: string = `vowel_group${group}_clue${clue}`
                 const payload: GamePayload = {
@@ -67,9 +65,8 @@ export default function EditVowelClues({
             >
               <ArrowForward />
             </Box>
-            <ClueBox
+            <ShortInputBox
               placeholder={`Solution ${clue}`}
-              height='short'
               onChange={(event) => {
                 const key: string = `vowel_group${group}_solution${clue}`
                 const payload: GamePayload = {

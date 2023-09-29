@@ -1,4 +1,4 @@
-export function getGroupColor(colorid?: string): import('csstype').Property.Color {
+export function getGroupColor(colorid: string | import('csstype').Property.Color): import('csstype').Property.Color {
   switch (colorid) {
     case '1':
       return 'lavenderblush'
@@ -9,6 +9,6 @@ export function getGroupColor(colorid?: string): import('csstype').Property.Colo
     case '4':
       return 'azure'
     default:
-      return 'transparent'
+      return colorid
   }
 }

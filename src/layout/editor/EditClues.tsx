@@ -1,5 +1,5 @@
 import ClueBox from '../../components/ClueBox'
-import DescriptionBox from '../../components/DescriptionBox'
+import ShortInputBox from '../../components/ShortInputBox'
 import { Stack } from '@mui/joy'
 import { RoundType } from '../../utils/types/quizTypes'
 import { GameActionKind, GamePayload, useGameDispatch } from '../../utils/context/GameProvider'
@@ -29,7 +29,7 @@ export default function EditClues({
         {[1, 2, 3, 4].map((clue) => {
           return (
             <ClueBox
-              colorid={wall ? group : undefined}
+              colorId={wall ? group : undefined}
               key={clue}
               placeholder={`Clue ${clue}`}
               onChange={(event) => {
@@ -53,7 +53,7 @@ export default function EditClues({
           )
         })}
       </Stack>
-      <DescriptionBox
+      <ShortInputBox
         onChange={(event) => {
           const key: string = wall
             ? `${round}_wall${wall}_group${group}_description`
