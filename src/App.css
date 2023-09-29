@@ -28,5 +28,11 @@ html,
 body,
 #root {
   height: 100%;
-  min-width: 1080px;
+}
+
+@media (max-width: 1400px) {
+  html {
+    width: 1400px;
+    overflow: auto;
+  }
 }
