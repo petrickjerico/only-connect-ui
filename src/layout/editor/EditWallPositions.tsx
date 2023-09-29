@@ -131,7 +131,7 @@ export default function EditWallPositions({ wallId, wallHeader }: { wallId: stri
           }}
         >
           <Button onClick={() => initializeDispatch()} variant='plain' fullWidth sx={{ height: '100%' }} size='lg'>
-            Click here to start editing.
+            Click here to start editing
           </Button>
         </Sheet>
       )}
