@@ -21,6 +21,7 @@ export default function EditVowelClues({
       display='flex'
     >
       <ShortInputBox
+        clueKey={`vowel_group${group}_description`}
         onChange={(event) => {
           const key: string = `vowel_group${group}_description`
           const payload: GamePayload = {
@@ -40,6 +41,7 @@ export default function EditVowelClues({
         return (
           <Stack key={clue} spacing={2} justifyContent='space-between' direction='row' width='100%'>
             <ShortInputBox
+              clueKey={`vowel_group${group}_solution${clue}`}
               placeholder={`Clue ${clue}`}
               onChange={(event) => {
                 const key: string = `vowel_group${group}_clue${clue}`
@@ -66,6 +68,7 @@ export default function EditVowelClues({
               <ArrowForward />
             </Box>
             <ShortInputBox
+              clueKey={`vowel_group${group}_solution${clue}`}
               placeholder={`Solution ${clue}`}
               onChange={(event) => {
                 const key: string = `vowel_group${group}_solution${clue}`

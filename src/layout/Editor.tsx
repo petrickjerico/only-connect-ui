@@ -63,7 +63,7 @@ export default function Editor() {
                 return (
                   <Stack spacing={2} key={wallId} id={`wall-${wallId}`}>
                     <Typography level='h2'>{wallHeader}</Typography>
-                    <EditWallPositions wallId={wallId} />
+                    <EditWallPositions wallId={wallId} wallHeader={wallHeader} />
                   </Stack>
                 )
               })}

@@ -29,6 +29,7 @@ export default function EditClues({
         {[1, 2, 3, 4].map((clue) => {
           return (
             <ClueBox
+              clueKey={`${round}_group${group}_clue${clue}`}
               colorId={wall ? group : undefined}
               key={clue}
               placeholder={`Clue ${clue}`}
@@ -54,6 +55,7 @@ export default function EditClues({
         })}
       </Stack>
       <ShortInputBox
+        clueKey={`${round}_group${group}_description`}
         onChange={(event) => {
           const key: string = wall
             ? `${round}_wall${wall}_group${group}_description`

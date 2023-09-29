@@ -1,6 +1,7 @@
 import { styled, Sheet, Textarea, Typography, TypographySystem, colors } from '@mui/joy'
 import { type ChangeEventHandler, useState } from 'react'
 import { getGroupColor } from '../utils/colors'
+import { useGame } from '../utils/context/GameProvider'
 
 export default function ClueBox({
   onChange,
@@ -8,9 +9,9 @@ export default function ClueBox({
   height = 'tall',
   colorId,
   disabled,
-  initialValue,
   editSize,
   displaySize = 'body-md',
+  clueKey,
   textAlign
 }: {
   onChange?: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> | undefined
@@ -22,8 +23,10 @@ export default function ClueBox({
   editSize?: 'sm' | 'md' | 'lg'
   displaySize?: keyof TypographySystem
   textAlign?: 'left' | 'center' | 'right'
+  clueKey: string
 }) {
-  const [value, setValue] = useState<string>(initialValue ?? '')
+  const gameState = useGame()
+  const value = gameState.game[`${clueKey}`]?.value ?? ''
   const [isEditing, setIsEditing] = useState<boolean>(false)
 
   return (
@@ -43,13 +46,11 @@ export default function ClueBox({
       <StyledTextarea
         size={editSize}
         colorid={colorId}
-        value={value}
         disabled={disabled}
         isediting={isEditing ? 'true' : 'false'}
         onFocus={() => setIsEditing(true)}
         onBlur={() => setIsEditing(false)}
         onChange={(event) => {
-          setValue(event.target.value)
           if (onChange) onChange(event)
         }} />
     </StyledDiv>
