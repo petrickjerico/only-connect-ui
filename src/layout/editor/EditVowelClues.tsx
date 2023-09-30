@@ -28,7 +28,7 @@ export default function EditVowelClues({
 
     if (!clue) return true
 
-    return !clue.match(/[aeiou\s]/ig)
+    return !clue.match(/[aeiou]/ig)
   }
 
   return (
