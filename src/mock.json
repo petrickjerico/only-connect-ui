@@ -1,5 +1,5 @@
 {
-  "connection": {
+  "connections": {
     "group1": {
       "clue1": "sed tristique in",
       "clue2": "non sodales sed tincidunt eu",
@@ -87,7 +87,7 @@
       "description": "venenatis tristique fusce congue diam id ornare"
     }
   },
-  "wall": {
+  "walls": {
     "wall1": {
       "group1": {
         "clue1": "pharetra magna",
@@ -149,7 +149,7 @@
       }
     }
   },
-  "vowel": {
+  "vowels": {
     "group1": {
       "clue1": "feugiat non",
       "clue2": "ullamcorper purus sit",

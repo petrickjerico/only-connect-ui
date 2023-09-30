@@ -41,10 +41,10 @@ export type VowelGroup = ClueGroup<string> & {
 export type VowelRound = Record<string, VowelGroup>
 
 export type GameDisplay = {
-  connection: ConnectionRound
-  sequence: SequenceRound
-  wall: WallRound
-  vowel: VowelRound
+  connections: ConnectionRound
+  sequences: SequenceRound
+  walls: WallRound
+  vowels: VowelRound
 }
 
 
