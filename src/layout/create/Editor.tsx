@@ -2,7 +2,7 @@ import { Box, Divider, Stack, Typography } from '@mui/joy'
 import EditClues from './editor/EditClues'
 import EditVowelClues from './editor/EditVowelClues'
 import EditWallPositions from './editor/EditWallPositions'
-import { getGameHeaders } from '../utils/titles'
+import { getGameHeaders } from '../../utils/titles'
 
 export default function Editor() {
   const gameHeaders = getGameHeaders()

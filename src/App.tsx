@@ -1,29 +1,30 @@
 import {
-  Divider,
-  Stack,
   ThemeProvider,
   useTheme,
 } from '@mui/joy'
 import './App.css'
 import GameProvider from './utils/context/GameProvider'
-import Editor from './layout/Editor'
-import Finalizer from './layout/Finalizer'
-import Sidebar from './layout/Sidebar'
+import CreateGame from './pages/CreateGame'
+import DisplayGame from './pages/DisplayGame'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from 'react-router-dom'
 
-function App() {
+export default function App() {
   const theme = useTheme()
 
   return (
     <ThemeProvider theme={theme}>
       <GameProvider>
-        <Stack direction='row' height='100vh' divider={<Divider orientation='vertical' />}>
-          <Sidebar />
-          <Editor />
-          <Finalizer />
-        </Stack>
+        <Router>
+          <Routes>
+            <Route path='/' element={<CreateGame />} />
+            <Route path='/display' element={<DisplayGame useMock />} />
+          </Routes>
+        </Router>
       </GameProvider>
     </ThemeProvider>
   )
 }
-
-export default App

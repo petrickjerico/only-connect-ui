@@ -1,7 +1,7 @@
 import ArrowForward from '@mui/icons-material/ArrowForward'
 import { Box, Stack, Tooltip } from '@mui/joy'
-import ShortInputBox from '../../components/ShortInputBox'
-import { GamePayload, GameActionKind, useGameDispatch, useGame } from '../../utils/context/GameProvider'
+import ShortInputBox from '../../../components/ShortInputBox'
+import { GamePayload, GameActionKind, useGameDispatch, useGame } from '../../../utils/context/GameProvider'
 import { Dangerous } from '@mui/icons-material'
 
 export default function EditVowelClues({

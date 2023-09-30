@@ -1,14 +1,19 @@
-import { Box, Button, Modal, ModalClose, Sheet, Typography } from '@mui/joy'
-import { useGame } from '../../utils/context/GameProvider'
+import { Box, Button, Modal, ModalClose, Sheet, Stack, Typography } from '@mui/joy'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useGame } from '../../../utils/context/GameProvider'
 
 export default function GameModal() {
   const [modalOpen, setModalOpen] = useState(false)
   const game = useGame()
+  const navigate = useNavigate()
 
   return (
     <Box padding={4} display='flex' alignItems='flex-end'>
-      <Button onClick={() => setModalOpen(true)}>Check</Button>
+      <Stack spacing={1}>
+        <Button onClick={() => navigate('/display')}>Display</Button>
+        <Button onClick={() => setModalOpen(true)}>Check</Button>
+      </Stack>
       <Modal
         aria-labelledby='modal-title'
         aria-describedby='modal-desc'

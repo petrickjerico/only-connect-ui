@@ -14,12 +14,12 @@ import {
   Typography,
   styled
 } from '@mui/joy'
-import { GameActionKind, GamePayload, useGame, useGameDispatch } from '../../utils/context/GameProvider'
+import { GameActionKind, GamePayload, useGame, useGameDispatch } from '../../../utils/context/GameProvider'
 import { Layout, Responsive, WidthProvider } from 'react-grid-layout'
 import { useState, Fragment } from 'react'
 import { Palette, BackHand, KeyboardArrowDown, Shuffle, RestartAlt, WarningRounded } from '@mui/icons-material'
-import ClueBox from '../../components/ClueBox'
-import ShortInputBox from '../../components/ShortInputBox'
+import ClueBox from '../../../components/ClueBox'
+import ShortInputBox from '../../../components/ShortInputBox'
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive)
 const MAXIMUM_CLUE_COUNT = 16

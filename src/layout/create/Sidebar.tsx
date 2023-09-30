@@ -10,7 +10,7 @@ import {
   Link
 } from '@mui/joy'
 import { useState } from 'react'
-import { getGameHeaders } from '../utils/titles'
+import { getGameHeaders } from '../../utils/titles'
 
 export default function Sidebar() {
   const gameHeaders = getGameHeaders()

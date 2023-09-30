@@ -1,0 +1,209 @@
+{
+  "connection": {
+    "group1": {
+      "clue1": "sed tristique in",
+      "clue2": "non sodales sed tincidunt eu",
+      "clue3": "sit amet consectetuer adipiscing elit proin",
+      "clue4": "pretium iaculis diam",
+      "description": "id pretium iaculis diam erat fermentum justo"
+    },
+    "group2": {
+      "clue1": "pulvinar lobortis",
+      "clue2": "phasellus",
+      "clue3": "aenean auctor gravida sem praesent id massa",
+      "clue4": "sociis natoque penatibus",
+      "description": "odio elementum eu interdum eu"
+    },
+    "group3": {
+      "clue1": "lacus",
+      "clue2": "vel ipsum praesent",
+      "clue3": "porta volutpat erat quisque erat",
+      "clue4": "pharetra magna",
+      "description": "at nibh in hac habitasse"
+    },
+    "group4": {
+      "clue1": "sollicitudin ut suscipit a feugiat et",
+      "clue2": "ligula vehicula consequat morbi a ipsum integer",
+      "clue3": "lacinia sapien quis libero",
+      "clue4": "libero",
+      "description": "sit amet sem fusce consequat nulla"
+    },
+    "group5": {
+      "clue1": "fusce congue diam id ornare imperdiet sapien",
+      "clue2": "ultrices libero",
+      "clue3": "sed justo pellentesque viverra pede ac",
+      "clue4": "nulla",
+      "description": "commodo placerat praesent blandit nam nulla integer"
+    },
+    "group6": {
+      "clue1": "semper porta volutpat",
+      "clue2": "pharetra",
+      "clue3": "vel nisl duis ac",
+      "clue4": "mauris laoreet",
+      "description": "pellentesque viverra pede ac diam"
+    }
+  },
+  "sequences": {
+    "group1": {
+      "clue1": "orci",
+      "clue2": "convallis nulla neque libero convallis eget",
+      "clue3": "consequat varius integer",
+      "clue4": "ipsum primis in faucibus orci luctus et",
+      "description": "libero rutrum ac lobortis vel"
+    },
+    "group2": {
+      "clue1": "neque sapien placerat ante nulla",
+      "clue2": "tortor eu pede",
+      "clue3": "commodo vulputate justo in blandit",
+      "clue4": "aliquet ultrices erat tortor sollicitudin mi",
+      "description": "in tempus sit amet sem"
+    },
+    "group3": {
+      "clue1": "nulla ultrices aliquet maecenas leo odio condimentum",
+      "clue2": "viverra dapibus nulla suscipit ligula",
+      "clue3": "nec",
+      "clue4": "justo pellentesque viverra pede ac diam cras",
+      "description": "duis mattis egestas metus aenean"
+    },
+    "group4": {
+      "clue1": "nam dui proin",
+      "clue2": "vel",
+      "clue3": "quam",
+      "clue4": "dictumst morbi vestibulum",
+      "description": "fermentum justo nec condimentum neque sapien placerat"
+    },
+    "group5": {
+      "clue1": "lacus at turpis donec posuere metus vitae",
+      "clue2": "nisl duis bibendum felis",
+      "clue3": "odio cras",
+      "clue4": "justo etiam pretium iaculis justo in hac",
+      "description": "magnis dis parturient montes nascetur"
+    },
+    "group6": {
+      "clue1": "massa quis augue",
+      "clue2": "nisl nunc nisl duis bibendum felis",
+      "clue3": "volutpat convallis morbi odio odio elementum",
+      "clue4": "vitae nisi nam ultrices",
+      "description": "venenatis tristique fusce congue diam id ornare"
+    }
+  },
+  "wall": {
+    "wall1": {
+      "group1": {
+        "clue1": "pharetra magna",
+        "clue2": "eget nunc",
+        "clue3": "posuere cubilia curae",
+        "clue4": "at",
+        "description": "ut suscipit a feugiat et eros"
+      },
+      "group2": {
+        "clue1": "justo",
+        "clue2": "diam neque vestibulum",
+        "clue3": "a",
+        "clue4": "non",
+        "description": "semper sapien a libero nam dui"
+      },
+      "group3": {
+        "clue1": "donec",
+        "clue2": "dolor",
+        "clue3": "in magna bibendum",
+        "clue4": "ligula",
+        "description": "ante vestibulum ante ipsum primis in"
+      },
+      "group4": {
+        "clue1": "platea dictumst maecenas",
+        "clue2": "commodo vulputate justo",
+        "clue3": "ut erat id",
+        "clue4": "turpis",
+        "description": "imperdiet et commodo vulputate justo"
+      }
+    },
+    "wall2": {
+      "group1": {
+        "clue1": "nunc",
+        "clue2": "pede venenatis",
+        "clue3": "id consequat in",
+        "clue4": "sem",
+        "description": "ipsum ac tellus semper interdum mauris ullamcorper"
+      },
+      "group2": {
+        "clue1": "in est",
+        "clue2": "consequat",
+        "clue3": "semper interdum",
+        "clue4": "tortor quis turpis",
+        "description": "et commodo vulputate justo in"
+      },
+      "group3": {
+        "clue1": "proin leo",
+        "clue2": "bibendum felis sed",
+        "clue3": "diam erat fermentum",
+        "clue4": "risus dapibus augue",
+        "description": "amet eros suspendisse accumsan tortor quis"
+      },
+      "group4": {
+        "clue1": "in",
+        "clue2": "nulla sed",
+        "clue3": "vestibulum",
+        "clue4": "vulputate luctus cum",
+        "description": "accumsan felis ut at dolor quis"
+      }
+    }
+  },
+  "vowel": {
+    "group1": {
+      "clue1": "feugiat non",
+      "clue2": "ullamcorper purus sit",
+      "clue3": "hac habitasse",
+      "clue4": "quisque arcu libero",
+      "solution1": "est",
+      "solution2": "blandit non",
+      "solution3": "cubilia curae",
+      "solution4": "vestibulum sed",
+      "description": "ipsum ac tellus semper interdum mauris ullamcorper"
+    },
+    "group2": {
+      "clue1": "dui proin",
+      "clue2": "mattis",
+      "clue3": "sit",
+      "clue4": "turpis elementum",
+      "solution1": "sit amet",
+      "solution2": "magna ac consequat",
+      "solution3": "sagittis",
+      "solution4": "ante",
+      "description": "et commodo vulputate justo in"
+    },
+    "group3": {
+      "clue1": "consequat nulla nisl",
+      "clue2": "tincidunt eget tempus",
+      "clue3": "consequat",
+      "clue4": "donec",
+      "solution1": "fusce consequat",
+      "solution2": "id sapien",
+      "solution3": "eu massa",
+      "solution4": "pulvinar sed nisl",
+      "description": "amet eros suspendisse accumsan tortor quis"
+    },
+    "group4": {
+      "clue1": "accumsan odio curabitur",
+      "clue2": "vel",
+      "clue3": "pharetra magna",
+      "clue4": "magna",
+      "solution1": "maecenas tristique est",
+      "solution2": "nec sem",
+      "solution3": "tortor risus dapibus",
+      "solution4": "nunc donec quis",
+      "description": "accumsan felis ut at dolor quis"
+    },
+    "group5": {
+      "clue1": "pulvinar nulla pede",
+      "clue2": "vel enim sit",
+      "clue3": "suspendisse potenti in",
+      "clue4": "donec pharetra",
+      "solution1": "at",
+      "solution2": "ligula pellentesque ultrices",
+      "solution3": "nulla ultrices aliquet",
+      "solution4": "rhoncus",
+      "description": "semper sapien a libero nam dui"
+    }
+  }
+}
