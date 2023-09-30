@@ -1,4 +1,4 @@
-import { RoundType } from './types/quizTypes'
+import { RoundType } from './types/attributes'
 
 const DEFAULT_VOWELS_CATEGORY_MAX_COUNT = 5
 const DEFAULT_WALL_CONNECTION_COUNT = 4

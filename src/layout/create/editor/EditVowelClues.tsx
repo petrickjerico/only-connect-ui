@@ -1,6 +1,6 @@
 import ArrowForward from '@mui/icons-material/ArrowForward'
 import { Box, Stack, Tooltip } from '@mui/joy'
-import ShortInputBox from '../../../components/ShortInputBox'
+import ShortInputBox from '../../../components/InputShortBox'
 import { GamePayload, GameActionKind, useGameDispatch, useGame } from '../../../utils/context/GameProvider'
 import { Dangerous } from '@mui/icons-material'
 

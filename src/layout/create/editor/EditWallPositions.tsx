@@ -18,8 +18,8 @@ import { GameActionKind, GamePayload, useGame, useGameDispatch } from '../../../
 import { Layout, Responsive, WidthProvider } from 'react-grid-layout'
 import { useState, Fragment } from 'react'
 import { Palette, BackHand, KeyboardArrowDown, Shuffle, RestartAlt, WarningRounded } from '@mui/icons-material'
-import ClueBox from '../../../components/ClueBox'
-import ShortInputBox from '../../../components/ShortInputBox'
+import ClueBox from '../../../components/InputClueBox'
+import ShortInputBox from '../../../components/InputShortBox'
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive)
 const MAXIMUM_CLUE_COUNT = 16

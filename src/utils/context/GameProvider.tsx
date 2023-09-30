@@ -1,5 +1,5 @@
 import React, { Dispatch, createContext, useContext, useReducer } from 'react'
-import { Game, GameAttribute } from '../types/quizTypes'
+import { GameInput, GameAttribute } from '../types/attributes'
 
 export const enum GameActionKind {
   UPDATE = 'UPDATE',
@@ -16,7 +16,7 @@ interface GameAction {
 }
 
 interface GameState {
-  game: Game
+  game: GameInput
 }
 
 const initialGameState: GameState = {

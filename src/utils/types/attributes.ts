@@ -9,4 +9,4 @@ export type GameAttribute = {
   type: 'clue' | 'description' | 'solution'
 }
 
-export type Game = Record<string, GameAttribute>
+export type GameInput = Record<string, GameAttribute>
