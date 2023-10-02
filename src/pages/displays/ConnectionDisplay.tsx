@@ -1,11 +1,8 @@
-import { Box } from '@mui/joy';
 import { ConnectionRound } from '../../utils/types/display';
+import DisplayGroups from '../../layout/display/DisplayGroups';
 
 export default function ConnectionDisplay({ data }: { data: ConnectionRound }) {
-  console.log(data)
   return (
-    <Box>
-      This displays the Connections round.
-    </Box>
+    <DisplayGroups round={data} />
   )
 }

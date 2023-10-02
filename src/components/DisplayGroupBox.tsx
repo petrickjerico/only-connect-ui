@@ -1,11 +1,14 @@
-import { Sheet, Typography } from "@mui/joy";
+import { Button } from '@mui/joy'
 
-export default function DisplayGroupBox({ id }: { id: number }) {
+export default function DisplayGroupBox({ groupId, onClick }: { groupId: string, onClick: React.MouseEventHandler<HTMLAnchorElement> | undefined }) {
+
   return (
-    <Sheet>
-      <Typography>
-        {id}
-      </Typography>
-    </Sheet>
+    <Button variant='soft' onClick={onClick} size='sm' fullWidth>
+      <img
+        src={require(`../../public/img/${groupId}.png`)}
+        alt={groupId}
+        draggable={false}
+      />
+    </Button >
   )
 }

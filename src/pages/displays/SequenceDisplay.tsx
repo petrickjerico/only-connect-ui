@@ -1,11 +1,8 @@
-import { Box } from '@mui/joy';
 import { SequenceRound } from '../../utils/types/display';
+import DisplayGroups from '../../layout/display/DisplayGroups';
 
 export default function SequenceDisplay({ data }: { data: SequenceRound }) {
-  console.log(data)
   return (
-    <Box>
-      This displays the Sequences round.
-    </Box>
+    <DisplayGroups round={data} />
   )
 }
