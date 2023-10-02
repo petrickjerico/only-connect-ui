@@ -1,4 +1,4 @@
-import { Box, Button, Typography, colors } from '@mui/joy';
+import { Box, Button, Typography, colors, styled } from '@mui/joy';
 import { WallRound } from '../../utils/types/display';
 import { Layout, Responsive, WidthProvider } from 'react-grid-layout';
 import { useEffect, useState } from 'react';
@@ -10,6 +10,7 @@ export default function WallDisplay({ data }: { data: WallRound }) {
   const [layout, setLayout] = useState<Layout[]>([])
   const [selections, setSelections] = useState<string[]>([])
   const [found, setFound] = useState<string[]>([])
+  const [lives, setLives] = useState<{ isActivated: boolean, number: number }>({ isActivated: false, number: 3 })
 
   const wallData: Record<string, Record<string, string>> = data.wall1
 
@@ -18,7 +19,8 @@ export default function WallDisplay({ data }: { data: WallRound }) {
     Object.entries(wallData).forEach(([groupKey, clueGroup], groupIndex) => {
       Object.entries(clueGroup).forEach(([clueKey], clueIndex) => {
         if (clueKey != 'description') {
-          layout.push({ i: `${groupKey}_${clueKey}`, x: groupIndex, y: clueIndex, w: 1, h: 1, isDraggable: false, isResizable: false })
+          const key = `${groupKey}_${clueKey}`
+          layout.push({ i: key, x: groupIndex, y: clueIndex, w: 1, h: 1, isDraggable: false, isResizable: false })
         }
       })
     })
@@ -39,20 +41,47 @@ export default function WallDisplay({ data }: { data: WallRound }) {
   }
 
   function shiftFoundUp(foundKeys: string[]) {
-    const notFoundLayout: Layout[] = layout.filter(({ i }) => !foundKeys.includes(i)).sort((a, b) => a.x - b.x + (a.y - b.y))
-    const newLayout: Layout[] = foundKeys.map((key) => ({ i: key, x: 0, y: 0, h: 1, w: 1 }))
-      .concat(notFoundLayout)
-      .map(({ i }, index) => ({
-        i: i,
-        x: index % 4,
-        y: Math.floor(index / 4),
-        h: 1,
-        w: 1,
-        isDraggable: false,
-        isResizable: false
-      }))
+    const notFoundLayout: Layout[] =
+      layout
+        .filter(({ i }) => !foundKeys.includes(i))
+        .sort((a, b) => a.x - b.x + (a.y - b.y))
+
+    const newLayout: Layout[] =
+      foundKeys
+        .map((key) => ({ i: key, x: 0, y: 0, h: 1, w: 1 }))
+        .concat(notFoundLayout)
+        .map(({ i }, index) => ({
+          i: i,
+          x: index % 4,
+          y: Math.floor(index / 4),
+          h: 1,
+          w: 1,
+          isDraggable: false,
+          isResizable: false
+        }))
+
 
     setLayout(newLayout)
+    return notFoundLayout.map(({ i }) => i)
+  }
+
+  function checkSelections() {
+    const groups = selections.map(key => key.split('_')[0])
+
+    if (groups.every(val => val === groups[0])) {
+      let newfound = selections
+      const rest = shiftFoundUp(found.concat(selections))
+
+      if (rest.length === 4) {
+        newfound = newfound.concat(rest)
+      }
+
+      setFound(found.concat(newfound))
+    } else {
+      if (lives.isActivated) {
+        setLives({ ...lives, number: lives.number - 1 })
+      }
+    }
   }
 
   useEffect(() => {
@@ -60,19 +89,22 @@ export default function WallDisplay({ data }: { data: WallRound }) {
   }, [])
 
   useEffect(() => {
+    console.log(useEffect, '1 called')
     if (selections.length === 4) {
-      const groups = selections.map(key => key.split('_')[0])
-      if (groups.every(val => val === groups[0])) {
-        setFound(found.concat(selections))
-        shiftFoundUp(found.concat(selections))
-      }
+      checkSelections()
       setSelections([])
     }
   }, [selections])
 
+  useEffect(() => {
+    if (found.length === 8 && !lives.isActivated) {
+      setLives({ ...lives, isActivated: true })
+    }
+  }, [found])
+
 
   return <Box width='60vw'>
-    <ReactGridLayout
+    <StyledReactGridLayout
       className='layout'
       cols={{ lg: 4, md: 4, sm: 4, xs: 4, xxs: 4 }}
       layouts={{ lg: layout, md: layout, sm: layout, xs: layout, xxs: layout }}
@@ -87,7 +119,7 @@ export default function WallDisplay({ data }: { data: WallRound }) {
           <Button
             variant='outlined'
             key={i}
-            disabled={found.includes(i)}
+            disabled={found.includes(i) || lives.number === 0}
             onClick={() => {
               if (selections.includes(i)) {
                 setSelections(selections.filter(val => val !== i))
@@ -105,7 +137,6 @@ export default function WallDisplay({ data }: { data: WallRound }) {
               backgroundColor: getColor(i, groupId),
               ':disabled': {
                 backgroundColor: getColor(i, groupId),
-
               }
             }}
           >
@@ -121,6 +152,18 @@ export default function WallDisplay({ data }: { data: WallRound }) {
           </Button>
         )
       })}
-    </ReactGridLayout>
+    </StyledReactGridLayout>
+    {lives.isActivated && (
+      <Typography>
+        Lives: {lives.number}
+      </Typography>
+    )}
   </Box>
 }
+
+const StyledReactGridLayout = styled(ReactGridLayout)(() => ({
+  '.react-grid-item': {
+    transition: 'all 200ms ease',
+    transitionPproperty: 'left, top, width, height'
+  }
+}))
