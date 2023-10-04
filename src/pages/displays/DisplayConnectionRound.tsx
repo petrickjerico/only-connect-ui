@@ -1,8 +1,8 @@
 import { ClueGroup, ConnectionRound } from '../../utils/types/display';
 import { Box, Grid, Modal, ModalDialog, ModalClose, Stack } from '@mui/joy';
 import { useState } from 'react';
-import DisplayClueBox from '../../components/DisplayClueBox';
 import DisplayGroupBox from '../../components/DisplayGroupBox';
+import DisplayClues from '../../layout/display/DisplayClues';
 
 export default function DisplayConnectionRound({ data }: { data: ConnectionRound }) {
   const [clues, setClues] = useState<Partial<ClueGroup>>()
@@ -39,15 +39,9 @@ export default function DisplayConnectionRound({ data }: { data: ConnectionRound
         </Grid >
       </Stack>
       <Modal open={!!clues} onClose={() => setClues(undefined)}>
-        <ModalDialog layout='fullscreen'>
+        <ModalDialog layout='fullscreen' sx={{ justifyContent: 'center' }}>
           <ModalClose />
-          <Grid container columns={4} spacing={1}>
-            {clues && Object.entries(clues).map(([key, value]) => (
-              <Grid key={key} xs={1}>
-                <DisplayClueBox clue={value} />
-              </Grid>
-            ))}
-          </Grid >
+          <DisplayClues data={clues as ClueGroup} />
         </ModalDialog>
       </Modal>
     </Box>

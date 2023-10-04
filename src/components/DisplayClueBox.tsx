@@ -1,11 +1,28 @@
-import { Sheet, Typography } from "@mui/joy";
+import { Sheet, Typography, colors, styled } from '@mui/joy'
 
-export default function DisplayClueBox({ clue }: { clue: string }) {
+export default function DisplayClueBox({
+  clue,
+  height = 'tall'
+}: {
+  clue: string,
+  height?: 'short' | 'tall' | string
+}) {
   return (
-    <Sheet>
-      <Typography>
+    <StyledSheet variant='soft' height={height}>
+      <Typography level='h1' px='4px'>
         {clue}
       </Typography>
-    </Sheet>
+    </StyledSheet>
   )
 }
+
+const StyledSheet = styled(Sheet)<{ height?: 'short' | 'tall' | string }>(({ height }) => ({
+  display: 'flex',
+  height: height === 'tall' ? '200px' : height === 'short' ? '100px' : height,
+  width: '100%',
+  flexDirection: 'column',
+  textAlign: 'center',
+  justifyContent: 'center',
+  borderRadius: '12px',
+  backgroundColor: `${colors.blue[100]}`,
+}))
