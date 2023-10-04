@@ -9,10 +9,10 @@ import {
 } from '@mui/joy'
 import { useGame } from '../utils/context/GameProvider'
 import mock from '../mock.json'
-import ConnectionDisplay from './displays/ConnectionDisplay'
-import SequenceDisplay from './displays/SequenceDisplay'
-import VowelDisplay from './displays/VowelDisplay'
-import WallDisplay from './displays/WallDisplay'
+import DisplayConnectionRound from './displays/DisplayConnectionRound'
+import DisplaySequenceRound from './displays/DisplaySequenceRound'
+import DisplayVowelRound from './displays/DisplayVowelRound'
+import DisplayWallRound from './displays/DisplayWallRound'
 import { GameDisplay } from '../utils/types/display'
 import { transformInputsToDisplay } from '../utils/game'
 
@@ -35,6 +35,10 @@ export default function DisplayGame({ useMock }: { useMock?: boolean }) {
             flexGrow: '1',
             bgcolor: 'transparent',
             alignItems: 'center',
+            ['& :not(.MuiTabPanel-hidden)']: {
+              display: 'flex',
+              alignItems: 'center'
+            }
           }}>
           <TabList
             disableUnderline
@@ -74,17 +78,17 @@ export default function DisplayGame({ useMock }: { useMock?: boolean }) {
               </code>
             </Sheet>
           </TabPanel>
-          <TabPanel value={1} >
-            <ConnectionDisplay data={connections} />
+          <TabPanel value={1}>
+            <DisplayConnectionRound data={connections} />
           </TabPanel>
           <TabPanel value={2}>
-            <SequenceDisplay data={sequences} />
+            <DisplaySequenceRound data={sequences} />
           </TabPanel>
           <TabPanel value={3}>
-            <WallDisplay data={walls} />
+            <DisplayWallRound data={walls} />
           </TabPanel>
           <TabPanel value={4}>
-            <VowelDisplay data={vowels} />
+            <DisplayVowelRound data={vowels} />
           </TabPanel>
         </Tabs>
       </Box>

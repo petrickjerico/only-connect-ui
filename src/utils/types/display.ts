@@ -1,29 +1,27 @@
-export type Clue = string
-
-export type ClueGroup<T> = {
-  clue1: T
-  clue2: T
-  clue3: T
-  clue4: T
+export type ClueGroup = {
+  clue1: string
+  clue2: string
+  clue3: string
+  clue4: string
   description: string
 }
 
 export type ConnectionRound = {
-  group1: ClueGroup<Clue>
-  group2: ClueGroup<Clue>
-  group3: ClueGroup<Clue>
-  group4: ClueGroup<Clue>
-  group5: ClueGroup<Clue>
-  group6: ClueGroup<Clue>
+  group1: ClueGroup
+  group2: ClueGroup
+  group3: ClueGroup
+  group4: ClueGroup
+  group5: ClueGroup
+  group6: ClueGroup
 }
 
 export type SequenceRound = ConnectionRound
 
 export type WallGroup = {
-  group1: ClueGroup<string>
-  group2: ClueGroup<string>
-  group3: ClueGroup<string>
-  group4: ClueGroup<string>
+  group1: ClueGroup
+  group2: ClueGroup
+  group3: ClueGroup
+  group4: ClueGroup
 }
 
 export type WallRound = {
@@ -31,7 +29,7 @@ export type WallRound = {
   wall2: WallGroup
 }
 
-export type VowelGroup = ClueGroup<string> & {
+export type VowelGroup = ClueGroup & {
   solution1: string
   solution2: string
   solution3: string

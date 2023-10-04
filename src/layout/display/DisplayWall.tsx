@@ -1,18 +1,18 @@
 import { Box, Button, Typography, colors, styled } from '@mui/joy';
-import { WallRound } from '../../utils/types/display';
+import { WallGroup } from '../../utils/types/display';
 import { Layout, Responsive, WidthProvider } from 'react-grid-layout';
 import { useEffect, useState } from 'react';
 import { getGroupColor } from '../../utils/colors';
 
 const ReactGridLayout = WidthProvider(Responsive)
 
-export default function WallDisplay({ data }: { data: WallRound }) {
+export default function DisplayWall({ data }: { data: WallGroup }) {
   const [layout, setLayout] = useState<Layout[]>([])
   const [selections, setSelections] = useState<string[]>([])
   const [found, setFound] = useState<string[]>([])
   const [lives, setLives] = useState<{ isActivated: boolean, number: number }>({ isActivated: false, number: 3 })
 
-  const wallData: Record<string, Record<string, string>> = data.wall1
+  const wallData: Record<string, Record<string, string>> = data
 
   function initializeLayout() {
     const layout: Layout[] = []

@@ -21,7 +21,7 @@ export default function App() {
         <Router>
           <Routes>
             <Route path='/' element={<CreateGame />} />
-            <Route path='/display' element={<DisplayGame useMock />} />
+            <Route path='display' element={<DisplayGame useMock />} />\
           </Routes>
         </Router>
       </GameProvider>
