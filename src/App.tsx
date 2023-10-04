@@ -3,17 +3,33 @@ import {
   useTheme,
 } from '@mui/joy'
 import './App.css'
-import GameProvider from './utils/context/GameProvider'
+import GameProvider, { useGame } from './utils/context/GameProvider'
 import CreateGame from './pages/CreateGame'
 import DisplayGame from './pages/DisplayGame'
 import {
   BrowserRouter as Router,
   Routes,
   Route,
+  Navigate,
 } from 'react-router-dom'
+import { transformInputsToDisplay } from './utils/game'
+import { GameDisplay } from './utils/types/display'
+import DisplayConnectionRound from './pages/displays/DisplayConnectionRound'
+import DisplaySequenceRound from './pages/displays/DisplaySequenceRound'
+import DisplayWallRound from './pages/displays/DisplayWallRound'
+import DisplayVowelRound from './pages/displays/DisplayVowelRound'
+import DisplayStartScreen from './pages/displays/DisplayStartScreen'
+import DisplayEndScreen from './pages/displays/DisplayEndScreen'
 
 export default function App() {
   const theme = useTheme()
+  const gameState = useGame()
+  const {
+    connections,
+    sequences,
+    walls,
+    vowels
+  }: GameDisplay = transformInputsToDisplay(gameState.game)
 
   return (
     <ThemeProvider theme={theme}>
@@ -21,7 +37,16 @@ export default function App() {
         <Router>
           <Routes>
             <Route path='/' element={<CreateGame />} />
-            <Route path='display' element={<DisplayGame useMock />} />\
+            <Route path='display' element={<DisplayGame />}>
+              <Route index element={<Navigate to='start' />} />
+              <Route path='start' element={<DisplayStartScreen />} />
+              <Route path='connections' element={<DisplayConnectionRound data={connections} />} />
+              <Route path='sequences' element={<DisplaySequenceRound data={sequences} />} />
+              <Route path='walls' element={<DisplayWallRound data={walls} />} />
+              <Route path='vowels' element={<DisplayVowelRound data={vowels} />} />
+              <Route path='end' element={<DisplayEndScreen />} />
+              <Route path='*' element={<Navigate to='start' />} />
+            </Route>
           </Routes>
         </Router>
       </GameProvider>
