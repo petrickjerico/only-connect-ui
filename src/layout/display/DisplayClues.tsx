@@ -31,7 +31,11 @@ export default function DisplayClues({
 
 
   function showUntil(index: number) {
-    setShown(Array.from(Array(index + 1).keys()))
+    if (hideLast && index === 2) {
+      setShown(Array.from(Array(index + 2).keys()))
+    } else {
+      setShown(Array.from(Array(index + 1).keys()))
+    }
   }
 
   function getLastShown(): number {
@@ -53,6 +57,16 @@ export default function DisplayClues({
     }
   }
 
+  function getTimerVisibility(index: number) {
+    if (!hideLast || hideLast && index < 2) {
+      return index === getLastShown()
+    } else if (index === 2) {
+      return getLastShown() === 3 && gameState < RoundState.THROW
+    } else {
+      return gameState === RoundState.THROW
+    }
+  }
+
   return (
     <Box display='flex' alignItems='center' justifyContent='center' px={4}>
       {gameState === RoundState.READY &&
@@ -69,7 +83,7 @@ export default function DisplayClues({
                 key={key}
                 text={getScore(index)}
                 duration={40}
-                isVisible={index === getLastShown()}
+                isVisible={getTimerVisibility(index)}
                 isCounting={gameState === RoundState.PLAY}
                 isEnd={gameState > RoundState.GUESS}
                 onComplete={() => setGameState(RoundState.GUESS)}
@@ -82,7 +96,7 @@ export default function DisplayClues({
                 {!shown.includes(index) && <StyledButton variant='plain' onClick={() => showUntil(index)}>
                   show until here
                 </StyledButton>}
-                {shown.includes(index) && <DisplayClueBox clue={hideLast && index === 3 ? '?' : value} />}
+                {shown.includes(index) && <DisplayClueBox clue={hideLast && index === 3 && gameState < RoundState.END ? '?' : value} />}
               </Sheet>
             ))}
           </Stack>
