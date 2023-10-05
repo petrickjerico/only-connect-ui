@@ -6,7 +6,6 @@ import { useState } from 'react'
 import LinearTimer from '../../components/LinearTimer'
 import DisplayGroupBox from '../../components/DisplayGroupBox'
 
-
 const enum RoundState {
   READY,
   PLAY,

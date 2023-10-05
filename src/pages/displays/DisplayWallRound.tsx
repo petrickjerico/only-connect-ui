@@ -6,28 +6,33 @@ import DisplayWall from '../../layout/display/DisplayWall';
 import { DEFAULT_WALL_INDEXES } from '../../utils/titles';
 
 export default function DisplayWallRound({ data }: { data: WallRound }) {
+  const [groupKey, setGroupKey] = useState<string>('')
   const [wall, setWall] = useState<Partial<WallGroup>>()
   const [opened, setOpened] = useState<string[]>([])
 
   return (
     <Box>
       <Grid container columns={2} spacing={1}>
-        {Object.entries(data).map(([key, value], index) => (
-          <Grid key={key} xs={1}>
-            <DisplayGroupBox
-              groupId={`group${DEFAULT_WALL_INDEXES[index]}`}
-              onClick={() => {
-                setWall(value)
-                setOpened(opened.concat(key))
-              }}
-              isDisabled={opened.includes(key)} />
-          </Grid>
-        ))}
+        {Object.entries(data).map(([key, value], index) => {
+          const groupId = `group${DEFAULT_WALL_INDEXES[index]}`
+          return (
+            <Grid key={key} xs={1}>
+              <DisplayGroupBox
+                groupId={groupId}
+                onClick={() => {
+                  setGroupKey(groupId)
+                  setWall(value)
+                  setOpened(opened.concat(key))
+                }}
+                isDisabled={opened.includes(key)} />
+            </Grid>
+          )
+        })}
       </Grid >
       <Modal open={!!wall} onClose={() => setWall(undefined)}>
         <ModalDialog layout='fullscreen'>
           <ModalClose />
-          <DisplayWall data={wall as WallGroup} />
+          <DisplayWall groupKey={groupKey} data={wall as WallGroup} />
         </ModalDialog>
       </Modal>
     </Box>

@@ -16,6 +16,7 @@ export default function DisplayGroupBox({
         src={require(`../../public/img/${groupId}.png`)}
         alt={groupId}
         draggable={false}
+        style={{ opacity: isDisabled ? 0.3 : 1 }}
       />
     </Button >
   )

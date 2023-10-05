@@ -1,16 +1,29 @@
-import { Box, Button, Typography, colors, styled } from '@mui/joy';
+import { Box, Button, Stack, Typography, colors, styled } from '@mui/joy';
 import { WallGroup } from '../../utils/types/display';
 import { Layout, Responsive, WidthProvider } from 'react-grid-layout';
 import { useEffect, useState } from 'react';
 import { getGroupColor } from '../../utils/colors';
+import DisplayGroupBox from '../../components/DisplayGroupBox';
+import LinearTimer from '../../components/LinearTimer';
+import { FavoriteRounded } from '@mui/icons-material';
 
 const ReactGridLayout = WidthProvider(Responsive)
 
-export default function DisplayWall({ data }: { data: WallGroup }) {
+const enum RoundState {
+  READY,
+  PLAY,
+  PAUSE,
+  GUESS,
+}
+
+export default function DisplayWall({ data, groupKey }: { data: WallGroup, groupKey: string }) {
   const [layout, setLayout] = useState<Layout[]>([])
   const [selections, setSelections] = useState<string[]>([])
   const [found, setFound] = useState<string[]>([])
   const [lives, setLives] = useState<{ isActivated: boolean, number: number }>({ isActivated: false, number: 3 })
+
+  const [gameState, setGameState] = useState<RoundState>(RoundState.READY)
+
 
   const wallData: Record<string, Record<string, string>> = data
 
@@ -74,12 +87,17 @@ export default function DisplayWall({ data }: { data: WallGroup }) {
 
       if (rest.length === 4) {
         newfound = newfound.concat(rest)
+        setGameState(RoundState.PAUSE)
       }
 
       setFound(found.concat(newfound))
     } else {
       if (lives.isActivated) {
-        setLives({ ...lives, number: lives.number - 1 })
+        const updatedLifeCount = lives.number - 1
+        setLives({ ...lives, number: updatedLifeCount })
+        if (!updatedLifeCount) {
+          setGameState(RoundState.PAUSE)
+        }
       }
     }
   }
@@ -89,7 +107,6 @@ export default function DisplayWall({ data }: { data: WallGroup }) {
   }, [])
 
   useEffect(() => {
-    console.log(useEffect, '1 called')
     if (selections.length === 4) {
       checkSelections()
       setSelections([])
@@ -103,61 +120,85 @@ export default function DisplayWall({ data }: { data: WallGroup }) {
   }, [found])
 
 
-  return <Box width='60vw'>
-    <StyledReactGridLayout
-      className='layout'
-      cols={{ lg: 4, md: 4, sm: 4, xs: 4, xxs: 4 }}
-      layouts={{ lg: layout, md: layout, sm: layout, xs: layout, xxs: layout }}
-      isDraggable={false}
-      containerPadding={[0, 0]}
-    >
-      {layout.map(({ i }) => {
-        const keys: string[] = i.split('_')
-        const [groupKey, clueKey] = [keys[0], keys[1]]
-        const groupId = groupKey.charAt(groupKey.length - 1)
-        return (
+  return <Box display='flex' alignItems='center' justifyContent='center' height='100%'>
+    {gameState === RoundState.READY &&
+      <DisplayGroupBox
+        groupId={groupKey}
+        onClick={() => {
+          setGameState(RoundState.PLAY)
+        }} />}
+    {gameState > RoundState.READY &&
+      <Stack width='70vw' gap={2}>
+        <StyledReactGridLayout
+          className='layout'
+          cols={{ lg: 4, md: 4, sm: 4, xs: 4, xxs: 4 }}
+          layouts={{ lg: layout, md: layout, sm: layout, xs: layout, xxs: layout }}
+          isDraggable={false}
+          containerPadding={[0, 0]}
+        >
+          {layout.map(({ i }) => {
+            const keys: string[] = i.split('_')
+            const [groupKey, clueKey] = [keys[0], keys[1]]
+            const groupId = groupKey.charAt(groupKey.length - 1)
+            return (
+              <Button
+                variant='outlined'
+                key={i}
+                disabled={found.includes(i) || gameState !== RoundState.PLAY}
+                onClick={() => {
+                  if (selections.includes(i)) {
+                    setSelections(selections.filter(val => val !== i))
+                  } else {
+                    setSelections(selections.concat(i))
+                  }
+                }
+                }
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  userSelect: 'none',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: getColor(i, groupId),
+                  ':disabled': {
+                    backgroundColor: getColor(i, groupId),
+                  }
+                }}
+              >
+                <Typography textAlign='center'>
+                  {wallData[`${groupKey}`][`${clueKey}`]}
+                </Typography>
+                <Typography>
+                  {groupKey}
+                </Typography>
+                <Typography>
+                  {clueKey}
+                </Typography>
+              </Button>
+            )
+          })}
+        </StyledReactGridLayout>
+        {gameState === RoundState.PLAY &&
+          <Stack direction='row' gap={4}>
+            <Stack direction='row' gap={1} visibility={lives.isActivated ? 'visible' : 'hidden'} width='10%' alignItems='center'>
+              {Array.from(Array(lives.number).keys()).map((key) => <FavoriteRounded key={key} sx={{ color: colors.red[300] }} />)}
+            </Stack>
+            <LinearTimer
+              duration={150}
+              isVisible={true}
+              isCounting={true}
+              isEnd={false}
+              onComplete={() => setGameState(gameState + 1)} />
+          </Stack>}
+        {gameState === RoundState.PAUSE &&
           <Button
-            variant='outlined'
-            key={i}
-            disabled={found.includes(i) || lives.number === 0}
-            onClick={() => {
-              if (selections.includes(i)) {
-                setSelections(selections.filter(val => val !== i))
-              } else {
-                setSelections(selections.concat(i))
-              }
-            }
-            }
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              userSelect: 'none',
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: getColor(i, groupId),
-              ':disabled': {
-                backgroundColor: getColor(i, groupId),
-              }
-            }}
-          >
-            <Typography textAlign='center'>
-              {wallData[`${groupKey}`][`${clueKey}`]}
-            </Typography>
-            <Typography>
-              {groupKey}
-            </Typography>
-            <Typography>
-              {clueKey}
-            </Typography>
-          </Button>
-        )
-      })}
-    </StyledReactGridLayout>
-    {lives.isActivated && (
-      <Typography>
-        Lives: {lives.number}
-      </Typography>
-    )}
+            variant='solid'
+            fullWidth
+            color={found.length === 16 ? 'success' : 'neutral'}>
+            {`The wall ${found.length === 16 ? 'is solved!' : 'has frozen.'} Proceed to guessing connections.`}
+          </Button>}
+      </Stack>
+    }
   </Box>
 }
 
