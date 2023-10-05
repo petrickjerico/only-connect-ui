@@ -24,6 +24,8 @@ export default function DisplayWall({ data, groupKey }: { data: WallGroup, group
   const [foundGroups, setFoundGroups] = useState<string[]>([])
   const [lives, setLives] = useState<{ isActivated: boolean, number: number }>({ isActivated: false, number: 3 })
   const [guessing, setGuessing] = useState<number>(0)
+  const [fastAnimation, setFastAnimation] = useState<boolean>(false)
+
 
   const [gameState, setGameState] = useState<RoundState>(RoundState.READY)
 
@@ -152,6 +154,7 @@ export default function DisplayWall({ data, groupKey }: { data: WallGroup, group
   useEffect(() => {
     if (selections.length === 4) {
       checkSelections()
+      setFastAnimation(true)
       setSelections([])
     }
   }, [selections])
@@ -175,6 +178,7 @@ export default function DisplayWall({ data, groupKey }: { data: WallGroup, group
       <Stack direction='row' gap={4} justifyContent='space-between'>
         <Stack width='70vw' gap={2}>
           <StyledReactGridLayout
+            fast={fastAnimation}
             className='layout'
             cols={{ lg: 4, md: 4, sm: 4, xs: 4, xxs: 4 }}
             layouts={{ lg: layout, md: layout, sm: layout, xs: layout, xxs: layout }}
@@ -291,11 +295,10 @@ export default function DisplayWall({ data, groupKey }: { data: WallGroup, group
 
 
 
-const StyledReactGridLayout = styled(ReactGridLayout)(() => ({
+const StyledReactGridLayout = styled(ReactGridLayout)<{ fast: boolean }>(({ fast }) => ({
   '.react-grid-item': {
-    transition: 'all 200ms ease',
-    transitionPproperty: 'left, top, width, height'
-  }
+    transition: `transform ${fast ? '250ms' : '1s'} ease-in-out`,
+  },
 }))
 
 const StyledButton = styled(Button)(() => ({
