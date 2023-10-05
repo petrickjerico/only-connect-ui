@@ -19,7 +19,6 @@ export default function DisplayClueBox({
 const StyledSheet = styled(Sheet)<{ height?: 'short' | 'tall' | string }>(({ height }) => ({
   display: 'flex',
   height: height === 'tall' ? '200px' : height === 'short' ? '100px' : height,
-  width: '100%',
   flexDirection: 'column',
   textAlign: 'center',
   justifyContent: 'center',

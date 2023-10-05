@@ -52,7 +52,6 @@ export default function DisplayVowelRound({ data }: { data: VowelRound }) {
         setClue(value)
         break
     }
-
   }
 
   const handleShowNext = useCallback(showNext, [])

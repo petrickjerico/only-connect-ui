@@ -5,6 +5,7 @@ import DisplayGroupBox from '../../components/DisplayGroupBox';
 import DisplayClues from '../../layout/display/DisplayClues';
 
 export default function DisplayConnectionRound({ data }: { data: ConnectionRound }) {
+  const [groupKey, setGroupKey] = useState<string>('')
   const [clues, setClues] = useState<Partial<ClueGroup>>()
   const [opened, setOpened] = useState<string[]>([])
 
@@ -17,6 +18,7 @@ export default function DisplayConnectionRound({ data }: { data: ConnectionRound
               <DisplayGroupBox
                 groupId={key}
                 onClick={() => {
+                  setGroupKey(key)
                   setClues(value)
                   setOpened(opened.concat(key))
                 }}
@@ -30,6 +32,7 @@ export default function DisplayConnectionRound({ data }: { data: ConnectionRound
               <DisplayGroupBox
                 groupId={key}
                 onClick={() => {
+                  setGroupKey(key)
                   setClues(value)
                   setOpened(opened.concat(key))
                 }}
@@ -41,7 +44,7 @@ export default function DisplayConnectionRound({ data }: { data: ConnectionRound
       <Modal open={!!clues} onClose={() => setClues(undefined)}>
         <ModalDialog layout='fullscreen' sx={{ justifyContent: 'center' }}>
           <ModalClose />
-          <DisplayClues data={clues as ClueGroup} />
+          <DisplayClues groupKey={groupKey} data={clues as ClueGroup} />
         </ModalDialog>
       </Modal>
     </Box>

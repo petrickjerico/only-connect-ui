@@ -3,11 +3,11 @@ import { Button } from '@mui/joy'
 export default function DisplayGroupBox({
   groupId,
   onClick,
-  isDisabled
+  isDisabled = false
 }: {
   groupId: string,
   onClick: React.MouseEventHandler<HTMLAnchorElement> | undefined,
-  isDisabled: boolean
+  isDisabled?: boolean
 }) {
 
   return (
