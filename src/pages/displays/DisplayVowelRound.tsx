@@ -3,6 +3,7 @@ import { VowelGroup, VowelRound } from '../../utils/types/display';
 import { useCallback, useState } from 'react';
 import DisplayDescriptionBox from '../../components/DisplayDescriptionBox';
 import DisplayClueBox from '../../components/DisplayClueBox';
+import { FullBGM, SolvedSFX, VowelClickSFX, playAudio, stopAudio } from '../../assets/audios';
 
 type VowelDisplayOrder = [string, 'description' | 'clue' | 'solution' | 'pause']
 
@@ -29,10 +30,13 @@ export default function DisplayVowelRound({ data }: { data: VowelRound }) {
   const [description, setDescription] = useState<string>('')
   const [clue, setClue] = useState<string>('')
   const [disabled, setDisabled] = useState<boolean>(false)
+  const [isAudioPlaying, setIsAudioPlaying] = useState<boolean>(false)
 
 
   function showNext() {
     if (!order.length) {
+      stopAudio(FullBGM)
+      playAudio(SolvedSFX)
       setDisabled(true)
       return
     }
@@ -48,6 +52,12 @@ export default function DisplayVowelRound({ data }: { data: VowelRound }) {
         setDescription(value)
         break
       case 'clue':
+        if (!isAudioPlaying) {
+          setIsAudioPlaying(true)
+          playAudio(FullBGM)
+        }
+        setClue(value)
+        break
       case 'solution':
         setClue(value)
         break
@@ -59,7 +69,10 @@ export default function DisplayVowelRound({ data }: { data: VowelRound }) {
   return (
     <Box width='100%'>
       <Button
-        onClick={handleShowNext}
+        onClick={() => {
+          handleShowNext()
+          playAudio(VowelClickSFX)
+        }}
         fullWidth
         variant='plain'
         disabled={disabled}

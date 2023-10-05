@@ -1,11 +1,12 @@
-import { Box, Button, Sheet, Stack, Typography, colors, styled } from '@mui/joy';
-import { WallGroup } from '../../utils/types/display';
-import { Layout, Responsive, WidthProvider } from 'react-grid-layout';
-import { useEffect, useState } from 'react';
-import { getGroupColor } from '../../utils/colors';
-import DisplayGroupBox from '../../components/DisplayGroupBox';
-import LinearTimer from '../../components/LinearTimer';
-import { FavoriteRounded } from '@mui/icons-material';
+import { Box, Button, Sheet, Stack, Typography, colors, styled } from '@mui/joy'
+import { WallGroup } from '../../utils/types/display'
+import { Layout, Responsive, WidthProvider } from 'react-grid-layout'
+import { useEffect, useState } from 'react'
+import { getGroupColor } from '../../utils/colors'
+import DisplayGroupBox from '../../components/DisplayGroupBox'
+import LinearTimer from '../../components/LinearTimer'
+import { FavoriteRounded } from '@mui/icons-material'
+import { CorrectSFX, FailSFX, IncorrectSFX, LifeReducedSFX, SolvedSFX, TapSFX, WallBGM, playAudio, stopAudio } from '../../assets/audios'
 
 const ReactGridLayout = WidthProvider(Responsive)
 
@@ -97,13 +98,28 @@ export default function DisplayWall({ data, groupKey }: { data: WallGroup, group
       setFound(found.concat(newfound))
       setFoundGroups(foundGroups.concat(newfoundGroups))
 
+      if (rest.length === 4) {
+        stopAudio(WallBGM)
+        playAudio(SolvedSFX)
+      } else {
+        playAudio(CorrectSFX)
+      }
+
     } else {
       if (lives.isActivated) {
         const updatedLifeCount = lives.number - 1
         setLives({ ...lives, number: updatedLifeCount })
         if (!updatedLifeCount) {
           setGameState(RoundState.PAUSE)
+          stopAudio(WallBGM)
+          playAudio(FailSFX)
+          return
         }
+      }
+      if (lives.isActivated) {
+        playAudio(LifeReducedSFX)
+      } else {
+        playAudio(IncorrectSFX)
       }
     }
   }
@@ -152,6 +168,7 @@ export default function DisplayWall({ data, groupKey }: { data: WallGroup, group
       <DisplayGroupBox
         groupId={groupKey}
         onClick={() => {
+          playAudio(WallBGM)
           setGameState(RoundState.PLAY)
         }} />}
     {gameState > RoundState.READY &&
@@ -174,6 +191,7 @@ export default function DisplayWall({ data, groupKey }: { data: WallGroup, group
                   key={i}
                   disabled={found.includes(i) || gameState !== RoundState.PLAY}
                   onClick={() => {
+                    playAudio(TapSFX)
                     if (selections.includes(i)) {
                       setSelections(selections.filter(val => val !== i))
                     } else {
@@ -212,7 +230,7 @@ export default function DisplayWall({ data, groupKey }: { data: WallGroup, group
                 {Array.from(Array(lives.number).keys()).map((key) => <FavoriteRounded key={key} sx={{ color: colors.red[300] }} />)}
               </Stack>
               <LinearTimer
-                duration={30}
+                duration={150}
                 isVisible={true}
                 isCounting={true}
                 isEnd={false}

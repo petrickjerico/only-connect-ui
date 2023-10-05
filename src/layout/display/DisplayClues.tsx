@@ -5,6 +5,7 @@ import DisplayDescriptionBox from '../../components/DisplayDescriptionBox'
 import { useState } from 'react'
 import LinearTimer from '../../components/LinearTimer'
 import DisplayGroupBox from '../../components/DisplayGroupBox'
+import { CluesBGM, playAudio, stopAudio } from '../../assets/audios'
 
 const enum RoundState {
   READY,
@@ -23,6 +24,7 @@ export default function DisplayClues({
   data: ClueGroup,
   hideLast?: boolean
 }) {
+
   const clues = Object.entries(data).filter(([key]) => key !== 'description')
   const description = data.description
   const [shown, setShown] = useState<number[]>([0])
@@ -72,6 +74,7 @@ export default function DisplayClues({
         <DisplayGroupBox
           groupId={groupKey}
           onClick={() => {
+            playAudio(CluesBGM)
             setGameState(RoundState.PLAY)
           }} />}
       {gameState > RoundState.READY &&
@@ -81,7 +84,7 @@ export default function DisplayClues({
               <LinearTimer
                 key={key}
                 text={getScore(index)}
-                duration={40}
+                duration={42}
                 isVisible={getTimerVisibility(index)}
                 isCounting={gameState === RoundState.PLAY}
                 isEnd={gameState > RoundState.GUESS}
@@ -107,6 +110,7 @@ export default function DisplayClues({
                   disabled={gameState >= RoundState.GUESS}
                   onClick={() => {
                     setGameState(RoundState.GUESS)
+                    stopAudio(CluesBGM)
                   }}>
                   Stop timer
                 </Button>
