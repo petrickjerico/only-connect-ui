@@ -1,9 +1,19 @@
-export type ClueGroup = {
+export type ClueGroup = SimpleClueGroup | SimpleClueGroup & MediaClueGroup
+
+export type SimpleClueGroup = {
   clue1: string
   clue2: string
   clue3: string
   clue4: string
   description: string
+}
+
+export type MediaClueGroup = {
+  url1: string
+  url2: string
+  url3: string
+  url4: string
+  type: 'audio' | 'image'
 }
 
 export type ConnectionRound = {

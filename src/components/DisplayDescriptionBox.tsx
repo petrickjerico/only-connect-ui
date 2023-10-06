@@ -1,12 +1,18 @@
-import { Sheet, Typography, colors, styled } from '@mui/joy'
+import { Sheet, Typography, TypographySystem, colors, styled } from '@mui/joy'
 
-export default function DisplayDescriptionBox({ description }: { description: string }) {
+export default function DisplayDescriptionBox({
+  description,
+  level = 'h1'
+}: {
+  description: string,
+  level?: keyof TypographySystem
+}) {
   return (
     <StyledSheet variant='plain'>
-      <Typography level='h1'>
+      <Typography level={level}>
         {description}
       </Typography>
-    </StyledSheet>
+    </StyledSheet >
   )
 }
 

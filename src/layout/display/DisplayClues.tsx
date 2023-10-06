@@ -2,10 +2,10 @@ import { Box, Button, ButtonGroup, Sheet, Stack, styled } from '@mui/joy'
 import { ClueGroup } from '../../utils/types/display'
 import DisplayClueBox from '../../components/DisplayClueBox'
 import DisplayDescriptionBox from '../../components/DisplayDescriptionBox'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import LinearTimer from '../../components/LinearTimer'
 import DisplayGroupBox from '../../components/DisplayGroupBox'
-import { CluesBGM, playAudio, stopAudio } from '../../assets/audios'
+import { BuzzerSFX, ClickSFX, CluesBGM, GroupSelectedSFX, NextClueSFX, playAudio, stopAudio } from '../../assets/audios'
 
 const enum RoundState {
   READY,
@@ -68,12 +68,17 @@ export default function DisplayClues({
     }
   }
 
+  useEffect(() => {
+    playAudio(GroupSelectedSFX)
+  }, [])
+
   return (
     <Box display='flex' alignItems='center' justifyContent='center' px={4}>
       {gameState === RoundState.READY &&
         <DisplayGroupBox
           groupId={groupKey}
           onClick={() => {
+            playAudio(ClickSFX)
             playAudio(CluesBGM)
             setGameState(RoundState.PLAY)
           }} />}
@@ -95,7 +100,10 @@ export default function DisplayClues({
           <Stack direction='row' gap={2}>
             {clues.map(([key, value], index) => (
               <Sheet key={key} sx={{ width: '100%' }}>
-                {!shown.includes(index) && <StyledButton variant='plain' onClick={() => showUntil(index)}>
+                {!shown.includes(index) && <StyledButton variant='plain' onClick={() => {
+                  playAudio(NextClueSFX)
+                  showUntil(index)
+                }}>
                   show until here
                 </StyledButton>}
                 {shown.includes(index) && <DisplayClueBox clue={hideLast && index === 3 && gameState < RoundState.END ? '?' : value} />}
@@ -111,6 +119,7 @@ export default function DisplayClues({
                   onClick={() => {
                     setGameState(RoundState.GUESS)
                     stopAudio(CluesBGM)
+                    playAudio(BuzzerSFX)
                   }}>
                   Stop timer
                 </Button>
@@ -119,6 +128,7 @@ export default function DisplayClues({
                   disabled={gameState !== RoundState.GUESS}
                   onClick={() => {
                     setGameState(RoundState.THROW)
+                    playAudio(NextClueSFX)
                     showUntil(3)
                   }}>
                   Throw
@@ -128,6 +138,7 @@ export default function DisplayClues({
                   disabled={gameState <= RoundState.PLAY}
                   onClick={() => {
                     setGameState(RoundState.END)
+                    playAudio(ClickSFX)
                     showUntil(4)
                   }}>
                   Show answer

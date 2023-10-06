@@ -6,7 +6,7 @@ import { getGroupColor } from '../../utils/colors'
 import DisplayGroupBox from '../../components/DisplayGroupBox'
 import LinearTimer from '../../components/LinearTimer'
 import { FavoriteRounded } from '@mui/icons-material'
-import { CorrectSFX, FailSFX, IncorrectSFX, LifeReducedSFX, SolvedSFX, TapSFX, WallBGM, playAudio, stopAudio } from '../../assets/audios'
+import { ClickSFX, CorrectSFX, FailSFX, GroupSelectedSFX, IncorrectSFX, LifeReducedSFX, SolvedSFX, TapSFX, WallBGM, playAudio, stopAudio } from '../../assets/audios'
 
 const ReactGridLayout = WidthProvider(Responsive)
 
@@ -148,16 +148,19 @@ export default function DisplayWall({ data, groupKey }: { data: WallGroup, group
   }
 
   useEffect(() => {
+    playAudio(GroupSelectedSFX)
     initializeLayout()
   }, [])
 
   useEffect(() => {
+    if (!fastAnimation && selections.length === 1) {
+      setFastAnimation(true)
+    }
     if (selections.length === 4) {
       checkSelections()
-      setFastAnimation(true)
       setSelections([])
     }
-  }, [selections])
+  }, [selections, fastAnimation])
 
   useEffect(() => {
     if (found.length === 8 && !lives.isActivated) {
@@ -171,6 +174,7 @@ export default function DisplayWall({ data, groupKey }: { data: WallGroup, group
       <DisplayGroupBox
         groupId={groupKey}
         onClick={() => {
+          playAudio(ClickSFX)
           playAudio(WallBGM)
           setGameState(RoundState.PLAY)
         }} />}

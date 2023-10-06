@@ -3,7 +3,7 @@ import { VowelGroup, VowelRound } from '../../utils/types/display';
 import { useCallback, useState } from 'react';
 import DisplayDescriptionBox from '../../components/DisplayDescriptionBox';
 import DisplayClueBox from '../../components/DisplayClueBox';
-import { FullBGM, SolvedSFX, VowelClickSFX, playAudio, stopAudio } from '../../assets/audios';
+import { SolvedSFX, VowelBGM, ClickSFX, playAudio, stopAudio } from '../../assets/audios'
 
 type VowelDisplayOrder = [string, 'description' | 'clue' | 'solution' | 'pause']
 
@@ -32,12 +32,18 @@ export default function DisplayVowelRound({ data }: { data: VowelRound }) {
   const [disabled, setDisabled] = useState<boolean>(false)
   const [isAudioPlaying, setIsAudioPlaying] = useState<boolean>(false)
 
+  function endGame() {
+    setDescription('')
+    setClue('')
+    playAudio(SolvedSFX)
+    setDisabled(true)
+  }
+
 
   function showNext() {
-    if (!order.length) {
-      stopAudio(FullBGM)
-      playAudio(SolvedSFX)
-      setDisabled(true)
+    if (order.length === 1) {
+      stopAudio(VowelBGM)
+      endGame()
       return
     }
 
@@ -54,7 +60,8 @@ export default function DisplayVowelRound({ data }: { data: VowelRound }) {
       case 'clue':
         if (!isAudioPlaying) {
           setIsAudioPlaying(true)
-          playAudio(FullBGM)
+          playAudio(VowelBGM)
+          VowelBGM.onended = endGame
         }
         setClue(value)
         break
@@ -71,7 +78,7 @@ export default function DisplayVowelRound({ data }: { data: VowelRound }) {
       <Button
         onClick={() => {
           handleShowNext()
-          playAudio(VowelClickSFX)
+          playAudio(ClickSFX)
         }}
         fullWidth
         variant='plain'
@@ -87,7 +94,10 @@ export default function DisplayVowelRound({ data }: { data: VowelRound }) {
         }}
       >
         <DisplayDescriptionBox description={description} />
-        <DisplayClueBox clue={clue} height='short' />
+        <DisplayClueBox
+          clue={clue}
+          height='short'
+        />
       </Button>
     </Box>
   )
