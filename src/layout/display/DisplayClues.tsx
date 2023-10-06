@@ -1,11 +1,14 @@
 import { Box, Button, ButtonGroup, Sheet, Stack, styled } from '@mui/joy'
-import { ClueGroup } from '../../utils/types/display'
+import { MediaAppendage, ClueGroup } from '../../utils/types/display'
 import DisplayClueBox from '../../components/DisplayClueBox'
 import DisplayDescriptionBox from '../../components/DisplayDescriptionBox'
 import { useEffect, useState } from 'react'
 import LinearTimer from '../../components/LinearTimer'
 import DisplayGroupBox from '../../components/DisplayGroupBox'
-import { BuzzerSFX, ClickSFX, CluesBGM, GroupSelectedSFX, NextClueSFX, playAudio, stopAudio } from '../../assets/audios'
+import { BuzzerSFX, ClickSFX, CluesBGM, FailSFX, GroupSelectedSFX, NextClueSFX } from '../../assets/audios'
+import { playAudio, stopAudio } from '../../utils/audios'
+import { getMediaAppendage } from '../../utils/game'
+import ReactPlayer from 'react-player/youtube'
 
 const enum RoundState {
   READY,
@@ -18,13 +21,13 @@ const enum RoundState {
 export default function DisplayClues({
   groupKey,
   data,
-  hideLast
+  hideLast,
 }: {
   groupKey: string,
   data: ClueGroup,
   hideLast?: boolean
 }) {
-
+  const mediaAppendage: MediaAppendage | undefined = getMediaAppendage(data)
   const clues = Object.entries(data).filter(([key]) => key !== 'description')
   const description = data.description
   const [shown, setShown] = useState<number[]>([0])
@@ -70,6 +73,7 @@ export default function DisplayClues({
 
   useEffect(() => {
     playAudio(GroupSelectedSFX)
+    console.log(mediaAppendage)
   }, [])
 
   return (
@@ -79,36 +83,50 @@ export default function DisplayClues({
           groupId={groupKey}
           onClick={() => {
             playAudio(ClickSFX)
-            playAudio(CluesBGM)
+            if (!mediaAppendage) {
+              playAudio(CluesBGM)
+            }
             setGameState(RoundState.PLAY)
           }} />}
       {gameState > RoundState.READY &&
         <Stack gap={2} flexGrow={1}>
           <Stack direction='row' gap={2}>
-            {clues.map(([key], index) => (
-              <LinearTimer
-                key={key}
-                text={getScore(index)}
-                duration={42}
-                isVisible={getTimerVisibility(index)}
-                isCounting={gameState === RoundState.PLAY}
-                isEnd={gameState > RoundState.GUESS}
-                onComplete={() => setGameState(RoundState.GUESS)}
-              />
-            ))}
+            {clues.map(([key], index) => {
+              if (index < 4) return (
+                <LinearTimer
+                  key={key}
+                  text={getScore(index)}
+                  duration={42}
+                  isVisible={getTimerVisibility(index)}
+                  isCounting={gameState === RoundState.PLAY}
+                  isEnd={gameState > RoundState.GUESS}
+                  onComplete={() => {
+                    playAudio(FailSFX)
+                    setGameState(RoundState.GUESS)
+                  }}
+                />
+              )
+            })}
           </Stack>
           <Stack direction='row' gap={2}>
-            {clues.map(([key, value], index) => (
-              <Sheet key={key} sx={{ width: '100%' }}>
-                {!shown.includes(index) && <StyledButton variant='plain' onClick={() => {
-                  playAudio(NextClueSFX)
-                  showUntil(index)
-                }}>
-                  show until here
-                </StyledButton>}
-                {shown.includes(index) && <DisplayClueBox clue={hideLast && index === 3 && gameState < RoundState.END ? '?' : value} />}
-              </Sheet>
-            ))}
+            {clues.map(([key, value], index) => {
+              if (index < 4) return (
+                <Sheet key={key} sx={{ width: '100%' }}>
+                  {!shown.includes(index) && <StyledButton variant='plain' onClick={() => {
+                    playAudio(NextClueSFX)
+                    showUntil(index)
+                  }}>
+                    show until here
+                  </StyledButton>}
+                  {shown.includes(index) && <DisplayClueBox clue={hideLast && index === 3 && gameState < RoundState.END ? '?' : value} />}
+                  {mediaAppendage && <ReactPlayer
+                    url={mediaAppendage[`url${index + 1}` as keyof MediaAppendage]}
+                    width='0'
+                    height='0'
+                    playing={index === getLastShown() && gameState === RoundState.PLAY
+                    } />}
+                </Sheet>)
+            })}
           </Stack>
           <Sheet>
             {gameState < RoundState.END &&
