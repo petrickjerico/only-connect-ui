@@ -27,7 +27,7 @@ export default function DisplayClues({
   data: ClueGroup,
   hideLast?: boolean
 }) {
-  const mediaAppendage: MediaAppendage | undefined = getMediaAppendage(data)
+  const mediaAppendage = getMediaAppendage(data)
   const clues = Object.entries(data).filter(([key]) => key !== 'description')
   const description = data.description
   const [shown, setShown] = useState<number[]>([0])
@@ -71,6 +71,23 @@ export default function DisplayClues({
     }
   }
 
+  function getClueMediaUrl(index: number) {
+    if (mediaAppendage) {
+      return mediaAppendage[`url${index + 1}` as keyof MediaAppendage]
+    } else {
+      return ''
+    }
+  }
+
+
+  function getClueMediaType(): 'audio' | 'image' | undefined {
+    if (mediaAppendage) {
+      return mediaAppendage['type' as keyof MediaAppendage] as 'audio' | 'image'
+    } else {
+      return undefined
+    }
+  }
+
   useEffect(() => {
     playAudio(GroupSelectedSFX)
     console.log(mediaAppendage)
@@ -83,7 +100,7 @@ export default function DisplayClues({
           groupId={groupKey}
           onClick={() => {
             playAudio(ClickSFX)
-            if (!mediaAppendage) {
+            if (getClueMediaType() && getClueMediaType() !== 'audio') {
               playAudio(CluesBGM)
             }
             setGameState(RoundState.PLAY)
@@ -112,19 +129,31 @@ export default function DisplayClues({
             {clues.map(([key, value], index) => {
               if (index < 4) return (
                 <Sheet key={key} sx={{ width: '100%' }}>
-                  {!shown.includes(index) && <StyledButton variant='plain' onClick={() => {
-                    playAudio(NextClueSFX)
-                    showUntil(index)
-                  }}>
-                    show until here
-                  </StyledButton>}
-                  {shown.includes(index) && <DisplayClueBox clue={hideLast && index === 3 && gameState < RoundState.END ? '?' : value} />}
-                  {mediaAppendage && <ReactPlayer
-                    url={mediaAppendage[`url${index + 1}` as keyof MediaAppendage]}
-                    width='0'
-                    height='0'
-                    playing={index === getLastShown() && gameState === RoundState.PLAY
-                    } />}
+                  {!shown.includes(index) && (
+                    <StyledButton variant='plain' onClick={() => {
+                      playAudio(NextClueSFX)
+                      showUntil(index)
+                    }}>
+                      show until here
+                    </StyledButton>
+                  )}
+                  {mediaAppendage && (
+                    <DisplayClueBox
+                      clueType={getClueMediaType()}
+                      clue={getClueMediaUrl(index)}
+                      isTransparent={gameState === RoundState.END} />
+                  )}
+                  {shown.includes(index) && (
+                    <DisplayClueBox
+                      clue={hideLast && index === 3 && gameState < RoundState.END ? '?' : value} />
+                  )}
+                  {mediaAppendage && (
+                    <ReactPlayer
+                      url={getClueMediaUrl(index)}
+                      width='0'
+                      height='0'
+                      playing={index === getLastShown() && gameState === RoundState.PLAY} />
+                  )}
                 </Sheet>)
             })}
           </Stack>
@@ -177,7 +206,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
   borderRadius: '12px',
   color: 'transparent',
   backgroundColor: theme.palette.neutral[100],
-  zIndex: '1',
+  zIndex: '2',
   [':hover']: {
     backgroundColor: theme.palette.neutral[100],
     color: theme.palette.primary[500]

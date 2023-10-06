@@ -1,11 +1,11 @@
 {
   "connections": {
     "group1": {
-      "clue1": "sed tristique in",
-      "clue2": "non sodales sed tincidunt eu",
-      "clue3": "sit amet consectetuer adipiscing elit proin",
-      "clue4": "pretium iaculis diam",
-      "description": "id pretium iaculis diam erat fermentum justo",
+      "clue1": "Hentakan JIWA",
+      "clue2": "Poor Unfortunate SOULS",
+      "clue3": "JIWA Yang Bersedih",
+      "clue4": "Tetap Dalam JIWA",
+      "description": "Jiwa",
       "url1": "https://youtu.be/49kLY3-YA7Y?t=44",
       "url2": "https://youtu.be/Gi58pN8W3hY?t=35",
       "url3": "https://youtu.be/t9VWICGOD90?t=87",
@@ -17,7 +17,12 @@
       "clue2": "phasellus",
       "clue3": "aenean auctor gravida sem praesent id massa",
       "clue4": "sociis natoque penatibus",
-      "description": "odio elementum eu interdum eu"
+      "description": "odio elementum eu interdum eu",
+      "url1": "https://images.unsplash.com/reserve/bOvf94dPRxWu0u3QsPjF_tree.jpg?ixid=M3wxMjA3fDB8MXxzZWFyY2h8NHx8bmF0dXJhbHxlbnwwfHx8fDE2OTY1NDA5NTh8MA&ixlib=rb-4.0.3",
+      "url2": "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014_640.jpg",
+      "url3": "https://cdn.theatlantic.com/media/img/photo/2020/10/massachusetts-photos/a01_486924520-1/original.jpg",
+      "url4": "https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?cs=srgb&dl=pexels-pixabay-268533.jpg&fm=jpg",
+      "type": "image"
     },
     "group3": {
       "clue1": "lacus",
