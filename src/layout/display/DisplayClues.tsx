@@ -100,7 +100,7 @@ export default function DisplayClues({
           groupId={groupKey}
           onClick={() => {
             playAudio(ClickSFX)
-            if (getClueMediaType() && getClueMediaType() !== 'audio') {
+            if (!getClueMediaType() || getClueMediaType() !== 'audio') {
               playAudio(CluesBGM)
             }
             setGameState(RoundState.PLAY)
