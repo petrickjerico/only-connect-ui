@@ -185,7 +185,7 @@ export default function DisplayClues({
                   fullWidth
                   disabled={gameState <= RoundState.PLAY}
                   onClick={() => {
-                    if (hideLast && gameState < RoundState.SEQUECNE_SHOW_END_PICTURE) {
+                    if (hideLast && getClueMediaType() === 'image' && gameState < RoundState.SEQUECNE_SHOW_END_PICTURE) {
                       setGameState(RoundState.SEQUECNE_SHOW_END_PICTURE)
                     } else {
                       setGameState(RoundState.END)

@@ -55,7 +55,6 @@ export default function DisplayClueBox({
               alt={clue}
               draggable={false}
               style={{
-                opacity: isTransparent ? 0.15 : 1,
                 maxHeight: '100%',
                 minHeight: '100%'
               }}
