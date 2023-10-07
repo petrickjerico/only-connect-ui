@@ -15,6 +15,7 @@ const enum RoundState {
   PLAY,
   GUESS,
   THROW,
+  SEQUECNE_SHOW_END_PICTURE,
   END
 }
 
@@ -137,7 +138,7 @@ export default function DisplayClues({
                       show until here
                     </StyledButton>
                   )}
-                  {mediaAppendage && (
+                  {(mediaAppendage && (!hideLast || index < 3 || gameState >= RoundState.SEQUECNE_SHOW_END_PICTURE)) && (
                     <DisplayClueBox
                       clueType={getClueMediaType()}
                       clue={getClueMediaUrl(index)}
@@ -184,7 +185,11 @@ export default function DisplayClues({
                   fullWidth
                   disabled={gameState <= RoundState.PLAY}
                   onClick={() => {
-                    setGameState(RoundState.END)
+                    if (hideLast && gameState < RoundState.SEQUECNE_SHOW_END_PICTURE) {
+                      setGameState(RoundState.SEQUECNE_SHOW_END_PICTURE)
+                    } else {
+                      setGameState(RoundState.END)
+                    }
                     playAudio(ClickSFX)
                     showUntil(4)
                   }}>

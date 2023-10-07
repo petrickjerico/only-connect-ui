@@ -1,5 +1,6 @@
-import { Sheet, Typography, colors, styled } from '@mui/joy'
+import { Modal, ModalClose, ModalDialog, Sheet, Typography, colors, styled } from '@mui/joy'
 import Gramophone from '../assets/img/music.png'
+import { useState } from 'react'
 
 export default function DisplayClueBox({
   clue,
@@ -12,7 +13,8 @@ export default function DisplayClueBox({
   clueType?: 'audio' | 'image'
   isTransparent?: boolean
 }) {
-  console.log(clue)
+  const [enlargePicture, setEnlargePicture] = useState<boolean>(false)
+
   return (
     <StyledSheet
       variant='soft'
@@ -30,6 +32,7 @@ export default function DisplayClueBox({
         />)}
       {clueType === 'image' && (
         <img
+          onClick={() => setEnlargePicture(true)}
           src={clue}
           alt={clue}
           draggable={false}
@@ -40,10 +43,25 @@ export default function DisplayClueBox({
           }}
         />)}
       {!clueType && (
-        <Typography level='h1' px='4px'>
+        <Typography level='h1' px='4px' whiteSpace='pre-line'>
           {clue}
-        </Typography>)
-      }
+        </Typography>)}
+      {clueType === 'image' && (
+        <Modal open={enlargePicture} onClose={() => setEnlargePicture(false)}>
+          <ModalDialog layout='center' sx={{ justifyContent: 'center' }}>
+            <ModalClose />
+            <img
+              src={clue}
+              alt={clue}
+              draggable={false}
+              style={{
+                opacity: isTransparent ? 0.15 : 1,
+                maxHeight: '100%',
+                minHeight: '100%'
+              }}
+            />
+          </ModalDialog>
+        </Modal>)}
     </StyledSheet>
   )
 }

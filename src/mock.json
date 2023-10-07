@@ -1,18 +1,46 @@
 {
   "connections": {
     "group1": {
-      "clue1": "Hentakan JIWA",
-      "clue2": "Poor Unfortunate SOULS",
-      "clue3": "JIWA Yang Bersedih",
-      "clue4": "Tetap Dalam JIWA",
-      "description": "Jiwa",
-      "url1": "https://youtu.be/49kLY3-YA7Y?t=44",
-      "url2": "https://youtu.be/Gi58pN8W3hY?t=35",
-      "url3": "https://youtu.be/t9VWICGOD90?t=87",
-      "url4": "https://youtu.be/anMYu17aZT4?t=98",
-      "type": "audio"
+      "clue1": "RÊVERIE",
+      "clue2": "I Have A DREAM",
+      "clue3": "DREAMERS",
+      "clue4": "MIMPI",
+      "description": "In a trance"
     },
     "group2": {
+      "clue1": "pulvinar lobortis",
+      "clue2": "phasellus",
+      "clue3": "aenean auctor gravida sem praesent id massa",
+      "clue4": "sociis natoque penatibus",
+      "description": "In a trance"
+    },
+    "group3": {
+      "clue1": "RÊVERIE",
+      "clue2": "I Have A DREAM",
+      "clue3": "DREAMERS",
+      "clue4": "MIMPI",
+      "description": "In a trance",
+      "url1": "https://youtu.be/9AuzJ2GBCGw?t=8",
+      "url2": "https://youtu.be/xl_FfF53Wec?t=96",
+      "url3": "https://youtu.be/SJ8vecq2VPM?t=68",
+      "url4": "https://youtu.be/RcHvFC7xmrE?t=56",
+      "type": "audio"
+    },
+    "group4": {
+      "clue1": "sollicitudin ut suscipit a feugiat et",
+      "clue2": "ligula vehicula consequat morbi a ipsum integer",
+      "clue3": "lacinia sapien quis libero",
+      "clue4": "libero",
+      "description": "sit amet sem fusce consequat nulla"
+    },
+    "group5": {
+      "clue1": "Waxford\n(Monsters, Inc.)",
+      "clue2": "Ryomen Sukuna",
+      "clue3": "Doctor Strange",
+      "clue4": "A normal human",
+      "description": "Eyes"
+    },
+    "group6": {
       "clue1": "pulvinar lobortis",
       "clue2": "phasellus",
       "clue3": "aenean auctor gravida sem praesent id massa",
@@ -23,78 +51,55 @@
       "url3": "https://cdn.theatlantic.com/media/img/photo/2020/10/massachusetts-photos/a01_486924520-1/original.jpg",
       "url4": "https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?cs=srgb&dl=pexels-pixabay-268533.jpg&fm=jpg",
       "type": "image"
-    },
-    "group3": {
-      "clue1": "lacus",
-      "clue2": "vel ipsum praesent",
-      "clue3": "porta volutpat erat quisque erat",
-      "clue4": "pharetra magna",
-      "description": "at nibh in hac habitasse"
-    },
-    "group4": {
-      "clue1": "sollicitudin ut suscipit a feugiat et",
-      "clue2": "ligula vehicula consequat morbi a ipsum integer",
-      "clue3": "lacinia sapien quis libero",
-      "clue4": "libero",
-      "description": "sit amet sem fusce consequat nulla"
-    },
-    "group5": {
-      "clue1": "fusce congue diam id ornare imperdiet sapien",
-      "clue2": "ultrices libero",
-      "clue3": "sed justo pellentesque viverra pede ac",
-      "clue4": "nulla",
-      "description": "commodo placerat praesent blandit nam nulla integer"
-    },
-    "group6": {
-      "clue1": "semper porta volutpat",
-      "clue2": "pharetra",
-      "clue3": "vel nisl duis ac",
-      "clue4": "mauris laoreet",
-      "description": "pellentesque viverra pede ac diam"
     }
   },
   "sequences": {
     "group1": {
-      "clue1": "orci",
+      "clue1": "Helmet",
       "clue2": "convallis nulla neque libero convallis eget",
       "clue3": "consequat varius integer",
       "clue4": "ipsum primis in faucibus orci luctus et",
       "description": "libero rutrum ac lobortis vel"
     },
     "group2": {
-      "clue1": "neque sapien placerat ante nulla",
-      "clue2": "tortor eu pede",
-      "clue3": "commodo vulputate justo in blandit",
-      "clue4": "aliquet ultrices erat tortor sollicitudin mi",
-      "description": "in tempus sit amet sem"
+      "clue1": "Black\nstar",
+      "clue2": "Red\nchains",
+      "clue3": "White\nbanyan tree",
+      "clue4": "Red\nbull head",
+      "description": "Logos representing the Pancasila"
     },
     "group3": {
-      "clue1": "nulla ultrices aliquet maecenas leo odio condimentum",
-      "clue2": "viverra dapibus nulla suscipit ligula",
-      "clue3": "nec",
-      "clue4": "justo pellentesque viverra pede ac diam cras",
-      "description": "duis mattis egestas metus aenean"
+      "clue1": "Dhoby Ghaut",
+      "clue2": "Paya Lebar\n(technically)",
+      "clue3": "Chinatown",
+      "clue4": "Tanah Merah",
+      "description": "MRT stations with 6, 5, 4, 3 rails"
     },
     "group4": {
-      "clue1": "nam dui proin",
-      "clue2": "vel",
-      "clue3": "quam",
-      "clue4": "dictumst morbi vestibulum",
-      "description": "fermentum justo nec condimentum neque sapien placerat"
+      "clue1": "1\n(3/4 times)",
+      "clue2": "1\n(1/4 times)",
+      "clue3": "4\n(always)",
+      "clue4": "7\n(always)",
+      "description": "Months with exactly 28, 29, 30, 31 days"
     },
     "group5": {
-      "clue1": "lacus at turpis donec posuere metus vitae",
-      "clue2": "nisl duis bibendum felis",
-      "clue3": "odio cras",
-      "clue4": "justo etiam pretium iaculis justo in hac",
-      "description": "magnis dis parturient montes nascetur"
+      "clue1": "Waxford\n(Monsters, Inc.)",
+      "clue2": "Ryomen Sukuna",
+      "clue3": "Doctor Strange",
+      "clue4": "A normal human",
+      "description": "Eyes"
     },
     "group6": {
-      "clue1": "massa quis augue",
-      "clue2": "nisl nunc nisl duis bibendum felis",
-      "clue3": "volutpat convallis morbi odio odio elementum",
-      "clue4": "vitae nisi nam ultrices",
-      "description": "venenatis tristique fusce congue diam id ornare"
+      "clue1": "MATTHEW\nPerry",
+      "clue2": "MARK\nTuan",
+      "clue3": "LUKE\nEvans",
+      "clue4": "JOHN\nCena",
+      "description": "The Christian Four Evangelists as celebrities",
+      "url1": "https://www.premiere.fr/sites/default/files/styles/scale_crop_1280x720/public/2018-04/friends01060390.jpg",
+      "url2": "https://image.kpopmap.com/2022/01/idol-vs-model-got7-mark-tuan-cover-image.jpg",
+      "url3": "https://cdn.mos.cms.futurecdn.net/jsd9e8biXjL9ypxzoaP6ik.jpg",
+      "url4": "https://www.wwe.com/f/styles/wwe_large/public/all/2023/09/003_SD_09012023CN_29826--71a3f13fc410c9902b270053109ff191.jpg",
+      "type": "image"
     }
   },
   "walls": {
@@ -161,59 +166,59 @@
   },
   "vowels": {
     "group1": {
-      "clue1": "feugiat non",
-      "clue2": "ullamcorper purus sit",
-      "clue3": "hac habitasse",
-      "clue4": "quisque arcu libero",
-      "solution1": "est",
-      "solution2": "blandit non",
-      "solution3": "cubilia curae",
-      "solution4": "vestibulum sed",
-      "description": "ipsum ac tellus semper interdum mauris ullamcorper"
+      "clue1": "T HM S L FD S N ND LC TR CBL B",
+      "clue2": "L XN DR G R H MB LL N DT L PH N",
+      "clue3": "CH R LSB B BGN D CM P TR",
+      "clue4": "M RC R ND RD M",
+      "solution1": "THOMAS ALFA EDISON AND ELECTRIC BULB",
+      "solution2": "ALEXANDER GRAHAM BELL AND TELEPHONE",
+      "solution3": "CHARLES BABBAGE AND COMPUTER",
+      "solution4": "MARIE CURIE AND RADIUM",
+      "description": "Scientists and their inventions"
     },
     "group2": {
-      "clue1": "dui proin",
-      "clue2": "mattis",
-      "clue3": "sit",
-      "clue4": "turpis elementum",
-      "solution1": "sit amet",
-      "solution2": "magna ac consequat",
-      "solution3": "sagittis",
-      "solution4": "ante",
-      "description": "et commodo vulputate justo in"
+      "clue1": "PT N GP S RPN JN G",
+      "clue2": "C HC H K N GM K",
+      "clue3": "M RN BY F R NT",
+      "clue4": "C HN SG RDN S B YT H B YF R NT",
+      "solution1": "POTONG PASIR PANJANG",
+      "solution2": "CHOA CHU KANG MO KIO",
+      "solution3": "MARINA BAYFRONT",
+      "solution4": "CHIENSE GARDENS BY THE BAYFRONT",
+      "description": "SMRT station names combined"
     },
     "group3": {
-      "clue1": "consequat nulla nisl",
-      "clue2": "tincidunt eget tempus",
-      "clue3": "consequat",
-      "clue4": "donec",
-      "solution1": "fusce consequat",
-      "solution2": "id sapien",
-      "solution3": "eu massa",
-      "solution4": "pulvinar sed nisl",
-      "description": "amet eros suspendisse accumsan tortor quis"
+      "clue1": "BGK TKD LRTM PRNG",
+      "clue2": "KCLP SKDR PDTNG",
+      "clue3": "DR HLB HNCRD RPDR",
+      "clue4": "LMP RBTTN JKT NGN",
+      "solution1": "BAGAI KATAK DI LUAR TEMPURUNG",
+      "solution2": "KECIL PASAK DARIPADA TIANG",
+      "solution3": "DARAH LEBIH ENCER DARIPADA AIR",
+      "solution4": "LEMPAR BATU TUNJUK TANGAN",
+      "description": "Peribahasa Indonesia dengan lawan kata"
     },
     "group4": {
-      "clue1": "accumsan odio curabitur",
-      "clue2": "vel",
-      "clue3": "pharetra magna",
-      "clue4": "magna",
-      "solution1": "maecenas tristique est",
-      "solution2": "nec sem",
-      "solution3": "tortor risus dapibus",
-      "solution4": "nunc donec quis",
-      "description": "accumsan felis ut at dolor quis"
+      "clue1": "DGR DNSB YTH BYPR NHBK NTKTK",
+      "clue2": "DM RNBR RGP RNHMK NML",
+      "clue3": "DJ GJP RNH RSKNT LT",
+      "clue4": "DSMP RNHCHR STMSD NNR",
+      "solution1": "DI GARDENS BY THE BAY PERNAH BIKIN TIKTOK",
+      "solution2": "DI MARINA BARRAGE PERNAH MAKAN MALA",
+      "solution3": "DI JOGJA PERNAH RUSAKIN TOILET",
+      "solution4": "DI SIMEI PERNAH CHRISTMAS DINNER",
+      "description": "'Perantau': Di mana pernah ngapain?"
     },
     "group5": {
-      "clue1": "pulvinar nulla pede",
-      "clue2": "vel enim sit",
-      "clue3": "suspendisse potenti in",
-      "clue4": "donec pharetra",
-      "solution1": "at",
-      "solution2": "ligula pellentesque ultrices",
-      "solution3": "nulla ultrices aliquet",
-      "solution4": "rhoncus",
-      "description": "semper sapien a libero nam dui"
+      "clue1": "FRR YN DN NTH FJN",
+      "clue2": "L NNDT HRT YF RSTF GST",
+      "clue3": "D LNDF RTHF GST",
+      "clue4": "S MLN DTWN TTHFJ NRY",
+      "solution1": "FERRY AND NINTH OF JUNE",
+      "solution2": "AILEEN AND THIRTY FIRST OF AUGUST",
+      "solution3": "ADEL(IA) AND FOURTH OF AUGUST",
+      "solution4": "SAMUEL AND TWENTIETH OF JANUARY",
+      "description": "'Perantau': First name and their birthday date"
     }
   }
 }
