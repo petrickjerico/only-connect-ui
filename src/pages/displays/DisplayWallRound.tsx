@@ -1,4 +1,4 @@
-import { Box, Grid, Modal, ModalClose, ModalDialog } from '@mui/joy';
+import { Box, Grid, Modal, ModalDialog } from '@mui/joy';
 import { WallGroup, WallRound } from '../../utils/types/display';
 import { useState } from 'react';
 import DisplayGroupBox from '../../components/DisplayGroupBox';

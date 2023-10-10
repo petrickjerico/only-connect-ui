@@ -1,5 +1,5 @@
 import { ClueGroup, ConnectionRound } from '../../utils/types/display';
-import { Box, Grid, Modal, ModalDialog, ModalClose, Stack } from '@mui/joy';
+import { Box, Grid, Modal, ModalDialog, Stack } from '@mui/joy';
 import { useState } from 'react';
 import DisplayGroupBox from '../../components/DisplayGroupBox';
 import DisplayClues from '../../layout/display/DisplayClues';
