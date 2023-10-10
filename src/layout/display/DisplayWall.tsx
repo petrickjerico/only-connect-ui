@@ -6,7 +6,7 @@ import { getGroupColor } from '../../utils/colors'
 import DisplayGroupBox from '../../components/DisplayGroupBox'
 import LinearTimer from '../../components/LinearTimer'
 import { FavoriteRounded } from '@mui/icons-material'
-import { ClickSFX, CorrectSFX, FailSFX, GroupSelectedSFX, IncorrectSFX, LifeReducedSFX, SolvedSFX, TapSFX, WallBGM } from '../../assets/audios'
+import { ClickSFX, CorrectSFX, FailSFX, GroupSelectedSFX, IncorrectSFX, LifeReducedSFX, NextClueSFX, SolvedSFX, TapSFX, WallBGM } from '../../assets/audios'
 import { stopAudio, playAudio } from '../../utils/audios'
 
 const ReactGridLayout = WidthProvider(Responsive)
@@ -220,14 +220,8 @@ export default function DisplayWall({ data, groupKey }: { data: WallGroup, group
                     }
                   }}
                 >
-                  <Typography textAlign='center'>
+                  <Typography textAlign='center' whiteSpace='pre-line' level='h3'>
                     {wallData[groupKey][clueKey]}
-                  </Typography>
-                  <Typography>
-                    {groupKey}
-                  </Typography>
-                  <Typography>
-                    {clueKey}
                   </Typography>
                 </Button>
               )
@@ -251,6 +245,7 @@ export default function DisplayWall({ data, groupKey }: { data: WallGroup, group
               fullWidth
               color={found.length === 16 ? 'success' : 'neutral'}
               onClick={() => {
+                playAudio(NextClueSFX)
                 setGameState(RoundState.GUESS)
               }}>
               {`The wall ${found.length === 16 ? 'is solved!' : 'has frozen.'} Proceed to guessing connections.`}
@@ -266,7 +261,10 @@ export default function DisplayWall({ data, groupKey }: { data: WallGroup, group
                   <StyledSheet key={connectionKey} variant='outlined' height='100%' colorid={groupId}>
                     <StyledButton
                       variant='soft'
-                      onClick={() => setGuessing(guessing + 1)}
+                      onClick={() => {
+                        playAudio(ClickSFX)
+                        setGuessing(guessing + 1)
+                      }}
                       disabled={guessing !== index}
                       sx={{
                         position: 'absolute',
@@ -285,7 +283,10 @@ export default function DisplayWall({ data, groupKey }: { data: WallGroup, group
                   <StyledSheet key={index} variant='outlined' height='100%'>
                     <StyledButton
                       disabled={guessing !== index}
-                      variant='soft' onClick={solveWall}>
+                      variant='soft' onClick={() => {
+                        playAudio(NextClueSFX)
+                        solveWall()
+                      }}>
                       Resolve wall
                     </StyledButton>
                   </StyledSheet>

@@ -31,7 +31,6 @@ export default function DisplayWallRound({ data }: { data: WallRound }) {
       </Grid >
       <Modal open={!!wall} onClose={() => setWall(undefined)}>
         <ModalDialog layout='fullscreen'>
-          <ModalClose />
           <DisplayWall groupKey={groupKey} data={wall as WallGroup} />
         </ModalDialog>
       </Modal>

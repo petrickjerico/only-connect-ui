@@ -43,7 +43,6 @@ export default function DisplayConnectionRound({ data }: { data: ConnectionRound
       </Stack>
       <Modal open={!!clues} onClose={() => setClues(undefined)}>
         <ModalDialog layout='fullscreen' sx={{ justifyContent: 'center' }}>
-          <ModalClose />
           <DisplayClues groupKey={groupKey} data={clues as ClueGroup} />
         </ModalDialog>
       </Modal>

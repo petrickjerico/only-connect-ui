@@ -1,11 +1,11 @@
 {
   "connections": {
     "group1": {
-      "clue1": "RÊVERIE",
-      "clue2": "I Have A DREAM",
-      "clue3": "DREAMERS",
-      "clue4": "MIMPI",
-      "description": "In a trance"
+      "clue1": "dry → set",
+      "clue2": "Atheltics footwear retailer",
+      "clue3": "Jewellery brand",
+      "clue4": "French luxury design house",
+      "description": "Shares their name with Greek mythology figures"
     },
     "group2": {
       "clue1": "pulvinar lobortis",
@@ -27,11 +27,16 @@
       "type": "audio"
     },
     "group4": {
-      "clue1": "sollicitudin ut suscipit a feugiat et",
-      "clue2": "ligula vehicula consequat morbi a ipsum integer",
-      "clue3": "lacinia sapien quis libero",
-      "clue4": "libero",
-      "description": "sit amet sem fusce consequat nulla"
+      "clue1": "EZRA\nMiller",
+      "clue2": "RAZE",
+      "clue3": "ERZA\nScarlet",
+      "clue4": "REZA\nOktavian",
+      "description": "Name anagrams",
+      "url1": "https://people.com/thmb/2Zw4rb_TDMkx4blwxkocjulwZAw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(749x0:751x2)/ezramiller06122023-06-d2a4f114334841e98f787055a4375650.jpg",
+      "url2": "https://cdn.artstation.com/p/thumbnails/000/095/987/thumb.jpg",
+      "url3": "https://images.adagio.com/images2/custom_blends/179696.jpg",
+      "url4": "https://i.pinimg.com/originals/eb/d2/f9/ebd2f98d0b399e7ccdddc754d582ff29.png",
+      "type": "image"
     },
     "group5": {
       "clue1": "Waxford\n(Monsters, Inc.)",
@@ -41,25 +46,20 @@
       "description": "Eyes"
     },
     "group6": {
-      "clue1": "pulvinar lobortis",
-      "clue2": "phasellus",
-      "clue3": "aenean auctor gravida sem praesent id massa",
-      "clue4": "sociis natoque penatibus",
-      "description": "odio elementum eu interdum eu",
-      "url1": "https://images.unsplash.com/reserve/bOvf94dPRxWu0u3QsPjF_tree.jpg?ixid=M3wxMjA3fDB8MXxzZWFyY2h8NHx8bmF0dXJhbHxlbnwwfHx8fDE2OTY1NDA5NTh8MA&ixlib=rb-4.0.3",
-      "url2": "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014_640.jpg",
-      "url3": "https://cdn.theatlantic.com/media/img/photo/2020/10/massachusetts-photos/a01_486924520-1/original.jpg",
-      "url4": "https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?cs=srgb&dl=pexels-pixabay-268533.jpg&fm=jpg",
-      "type": "image"
+      "clue1": "EZRA\nMiller",
+      "clue2": "RAZE",
+      "clue3": "ERZA\nScarlet",
+      "clue4": "REZA\nOktavian",
+      "description": "Name anagrams"
     }
   },
   "sequences": {
     "group1": {
-      "clue1": "Helmet",
-      "clue2": "convallis nulla neque libero convallis eget",
-      "clue3": "consequat varius integer",
-      "clue4": "ipsum primis in faucibus orci luctus et",
-      "description": "libero rutrum ac lobortis vel"
+      "clue1": "Look at me",
+      "clue2": "Only one I see",
+      "clue3": "Very, very extraordinary",
+      "clue4": "Even more than anyone that you adore can",
+      "description": "LOVE"
     },
     "group2": {
       "clue1": "Black\nstar",
@@ -70,17 +70,17 @@
     },
     "group3": {
       "clue1": "Dhoby Ghaut",
-      "clue2": "Paya Lebar\n(technically)",
+      "clue2": "Paya Lebar",
       "clue3": "Chinatown",
       "clue4": "Tanah Merah",
-      "description": "MRT stations with 6, 5, 4, 3 rails"
+      "description": "Number of rails in SMRT stations"
     },
     "group4": {
-      "clue1": "1\n(3/4 times)",
-      "clue2": "1\n(1/4 times)",
-      "clue3": "4\n(always)",
-      "clue4": "7\n(always)",
-      "description": "Months with exactly 28, 29, 30, 31 days"
+      "clue1": "Oslo",
+      "clue2": "Stockholm",
+      "clue3": "Helsinki",
+      "clue4": "Moscow",
+      "description": "Capitals of Northern European countries"
     },
     "group5": {
       "clue1": "Waxford\n(Monsters, Inc.)",
@@ -105,71 +105,71 @@
   "walls": {
     "wall1": {
       "group1": {
-        "clue1": "pharetra magna",
-        "clue2": "eget nunc",
-        "clue3": "posuere cubilia curae",
-        "clue4": "at",
-        "description": "ut suscipit a feugiat et eros"
+        "clue1": "Eucalyptus",
+        "clue2": "Cypress",
+        "clue3": "Hyssop",
+        "clue4": "Frankincense",
+        "description": "Essential oils"
       },
       "group2": {
-        "clue1": "justo",
-        "clue2": "diam neque vestibulum",
-        "clue3": "a",
-        "clue4": "non",
-        "description": "semper sapien a libero nam dui"
+        "clue1": "Mordred",
+        "clue2": "Marigold",
+        "clue3": "Bluebell",
+        "clue4": "Wintergreen",
+        "description": "Words containing colours"
       },
       "group3": {
-        "clue1": "donec",
-        "clue2": "dolor",
-        "clue3": "in magna bibendum",
-        "clue4": "ligula",
-        "description": "ante vestibulum ante ipsum primis in"
+        "clue1": "Morgana",
+        "clue2": "Merlin",
+        "clue3": "Jasmine",
+        "clue4": "Daisy",
+        "description": "Disney characters"
       },
       "group4": {
-        "clue1": "platea dictumst maecenas",
-        "clue2": "commodo vulputate justo",
-        "clue3": "ut erat id",
-        "clue4": "turpis",
-        "description": "imperdiet et commodo vulputate justo"
+        "clue1": "Oberon",
+        "clue2": "Lancelot",
+        "clue3": "Percival",
+        "clue4": "Assassin",
+        "description": "Avalon roles"
       }
     },
     "wall2": {
       "group1": {
-        "clue1": "nunc",
-        "clue2": "pede venenatis",
-        "clue3": "id consequat in",
-        "clue4": "sem",
-        "description": "ipsum ac tellus semper interdum mauris ullamcorper"
+        "clue1": "Single\nbond",
+        "clue2": "Damping\nratio",
+        "clue3": "Electrical\nconductivity",
+        "clue4": "Stocks\nvolatility",
+        "description": "Represented by Greek letter 'sigma'"
       },
       "group2": {
-        "clue1": "in est",
-        "clue2": "consequat",
-        "clue3": "semper interdum",
-        "clue4": "tortor quis turpis",
-        "description": "et commodo vulputate justo in"
+        "clue1": "Ash",
+        "clue2": "Misty",
+        "clue3": "Brock",
+        "clue4": "Dawn",
+        "description": "Human protagonists in Pokémon"
       },
       "group3": {
-        "clue1": "proin leo",
-        "clue2": "bibendum felis sed",
-        "clue3": "diam erat fermentum",
-        "clue4": "risus dapibus augue",
-        "description": "amet eros suspendisse accumsan tortor quis"
+        "clue1": "Powder",
+        "clue2": "Soot",
+        "clue3": "Sand",
+        "clue4": "Granule",
+        "description": "Particulates"
       },
       "group4": {
-        "clue1": "in",
-        "clue2": "nulla sed",
-        "clue3": "vestibulum",
-        "clue4": "vulputate luctus cum",
-        "description": "accumsan felis ut at dolor quis"
+        "clue1": "Sun",
+        "clue2": "Nut",
+        "clue3": "Dust",
+        "clue4": "Sum",
+        "description": "Scrambled acronyms of local universities"
       }
     }
   },
   "vowels": {
     "group1": {
-      "clue1": "T HM S L FD S N ND LC TR CBL B",
-      "clue2": "L XN DR G R H MB LL N DT L PH N",
-      "clue3": "CH R LSB B BGN D CM P TR",
-      "clue4": "M RC R ND RD M",
+      "clue1": "TH MSL FDS NND LCTR CB LB",
+      "clue2": "LX NDR GR HMB LLN DTL PHN",
+      "clue3": "CH RL SBB BGN DCM PTR",
+      "clue4": "MRCR NDRDM",
       "solution1": "THOMAS ALFA EDISON AND ELECTRIC BULB",
       "solution2": "ALEXANDER GRAHAM BELL AND TELEPHONE",
       "solution3": "CHARLES BABBAGE AND COMPUTER",
@@ -177,14 +177,14 @@
       "description": "Scientists and their inventions"
     },
     "group2": {
-      "clue1": "PT N GP S RPN JN G",
-      "clue2": "C HC H K N GM K",
-      "clue3": "M RN BY F R NT",
-      "clue4": "C HN SG RDN S B YT H B YF R NT",
+      "clue1": "PTN GPS RP NJNG",
+      "clue2": "CHCH KN GMK",
+      "clue3": "KKBK TB TK",
+      "clue4": "GR DNSB YTH BYF RNT",
       "solution1": "POTONG PASIR PANJANG",
       "solution2": "CHOA CHU KANG MO KIO",
-      "solution3": "MARINA BAYFRONT",
-      "solution4": "CHIENSE GARDENS BY THE BAYFRONT",
+      "solution3": "KAKI BUKIT BATOK",
+      "solution4": "GARDENS BY THE BAYFRONT",
       "description": "SMRT station names combined"
     },
     "group3": {
