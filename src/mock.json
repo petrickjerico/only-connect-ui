@@ -1,18 +1,18 @@
 {
   "connections": {
     "group1": {
-      "clue1": "dry → set",
-      "clue2": "Atheltics footwear retailer",
-      "clue3": "Jewellery brand",
-      "clue4": "French luxury design house",
-      "description": "Shares their name with Greek mythology figures"
+      "clue1": "US\npresidents",
+      "clue2": "European\nhistorical architectural styles",
+      "clue3": "Indonesian\nnational heroes",
+      "clue4": "Singaporean\nYusof Bin Ishak",
+      "description": "Legal tenders and their obverse prints"
     },
     "group2": {
-      "clue1": "pulvinar lobortis",
-      "clue2": "phasellus",
-      "clue3": "aenean auctor gravida sem praesent id massa",
-      "clue4": "sociis natoque penatibus",
-      "description": "In a trance"
+      "clue1": "Eren Yaeger",
+      "clue2": "Raquel Murillo",
+      "clue3": "Walter White",
+      "clue4": "Lucifer",
+      "description": "Good gone bad"
     },
     "group3": {
       "clue1": "RÊVERIE",
@@ -39,18 +39,18 @@
       "type": "image"
     },
     "group5": {
-      "clue1": "Waxford\n(Monsters, Inc.)",
-      "clue2": "Ryomen Sukuna",
-      "clue3": "Doctor Strange",
-      "clue4": "A normal human",
-      "description": "Eyes"
+      "clue1": "Professor Utonium's girls",
+      "clue2": "Hubert, Dewford, and Llewelyn",
+      "clue3": "The good fairy godmothers",
+      "clue4": "Google's second half",
+      "description": "RGB characters"
     },
     "group6": {
-      "clue1": "EZRA\nMiller",
-      "clue2": "RAZE",
-      "clue3": "ERZA\nScarlet",
-      "clue4": "REZA\nOktavian",
-      "description": "Name anagrams"
+      "clue1": "Behind cheapest land",
+      "clue2": "Brief government operation",
+      "clue3": "Invented at Google",
+      "clue4": "The Japanese 5",
+      "description": "Go"
     }
   },
   "sequences": {
@@ -113,7 +113,7 @@
       },
       "group2": {
         "clue1": "Mordred",
-        "clue2": "Marigold",
+        "clue2": "Goldilocks",
         "clue3": "Bluebell",
         "clue4": "Wintergreen",
         "description": "Words containing colours"
@@ -142,25 +142,25 @@
         "description": "Represented by Greek letter 'sigma'"
       },
       "group2": {
-        "clue1": "Ash",
-        "clue2": "Misty",
-        "clue3": "Brock",
-        "clue4": "Dawn",
-        "description": "Human protagonists in Pokémon"
+        "clue1": "A",
+        "clue2": "On",
+        "clue3": "Rico",
+        "clue4": "Unselled",
+        "description": "Coco_____"
       },
       "group3": {
-        "clue1": "Powder",
-        "clue2": "Soot",
+        "clue1": "Blood",
+        "clue2": "Bubble",
         "clue3": "Sand",
-        "clue4": "Granule",
-        "description": "Particulates"
+        "clue4": "Bird",
+        "description": "Types of baths"
       },
       "group4": {
         "clue1": "Sun",
         "clue2": "Nut",
         "clue3": "Dust",
         "clue4": "Sum",
-        "description": "Scrambled acronyms of local universities"
+        "description": "Rearranged acronyms of local universities"
       }
     }
   },
