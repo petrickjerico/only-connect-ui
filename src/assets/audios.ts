@@ -1,6 +1,7 @@
 import Wall from './audio/wall.mp3'
 import Clues from './audio/clues.mp3'
 import Vowel from './audio/vowel.mp3'
+import VowelLong from './audio/vowel-long.mp3'
 import Full from './audio/full.mp3'
 import Solved from './audio/solved.wav'
 import Correct from './audio/correct.wav'
@@ -21,6 +22,9 @@ CluesBGM.volume = 0.3
 
 export const VowelBGM = new Audio(Vowel)
 VowelBGM.volume = 0.3
+
+export const VowelLongBGM = new Audio(VowelLong)
+VowelLongBGM.volume = 0.3
 
 export const FullBGM = new Audio(Full)
 FullBGM.volume = 0.3

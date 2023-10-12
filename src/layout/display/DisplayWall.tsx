@@ -1,4 +1,4 @@
-import { Box, Button, Sheet, Stack, Typography, colors, styled } from '@mui/joy'
+import { Box, Button, Divider, Sheet, Stack, Typography, colors, styled } from '@mui/joy'
 import { WallGroup } from '../../utils/types/display'
 import { Layout, Responsive, WidthProvider } from 'react-grid-layout'
 import { useEffect, useState } from 'react'
@@ -8,6 +8,8 @@ import LinearTimer from '../../components/LinearTimer'
 import { FavoriteRounded } from '@mui/icons-material'
 import { ClickSFX, CorrectSFX, FailSFX, GroupSelectedSFX, IncorrectSFX, LifeReducedSFX, NextClueSFX, SolvedSFX, TapSFX, WallBGM } from '../../assets/audios'
 import { stopAudio, playAudio } from '../../utils/audios'
+import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
+import HourglassTopRoundedIcon from '@mui/icons-material/HourglassTopRounded'
 
 const ReactGridLayout = WidthProvider(Responsive)
 
@@ -172,13 +174,23 @@ export default function DisplayWall({ data, groupKey }: { data: WallGroup, group
 
   return <Box display='flex' alignItems='center' justifyContent='center' height='100%'>
     {gameState === RoundState.READY &&
-      <DisplayGroupBox
-        groupId={groupKey}
-        onClick={() => {
-          playAudio(ClickSFX)
-          playAudio(WallBGM)
-          setGameState(RoundState.PLAY)
-        }} />}
+      <Stack alignItems='center' spacing={4}>
+        <DisplayGroupBox
+          groupId={groupKey}
+          onClick={() => {
+            playAudio(ClickSFX)
+            playAudio(WallBGM)
+            setGameState(RoundState.PLAY)
+          }} />
+        <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' />}>
+          <Typography startDecorator={<GridViewRoundedIcon />} level='body-lg'>
+            Wall
+          </Typography>
+          <Typography startDecorator={<HourglassTopRoundedIcon />} level='body-lg'>
+            2 minutes 30 seconds
+          </Typography>
+        </Stack>
+      </Stack>}
     {gameState > RoundState.READY &&
       <Stack direction='row' gap={4} justifyContent='space-between'>
         <Stack width='70vw' gap={2}>

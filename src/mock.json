@@ -177,15 +177,15 @@
       "description": "Scientists and their inventions"
     },
     "group2": {
-      "clue1": "PTN GPS RP NJNG",
-      "clue2": "CHCH KN GMK",
-      "clue3": "KKBK TB TK",
-      "clue4": "GR DNSB YTH BYF RNT",
-      "solution1": "POTONG PASIR PANJANG",
-      "solution2": "CHOA CHU KANG MO KIO",
-      "solution3": "KAKI BUKIT BATOK",
-      "solution4": "GARDENS BY THE BAYFRONT",
-      "description": "SMRT station names combined"
+      "clue1": "CHN SG RD NSB YTH BYF RNT",
+      "clue2": "PTN GPS RPN JNG MK",
+      "clue3": "B NV STM PN SS TDM",
+      "clue4": "DK TSN GKN GMK",
+      "solution1": "CHINESE GARDENS BY THE BAYFRONT",
+      "solution2": "POTONG PASIR PANJANG MO KIO",
+      "solution3": "BUONA VISTAMPINES EASTADIUM",
+      "solution4": "DAKOTAI SENGKANG MO KIO",
+      "description": "Three SMRT stations combined"
     },
     "group3": {
       "clue1": "BGK TKD LRTM PRNG",

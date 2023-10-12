@@ -1,4 +1,4 @@
-import { Box, Button, ButtonGroup, Sheet, Stack, styled } from '@mui/joy'
+import { Box, Button, ButtonGroup, Divider, Sheet, Stack, Typography, styled } from '@mui/joy'
 import { MediaAppendage, ClueGroup } from '../../utils/types/display'
 import DisplayClueBox from '../../components/DisplayClueBox'
 import DisplayDescriptionBox from '../../components/DisplayDescriptionBox'
@@ -9,6 +9,10 @@ import { BuzzerSFX, ClickSFX, CluesBGM, FailSFX, GroupSelectedSFX, NextClueSFX }
 import { playAudio, stopAudio } from '../../utils/audios'
 import { getMediaAppendage } from '../../utils/game'
 import ReactPlayer from 'react-player/youtube'
+import HourglassTopRoundedIcon from '@mui/icons-material/HourglassTopRounded'
+import MusicNoteRoundedIcon from '@mui/icons-material/MusicNoteRounded'
+import ImageRoundedIcon from '@mui/icons-material/ImageRounded'
+import NotesRoundedIcon from '@mui/icons-material/NotesRounded'
 
 const enum RoundState {
   READY,
@@ -97,15 +101,34 @@ export default function DisplayClues({
   return (
     <Box display='flex' alignItems='center' justifyContent='center' px={4}>
       {gameState === RoundState.READY &&
-        <DisplayGroupBox
-          groupId={groupKey}
-          onClick={() => {
-            playAudio(ClickSFX)
-            if (!getClueMediaType() || getClueMediaType() !== 'audio') {
-              playAudio(CluesBGM)
-            }
-            setGameState(RoundState.PLAY)
-          }} />}
+        <Stack alignItems='center' spacing={4}>
+          <DisplayGroupBox
+            groupId={groupKey}
+            onClick={() => {
+              playAudio(ClickSFX)
+              if (!getClueMediaType() || getClueMediaType() !== 'audio') {
+                playAudio(CluesBGM)
+              }
+              setGameState(RoundState.PLAY)
+            }} />
+          <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' />}>
+            {getClueMediaType() === 'audio' &&
+              <Typography startDecorator={<MusicNoteRoundedIcon />} level='body-lg'>
+                Music clues
+              </Typography>}
+            {getClueMediaType() === 'image' &&
+              <Typography startDecorator={<ImageRoundedIcon />} level='body-lg'>
+                Image clues
+              </Typography>}
+            {!getClueMediaType() &&
+              <Typography startDecorator={<NotesRoundedIcon />} level='body-lg'>
+                Text clues
+              </Typography>}
+            <Typography startDecorator={<HourglassTopRoundedIcon />} level='body-lg'>
+              40 seconds
+            </Typography>
+          </Stack>
+        </Stack>}
       {gameState > RoundState.READY &&
         <Stack gap={2} flexGrow={1}>
           <Stack direction='row' gap={2}>
