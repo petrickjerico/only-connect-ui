@@ -1,8 +1,9 @@
 import { ClueGroup, ConnectionRound } from '../../utils/types/display';
-import { Box, Grid, Modal, ModalDialog, Stack } from '@mui/joy';
+import { Box, Grid, Modal, ModalDialog, Stack, Tooltip } from '@mui/joy';
 import { useState } from 'react';
 import DisplayGroupBox from '../../components/DisplayGroupBox';
 import DisplayClues from '../../layout/display/DisplayClues';
+import { getGroupName } from '../../utils/titles';
 
 export default function DisplayConnectionRound({ data }: { data: ConnectionRound }) {
   const [groupKey, setGroupKey] = useState<string>('')
@@ -14,30 +15,36 @@ export default function DisplayConnectionRound({ data }: { data: ConnectionRound
       <Stack gap={1}>
         <Grid container columns={3} spacing={1}>
           {Object.entries(data).map(([key, value], index) => (
-            index < 3 && <Grid key={key} xs='auto'>
-              <DisplayGroupBox
-                groupId={key}
-                onClick={() => {
-                  setGroupKey(key)
-                  setClues(value)
-                  setOpened(opened.concat(key))
-                }}
-                isDisabled={opened.includes(key)} />
-            </Grid>
+            index < 3 &&
+            <Tooltip open={!opened.includes(key) && !clues} key={key} title={getGroupName((index + 1).toString())} placement='top' size='lg' variant='soft'>
+              <Grid xs='auto'>
+                <DisplayGroupBox
+                  groupId={key}
+                  onClick={() => {
+                    setGroupKey(key)
+                    setClues(value)
+                    setOpened(opened.concat(key))
+                  }}
+                  isDisabled={opened.includes(key)} />
+              </Grid>
+            </Tooltip>
           ))}
         </Grid >
         <Grid container columns={3} spacing={1}>
           {Object.entries(data).map(([key, value], index) => (
-            index >= 3 && <Grid key={key} xs='auto'>
-              <DisplayGroupBox
-                groupId={key}
-                onClick={() => {
-                  setGroupKey(key)
-                  setClues(value)
-                  setOpened(opened.concat(key))
-                }}
-                isDisabled={opened.includes(key)} />
-            </Grid>
+            index >= 3 &&
+            <Tooltip open={!opened.includes(key) && !clues} key={key} title={getGroupName((index + 1).toString())} placement='bottom' size='lg' variant='soft'>
+              <Grid xs='auto'>
+                <DisplayGroupBox
+                  groupId={key}
+                  onClick={() => {
+                    setGroupKey(key)
+                    setClues(value)
+                    setOpened(opened.concat(key))
+                  }}
+                  isDisabled={opened.includes(key)} />
+              </Grid>
+            </Tooltip>
           ))}
         </Grid >
       </Stack>

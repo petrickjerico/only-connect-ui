@@ -3,7 +3,7 @@ import { VowelGroup, VowelRound } from '../../utils/types/display';
 import { useCallback, useState } from 'react';
 import DisplayDescriptionBox from '../../components/DisplayDescriptionBox';
 import DisplayClueBox from '../../components/DisplayClueBox';
-import { SolvedSFX, VowelBGM, ClickSFX } from '../../assets/audios'
+import { SolvedSFX, ClickSFX, VowelLongBGM } from '../../assets/audios'
 import { playAudio, stopAudio } from '../../utils/audios';
 
 type VowelDisplayOrder = [string, 'description' | 'clue' | 'solution' | 'pause']
@@ -43,7 +43,7 @@ export default function DisplayVowelRound({ data }: { data: VowelRound }) {
 
   function showNext() {
     if (order.length === 1) {
-      stopAudio(VowelBGM)
+      stopAudio(VowelLongBGM)
       endGame()
       return
     }
@@ -61,8 +61,8 @@ export default function DisplayVowelRound({ data }: { data: VowelRound }) {
       case 'clue':
         if (!isAudioPlaying) {
           setIsAudioPlaying(true)
-          playAudio(VowelBGM)
-          VowelBGM.onended = endGame
+          playAudio(VowelLongBGM)
+          VowelLongBGM.onended = endGame
         }
         setClue(value)
         break

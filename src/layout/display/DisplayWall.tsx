@@ -322,7 +322,7 @@ const StyledReactGridLayout = styled(ReactGridLayout)<{ fast: boolean }>(({ fast
 const StyledButton = styled(Button)(() => ({
   height: '100%',
   textAlign: 'center',
-  borderRadius: '12px',
+  borderRadius: '8px',
   zIndex: '1',
 }))
 
@@ -332,6 +332,6 @@ const StyledSheet = styled(Sheet)<{ height?: 'short' | 'tall' | string, colorid?
   flexDirection: 'column',
   textAlign: 'center',
   justifyContent: 'center',
-  borderRadius: '12px',
+  borderRadius: '8px',
   backgroundColor: colorid ? getGroupColor(colorid) : undefined,
 }))
