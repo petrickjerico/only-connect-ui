@@ -98,6 +98,9 @@ export default function DisplayVowelRound({ data }: { data: VowelRound }) {
         <DisplayClueBox
           clue={clue}
           height='short'
+          fontSize={60}
+          fontWeight={500}
+          wordSpacing='8px'
         />
       </Button>
     </Box>

@@ -6,12 +6,18 @@ export default function DisplayClueBox({
   clue,
   height = 'tall',
   clueType,
-  isTransparent
+  isTransparent,
+  fontSize,
+  fontWeight,
+  wordSpacing
 }: {
   clue: string,
   height?: 'short' | 'tall' | string
   clueType?: 'audio' | 'image'
   isTransparent?: boolean
+  fontSize?: number
+  fontWeight?: number
+  wordSpacing?: string
 }) {
   const [enlargePicture, setEnlargePicture] = useState<boolean>(false)
 
@@ -43,7 +49,15 @@ export default function DisplayClueBox({
           }}
         />)}
       {!clueType && (
-        <Typography level='h1' px='4px' whiteSpace='pre-line'>
+        <Typography
+          level='h1'
+          px='4px'
+          whiteSpace='pre-line'
+          fontSize={fontSize}
+          fontWeight={fontWeight}
+          sx={{
+            wordSpacing: wordSpacing
+          }}>
           {clue}
         </Typography>)}
       {clueType === 'image' && (
