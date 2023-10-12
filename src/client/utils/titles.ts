@@ -12,6 +12,10 @@ const DEFAULT_GROUP_NAMES: Record<string, string> = {
   '6': '𓂀 Eye of Horus'
 }
 
+export function getGroupName(index: string) {
+  return DEFAULT_GROUP_NAMES[index]
+}
+
 function getGroupEntries(groupNames?: Record<string, string>): [string, string][] {
   return Object.entries(groupNames ?? DEFAULT_GROUP_NAMES)
 }
