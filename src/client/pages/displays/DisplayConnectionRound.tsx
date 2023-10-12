@@ -1,4 +1,3 @@
-
 import { ClueGroup, ConnectionRound } from '../../utils/types/display'
 import { Box, Grid, Modal, ModalDialog, Stack, Tooltip } from '@mui/joy'
 import { useState } from 'react'

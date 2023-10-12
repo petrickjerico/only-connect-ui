@@ -1,5 +1,5 @@
 import { Stack, Divider, Typography } from '@mui/joy'
-import CoverImage from '../../assets/img/cover.png'
+import CoverImage from '../../../assets/img/cover.png'
 
 export default function DisplayEndScreen() {
   return (
