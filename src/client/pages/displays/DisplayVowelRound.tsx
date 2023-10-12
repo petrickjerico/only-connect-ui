@@ -5,6 +5,7 @@ import DisplayDescriptionBox from '../../components/DisplayDescriptionBox'
 import DisplayClueBox from '../../components/DisplayClueBox'
 import { SolvedSFX, VowelLongBGM, ClickSFX } from '../../../assets/audios'
 import { playAudio, stopAudio } from '../../utils/audios'
+
 type VowelDisplayOrder = [string, 'description' | 'clue' | 'solution' | 'pause']
 
 export default function DisplayVowelRound({ data }: { data: VowelRound }) {

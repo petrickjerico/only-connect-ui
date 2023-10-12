@@ -91,7 +91,7 @@ export default function VowelTutorial({ verbose }: { verbose?: boolean }) {
             </Box>
           </ModalDialog>
         </Modal>
-      </Stack>
+      </Stack >
       <Divider orientation='vertical' />
       <Stack spacing={2}>
         <Typography level='h4'>
@@ -115,6 +115,6 @@ export default function VowelTutorial({ verbose }: { verbose?: boolean }) {
           The round lasts for between 90 seconds and three minutes.
         </Typography>
       </Stack>
-    </Stack>
+    </Stack >
   )
 }
