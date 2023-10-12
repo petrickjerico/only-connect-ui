@@ -1,6 +1,6 @@
-import LinearProgress from '@mui/joy/LinearProgress';
-import Typography from '@mui/joy/Typography';
-import { useCountUp } from 'use-count-up';
+import LinearProgress from '@mui/joy/LinearProgress'
+import Typography from '@mui/joy/Typography'
+import { useCountUp } from 'use-count-up'
 
 export default function LinearTimer({
   isCounting,
@@ -25,7 +25,7 @@ export default function LinearTimer({
     start: isEnd ? 0 : 100,
     end: 0,
     onComplete: onComplete,
-  });
+  })
 
   function getColor() {
     return Number(value) === 0 ? 'neutral' : Number(value) > 25 ? 'primary' : 'danger'
@@ -58,5 +58,5 @@ export default function LinearTimer({
         {text}
       </Typography>
     </LinearProgress>
-  );
+  )
 }

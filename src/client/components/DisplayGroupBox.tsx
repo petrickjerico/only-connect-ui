@@ -13,7 +13,7 @@ export default function DisplayGroupBox({
   return (
     <Button variant='soft' onClick={onClick} size='sm' disabled={isDisabled}>
       <img
-        src={require(`../assets/img/${groupId}.png`)}
+        src={require(`../../assets/img/${groupId}.png`)}
         alt={groupId}
         draggable={false}
         style={{ opacity: isDisabled ? 0.3 : 1 }}

@@ -1,8 +1,8 @@
-import { ClueGroup, ConnectionRound } from '../../utils/types/display';
-import { Box, Grid, Modal, ModalDialog, Stack } from '@mui/joy';
-import { useState } from 'react';
-import DisplayGroupBox from '../../components/DisplayGroupBox';
-import DisplayClues from '../../layout/display/DisplayClues';
+import { ClueGroup, ConnectionRound } from '../../utils/types/display'
+import { Box, Grid, Modal, ModalDialog, Stack } from '@mui/joy'
+import { useState } from 'react'
+import DisplayGroupBox from '../../components/DisplayGroupBox'
+import DisplayClues from '../../layout/display/DisplayClues'
 
 export default function DisplayConnectionRound({ data }: { data: ConnectionRound }) {
   const [groupKey, setGroupKey] = useState<string>('')

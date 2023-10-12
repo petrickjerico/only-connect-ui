@@ -1,8 +1,8 @@
-import { ClueGroup, SequenceRound } from '../../utils/types/display';
-import { Box, Grid, Modal, ModalDialog, Stack } from '@mui/joy';
-import { useState } from 'react';
-import DisplayGroupBox from '../../components/DisplayGroupBox';
-import DisplayClues from '../../layout/display/DisplayClues';
+import { ClueGroup, SequenceRound } from '../../utils/types/display'
+import { Box, Grid, Modal, ModalDialog, Stack } from '@mui/joy'
+import { useState } from 'react'
+import DisplayGroupBox from '../../components/DisplayGroupBox'
+import DisplayClues from '../../layout/display/DisplayClues'
 
 export default function DisplaySequenceRound({ data }: { data: SequenceRound }) {
   const [groupKey, setGroupKey] = useState<string>('')

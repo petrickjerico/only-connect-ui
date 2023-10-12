@@ -1,9 +1,9 @@
-import { Box, Grid, Modal, ModalDialog } from '@mui/joy';
-import { WallGroup, WallRound } from '../../utils/types/display';
-import { useState } from 'react';
-import DisplayGroupBox from '../../components/DisplayGroupBox';
-import DisplayWall from '../../layout/display/DisplayWall';
-import { DEFAULT_WALL_INDEXES } from '../../utils/titles';
+import { Box, Grid, Modal, ModalDialog } from '@mui/joy'
+import { WallGroup, WallRound } from '../../utils/types/display'
+import { useState } from 'react'
+import DisplayGroupBox from '../../components/DisplayGroupBox'
+import DisplayWall from '../../layout/display/DisplayWall'
+import { DEFAULT_WALL_INDEXES } from '../../utils/titles'
 
 export default function DisplayWallRound({ data }: { data: WallRound }) {
   const [groupKey, setGroupKey] = useState<string>('')

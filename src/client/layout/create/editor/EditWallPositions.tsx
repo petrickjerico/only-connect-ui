@@ -154,7 +154,7 @@ export default function EditWallPositions({ wallId, wallHeader }: { wallId: stri
                       variant='plain'
                       value={gridSetings}
                       onChange={(_, newSettings) => {
-                        setGridSettings(newSettings);
+                        setGridSettings(newSettings)
                       }}
                       aria-label="grid settings"
                     >

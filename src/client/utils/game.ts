@@ -1,5 +1,5 @@
 import { GameInput } from './types/attributes'
-import { ClueGroup, GameDisplay, MediaAppendage } from './types/display';
+import { ClueGroup, GameDisplay, MediaAppendage } from './types/display'
 import mock from '../mock.json'
 
 export function transformInputsToDisplay(input: GameInput): GameDisplay {

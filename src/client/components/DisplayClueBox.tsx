@@ -1,5 +1,5 @@
 import { Modal, ModalDialog, Sheet, Typography, colors, styled } from '@mui/joy'
-import Gramophone from '../assets/img/music.png'
+import Gramophone from '../../assets/img/music.png'
 import { useState } from 'react'
 
 export default function DisplayClueBox({

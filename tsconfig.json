@@ -27,6 +27,7 @@
     "strictNullChecks": true
   },
   "include": [
-    "src"
+    "src",
+    "src/**/*"
   ],
 }

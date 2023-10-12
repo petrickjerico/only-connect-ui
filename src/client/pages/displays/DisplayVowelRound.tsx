@@ -1,10 +1,10 @@
-import { Box, Button } from '@mui/joy';
-import { VowelGroup, VowelRound } from '../../utils/types/display';
-import { useCallback, useState } from 'react';
-import DisplayDescriptionBox from '../../components/DisplayDescriptionBox';
-import DisplayClueBox from '../../components/DisplayClueBox';
-import { SolvedSFX, VowelBGM, ClickSFX } from '../../assets/audios'
-import { playAudio, stopAudio } from '../../utils/audios';
+import { Box, Button } from '@mui/joy'
+import { VowelGroup, VowelRound } from '../../utils/types/display'
+import { useCallback, useState } from 'react'
+import DisplayDescriptionBox from '../../components/DisplayDescriptionBox'
+import DisplayClueBox from '../../components/DisplayClueBox'
+import { SolvedSFX, VowelBGM, ClickSFX } from '../../../assets/audios'
+import { playAudio, stopAudio } from '../../utils/audios'
 
 type VowelDisplayOrder = [string, 'description' | 'clue' | 'solution' | 'pause']
 
