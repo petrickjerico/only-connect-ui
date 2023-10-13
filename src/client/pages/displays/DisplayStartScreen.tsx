@@ -16,7 +16,7 @@ export default function DisplayStartScreen() {
       justifyContent='center'
       spacing={8}
       divider={<Divider orientation='vertical' />}>
-      <img src={CoverImage} width='20%' height='auto' />
+      <img src={CoverImage} width='15%' height='auto' />
       <Stack spacing={2} maxWidth='30%'>
         <Typography level='h1'>
           Welcome to the game.
