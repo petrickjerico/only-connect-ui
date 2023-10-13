@@ -13,10 +13,10 @@ export default function SequenceTutorial({ verbose }: { verbose?: boolean }) {
 
   const clues: ClueGroup = {
     clue1: 'November',
-    clue2: 'Oscar',
-    clue3: 'Papa',
-    clue4: 'Quebec',
-    description: 'NATO Alphabets'
+    clue2: 'Mike',
+    clue3: 'Lima',
+    clue4: 'Kilo',
+    description: 'NATO alphabets in reverse order'
   }
 
   const [trial, setTrial] = useState<boolean>(false)

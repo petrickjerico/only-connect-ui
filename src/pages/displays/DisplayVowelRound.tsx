@@ -75,7 +75,7 @@ export default function DisplayVowelRound({ data }: { data: VowelRound }) {
   const handleShowNext = useCallback(showNext, [])
 
   return (
-    <Box width='100%'>
+    <Box width='100%' marginX={4}>
       <Button
         onClick={() => {
           handleShowNext()

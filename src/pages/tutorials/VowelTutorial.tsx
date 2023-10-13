@@ -3,7 +3,7 @@ import HelpRoundedIcon from '@mui/icons-material/HelpRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded'
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded'
-import { Button, Divider, Modal, ModalDialog, Stack, Typography } from '@mui/joy'
+import { Box, Button, Divider, Modal, ModalDialog, Stack, Typography } from '@mui/joy'
 import { useState } from 'react'
 import { VowelRound } from '../../utils/types/display'
 import DisplayVowelRound from '../displays/DisplayVowelRound'
@@ -85,8 +85,10 @@ export default function VowelTutorial({ verbose }: { verbose?: boolean }) {
           Try out
         </Button>
         <Modal open={trial} onClose={() => setTrial(false)}>
-          <ModalDialog layout='fullscreen' sx={{ justifyContent: 'center' }}>
-            <DisplayVowelRound data={data} />
+          <ModalDialog layout='fullscreen' sx={{ alignItems: 'center', justifyContent: 'center' }}>
+            <Box width='100%' justifyContent='center' display='flex'>
+              <DisplayVowelRound data={data} />
+            </Box>
           </ModalDialog>
         </Modal>
       </Stack>
