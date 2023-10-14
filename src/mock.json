@@ -135,25 +135,25 @@
     },
     "wall2": {
       "group1": {
-        "clue1": "Single\nbond",
-        "clue2": "Damping\nratio",
-        "clue3": "Electrical\nconductivity",
-        "clue4": "Stocks\nvolatility",
-        "description": "Represented by Greek letter 'sigma'"
+        "clue1": "Bucket",
+        "clue2": "Cocktail",
+        "clue3": "Quick",
+        "clue4": "Tim",
+        "description": "Sorting algorithms"
       },
       "group2": {
-        "clue1": "A",
-        "clue2": "On",
-        "clue3": "Rico",
-        "clue4": "Unselled",
-        "description": "Coco_____"
+        "clue1": "Grit",
+        "clue2": "Soot",
+        "clue3": "Powder",
+        "clue4": "Ash",
+        "description": "Particulates"
       },
       "group3": {
         "clue1": "Blood",
         "clue2": "Bubble",
         "clue3": "Sand",
         "clue4": "Bird",
-        "description": "Types of baths"
+        "description": "Words that can be followed by bath"
       },
       "group4": {
         "clue1": "Sun",
@@ -166,26 +166,26 @@
   },
   "vowels": {
     "group1": {
-      "clue1": "TH MSL FDS NND LCTR CB LB",
-      "clue2": "LX NDR GR HMB LLN DTL PHN",
-      "clue3": "CH RL SBB BGN DCM PTR",
-      "clue4": "MRCR NDRDM",
-      "solution1": "THOMAS ALFA EDISON AND ELECTRIC BULB",
-      "solution2": "ALEXANDER GRAHAM BELL AND TELEPHONE",
-      "solution3": "CHARLES BABBAGE AND COMPUTER",
-      "solution4": "MARIE CURIE AND RADIUM",
-      "description": "Scientists and their inventions"
+      "clue1": "C LDPL YNDC HRSM RT N",
+      "clue2": "VN GRSN DR NMN",
+      "clue3": "T HRP NNNN DTHN TDK NG DM",
+      "clue4": "THS LRSY STMN DRTH",
+      "solution1": "COLDPLAY AND CHRIS MARTIN",
+      "solution2": "AVENGERS AND IRON MAN",
+      "solution3": "THE EUROPEAN UNION AND THE UNITED KINGDOM",
+      "solution4": "THE SOLAR SYSTEM AND EARTH",
+      "description": "A group name and one of its members"
     },
     "group2": {
       "clue1": "CHN SG RD NSB YTH BYF RNT",
-      "clue2": "PTN GPS RPN JNG MK",
-      "clue3": "B NV STM PN SS TDM",
-      "clue4": "DK TSN GKN GMK",
+      "clue2": "B NV STM PNS WST DM",
+      "clue3": "N ST V NS M",
+      "clue4": "BSH NG MK",
       "solution1": "CHINESE GARDENS BY THE BAYFRONT",
-      "solution2": "POTONG PASIR PANJANG MO KIO",
-      "solution3": "BUONA VISTAMPINES EASTADIUM",
-      "solution4": "DAKOTAI SENGKANG MO KIO",
-      "description": "Three SMRT stations combined"
+      "solution2": "BUONA VISTAMPINES WESTADIUM",
+      "solution3": "EUNOSTEVENSIMEI",
+      "solution4": "UBISHANG MO KIO",
+      "description": "Three SMRT station names combined"
     },
     "group3": {
       "clue1": "BGK TKD LRTM PRNG",
