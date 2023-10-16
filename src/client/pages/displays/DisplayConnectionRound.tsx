@@ -16,7 +16,13 @@ export default function DisplayConnectionRound({ data }: { data: ConnectionRound
         <Grid container columns={3} spacing={1}>
           {Object.entries(data).map(([key, value], index) => (
             index < 3 &&
-            <Tooltip open={!opened.includes(key) && !clues} key={key} title={getGroupName((index + 1).toString())} placement='top' size='lg' variant='soft'>
+            <Tooltip
+              open={!opened.includes(key) && !clues}
+              key={key}
+              title={getGroupName((index + 1).toString())}
+              placement='top'
+              size='lg'
+              variant='soft'>
               <Grid xs='auto'>
                 <DisplayGroupBox
                   groupId={key}
@@ -33,7 +39,12 @@ export default function DisplayConnectionRound({ data }: { data: ConnectionRound
         <Grid container columns={3} spacing={1}>
           {Object.entries(data).map(([key, value], index) => (
             index >= 3 &&
-            <Tooltip open={!opened.includes(key) && !clues} key={key} title={getGroupName((index + 1).toString())} placement='bottom' size='lg' variant='soft'>
+            <Tooltip
+              open={!opened.includes(key) && !clues} key={key}
+              title={getGroupName((index + 1).toString())}
+              placement='bottom'
+              size='lg'
+              variant='soft'>
               <Grid xs='auto'>
                 <DisplayGroupBox
                   groupId={key}

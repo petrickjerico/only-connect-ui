@@ -3,8 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@colyseus/arena": "^0.14.22",
-    "@colyseus/monitor": "^0.14.20",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.11",
@@ -16,8 +14,6 @@
     "@types/react": "^18.2.22",
     "@types/react-dom": "^18.2.7",
     "animate.css": "^4.1.1",
-    "colyseus": "^0.14.20",
-    "colyseus.js": "^0.15.14",
     "cors": "^2.8.5",
     "fs": "^0.0.1-security",
     "lodash": "^4.17.21",
@@ -32,7 +28,6 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "start-server": "ts-node-dev --project tsconfig.server.json src/server/index.ts",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-script eject",
@@ -53,8 +48,6 @@
     ]
   },
   "devDependencies": {
-    "@colyseus/loadtest": "^0.14.4",
-    "@colyseus/testing": "^0.14.21",
     "@types/cors": "^2.8.6",
     "@types/express": "^4.17.1",
     "@types/lodash": "^4.14.199",
@@ -73,8 +66,6 @@
     "prettier": "^3.0.3",
     "react-app-rewired": "^2.2.1",
     "rimraf": "^2.7.1",
-    "ts-node": "^10.9.1",
-    "ts-node-dev": "^2.0.0",
     "typescript": "^4.8.4"
   },
   "browser": {
