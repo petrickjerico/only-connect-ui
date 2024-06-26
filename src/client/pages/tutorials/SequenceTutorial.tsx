@@ -7,16 +7,30 @@ import HelpRoundedIcon from '@mui/icons-material/HelpRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded'
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded'
+import { useTranslation } from 'react-i18next'
+import { stopAudio } from '../../utils/audios'
+import { CluesBGM } from '../../../assets/audios'
 
 export default function SequenceTutorial({ verbose }: { verbose?: boolean }) {
   console.log(verbose)
 
-  const clues: ClueGroup = {
-    clue1: 'November',
-    clue2: 'Mike',
-    clue3: 'Lima',
-    clue4: 'Kilo',
-    description: 'NATO alphabets in reverse order'
+  const { t, i18n } = useTranslation()
+
+  const clues: Record<string, ClueGroup> = {
+    en: {
+      clue1: 'November',
+      clue2: 'Mike',
+      clue3: 'Lima',
+      clue4: 'Kilo',
+      description: 'NATO alphabets in reverse order'
+    },
+    id: {
+      clue1: 'Januari',
+      clue2: 'Juli',
+      clue3: 'Juni',
+      clue4: 'Maret',
+      description: 'Bulan dalam urutan alfabet'
+    }
   }
 
   const [trial, setTrial] = useState<boolean>(false)
@@ -25,7 +39,7 @@ export default function SequenceTutorial({ verbose }: { verbose?: boolean }) {
     <Stack direction='row' spacing={2} >
       <Stack minWidth='25%'>
         <Typography level='h4' pb={2}>
-          Quick Glance
+          {t('quick_glance')}
         </Typography>
         <Typography
           variant='plain'
@@ -33,7 +47,7 @@ export default function SequenceTutorial({ verbose }: { verbose?: boolean }) {
           whiteSpace='pre'
           flexWrap='wrap'
         >
-          {'"'}What comes <b>fourth</b>?{'"'}
+          {t('round2_description_question')}
         </Typography>
         <Typography
           variant='plain'
@@ -41,61 +55,57 @@ export default function SequenceTutorial({ verbose }: { verbose?: boolean }) {
           whiteSpace='pre'
           flexWrap='wrap'
         >
-          40 seconds
+          {t('round2_description_time')}
         </Typography>
         <Typography
           variant='plain'
           startDecorator={<CheckCircleRoundedIcon />}
           flexWrap='wrap'
         >
-          2-5 points
+          {t('round2_description_win')}
         </Typography>
         <Typography
           variant='plain'
           startDecorator={<CancelRoundedIcon />}
           flexWrap='wrap'
         >
-          0 point (rival may steal)
+          {t('round2_description_lose')}
         </Typography>
         <Typography
           variant='plain'
           startDecorator={<InfoRoundedIcon />}
           flexWrap='wrap'
         >
-          All text / images (rarely music)
+          {t('round2_description_info')}
         </Typography>
-        <Button sx={{ mt: 2, py: 2 }} onClick={() => setTrial(true)} variant='soft' size='lg'>
-          Try out
+        <Button
+          sx={{ mt: 2, py: 2 }}
+          onClick={() => setTrial(true)}
+          variant='soft'
+          size='lg'>
+          {t('try_out')}
         </Button>
-        <Modal open={trial} onClose={() => setTrial(false)}>
+        <Modal open={trial} onClose={() => {
+          setTrial(false)
+          stopAudio(CluesBGM)
+        }}>
           <ModalDialog layout='fullscreen' sx={{ justifyContent: 'center' }}>
-            <DisplayClues groupKey={'group1'} data={clues} hideLast />
+            <DisplayClues groupKey={'group1'} data={clues[i18n.language]} hideLast />
           </ModalDialog>
         </Modal>
       </Stack>
       <Divider orientation='vertical' />
       <Stack spacing={2}>
         <Typography level='h4'>
-          Round Description
+          {t('round_description')}
         </Typography>
-        <Typography>
-          In this round, each set of four clues forms a sequence.
-          Teams may see a maximum of three clues, and must determine what would
-          come fourth in the sequence within the 40 second time limit.
-        </Typography>
-        <Typography>
-          As with the first round, teams score points dependent on the number of clues seen,
-          and if they fail to guess correctly, it is thrown over to the other team, who can
-          see any remaining clues and answer for a bonus point.
-        </Typography>
-        <Typography>
-          Teams can score points without correctly identifying what the sequence is, but may
-          be required to do so if the sequence is very specific.
-        </Typography>
-        <Typography>
-          As in the previous round, one set of clues involves pictures, with teams describing the fourth
-          picture in the sequence.
-        </Typography>
+        {t('round2_description_paragraph')
+          .split('\n')
+          .map((line, key) => (
+            <Typography key={key}>
+              {line}
+            </Typography>
+          ))}
       </Stack>
     </Stack>
   )

@@ -10,6 +10,8 @@ import { ClickSFX, CorrectSFX, FailSFX, GroupSelectedSFX, IncorrectSFX, LifeRedu
 import { stopAudio, playAudio } from '../../utils/audios'
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
 import HourglassTopRoundedIcon from '@mui/icons-material/HourglassTopRounded'
+import { useTranslation } from 'react-i18next'
+import { useTheme } from '@mui/joy/styles'
 
 const ReactGridLayout = WidthProvider(Responsive)
 
@@ -20,7 +22,13 @@ const enum RoundState {
   GUESS,
 }
 
-export default function DisplayWall({ data, groupKey }: { data: WallGroup, groupKey: string }) {
+export default function DisplayWall({
+  data,
+  groupKey,
+}: {
+  data: WallGroup,
+  groupKey: string,
+}) {
   const [layout, setLayout] = useState<Layout[]>([])
   const [selections, setSelections] = useState<string[]>([])
   const [found, setFound] = useState<string[]>([])
@@ -28,9 +36,9 @@ export default function DisplayWall({ data, groupKey }: { data: WallGroup, group
   const [lives, setLives] = useState<{ isActivated: boolean, number: number }>({ isActivated: false, number: 3 })
   const [guessing, setGuessing] = useState<number>(0)
   const [fastAnimation, setFastAnimation] = useState<boolean>(false)
-
-
   const [gameState, setGameState] = useState<RoundState>(RoundState.READY)
+  const { t } = useTranslation()
+  const theme = useTheme()
 
   const wallData: Record<string, Record<string, string>> = data
 
@@ -53,7 +61,7 @@ export default function DisplayWall({ data, groupKey }: { data: WallGroup, group
 
   function getColor(i: string, groupId: string) {
     if (selections.includes(i)) {
-      return colors.blue[100]
+      return theme.vars.palette.primary.softHoverBg
     }
     if (found.includes(i)) {
       return getGroupColor(groupId)
@@ -79,8 +87,6 @@ export default function DisplayWall({ data, groupKey }: { data: WallGroup, group
           isDraggable: false,
           isResizable: false
         }))
-
-
     setLayout(newLayout)
     return notFoundLayout.map(({ i }) => i)
   }
@@ -121,11 +127,7 @@ export default function DisplayWall({ data, groupKey }: { data: WallGroup, group
           return
         }
       }
-      if (lives.isActivated) {
-        playAudio(LifeReducedSFX)
-      } else {
-        playAudio(IncorrectSFX)
-      }
+      playAudio(lives.isActivated ? LifeReducedSFX : IncorrectSFX)
     }
   }
 
@@ -172,143 +174,148 @@ export default function DisplayWall({ data, groupKey }: { data: WallGroup, group
   }, [found])
 
 
-  return <Box display='flex' alignItems='center' justifyContent='center' height='100%'>
-    {gameState === RoundState.READY &&
-      <Stack alignItems='center' spacing={4}>
-        <DisplayGroupBox
-          groupId={groupKey}
-          onClick={() => {
-            playAudio(ClickSFX)
-            playAudio(WallBGM)
-            setGameState(RoundState.PLAY)
-          }} />
-        <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' />}>
-          <Typography startDecorator={<GridViewRoundedIcon />} level='body-lg'>
-            Wall
-          </Typography>
-          <Typography startDecorator={<HourglassTopRoundedIcon />} level='body-lg'>
-            2 minutes 30 seconds
-          </Typography>
-        </Stack>
-      </Stack>}
-    {gameState > RoundState.READY &&
-      <Stack direction='row' gap={4} justifyContent='space-between'>
-        <Stack width='70vw' gap={2}>
-          <StyledReactGridLayout
-            fast={fastAnimation}
-            className='layout'
-            cols={{ lg: 4, md: 4, sm: 4, xs: 4, xxs: 4 }}
-            layouts={{ lg: layout, md: layout, sm: layout, xs: layout, xxs: layout }}
-            isDraggable={false}
-            containerPadding={[0, 0]}
-          >
-            {layout.map(({ i }) => {
-              const keys: string[] = i.split('_')
-              const [groupKey, clueKey] = [keys[0], keys[1]]
-              const groupId = groupKey.charAt(groupKey.length - 1)
-              return (
-                <Button
-                  variant='outlined'
-                  key={i}
-                  disabled={found.includes(i) || gameState !== RoundState.PLAY}
-                  onClick={() => {
-                    playAudio(TapSFX)
-                    if (selections.includes(i)) {
-                      setSelections(selections.filter(val => val !== i))
-                    } else {
-                      setSelections(selections.concat(i))
+  return (
+    <Box display='flex' alignItems='center' justifyContent='center' height='100%'>
+      {gameState === RoundState.READY &&
+        <Stack alignItems='center' spacing={4}>
+          <DisplayGroupBox
+            groupId={groupKey}
+            onClick={() => {
+              playAudio(ClickSFX)
+              playAudio(WallBGM)
+              setGameState(RoundState.PLAY)
+            }} />
+          <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' />}>
+            <Typography startDecorator={<GridViewRoundedIcon />} level='body-lg'>
+              {t('wall')}
+            </Typography>
+            <Typography startDecorator={<HourglassTopRoundedIcon />} level='body-lg'>
+              {t('2_minutes_30_seconds')}
+            </Typography>
+          </Stack>
+        </Stack>}
+      {gameState > RoundState.READY &&
+        <Stack direction='row' gap={4} justifyContent='space-between'>
+          <Stack width='70vw' gap={2}>
+            <StyledReactGridLayout
+              fast={fastAnimation}
+              className='layout'
+              cols={{ lg: 4, md: 4, sm: 4, xs: 4, xxs: 4 }}
+              layouts={{ lg: layout, md: layout, sm: layout, xs: layout, xxs: layout }}
+              isDraggable={false}
+              containerPadding={[0, 0]}
+            >
+              {layout.map(({ i }) => {
+                const keys: string[] = i.split('_')
+                const [groupKey, clueKey] = [keys[0], keys[1]]
+                const groupId = groupKey.charAt(groupKey.length - 1)
+                return (
+                  <Button
+                    variant='outlined'
+                    key={i}
+                    disabled={found.includes(i) || gameState !== RoundState.PLAY}
+                    onClick={() => {
+                      playAudio(TapSFX)
+                      if (selections.includes(i)) {
+                        setSelections(selections.filter(val => val !== i))
+                      } else {
+                        setSelections(selections.concat(i))
+                      }
                     }
-                  }
-                  }
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    userSelect: 'none',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    backgroundColor: getColor(i, groupId),
-                    ':disabled': {
+                    }
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      userSelect: 'none',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                       backgroundColor: getColor(i, groupId),
-                    }
-                  }}
-                >
-                  <Typography textAlign='center' whiteSpace='pre-line' level='h3'>
-                    {wallData[groupKey][clueKey]}
-                  </Typography>
-                </Button>
-              )
-            })}
-          </StyledReactGridLayout>
-          {gameState === RoundState.PLAY &&
-            <Stack direction='row' gap={4}>
-              <Stack direction='row' gap={1} visibility={lives.isActivated ? 'visible' : 'hidden'} width='10%' alignItems='center'>
-                {Array.from(Array(lives.number).keys()).map((key) => <FavoriteRounded key={key} sx={{ color: colors.red[300] }} />)}
-              </Stack>
-              <LinearTimer
-                duration={150}
-                isVisible={true}
-                isCounting={true}
-                isEnd={false}
-                onComplete={() => setGameState(RoundState.PAUSE)} />
-            </Stack>}
-          {gameState === RoundState.PAUSE &&
-            <Button
-              variant='solid'
-              fullWidth
-              color={found.length === 16 ? 'success' : 'neutral'}
-              onClick={() => {
-                playAudio(NextClueSFX)
-                setGameState(RoundState.GUESS)
-              }}>
-              {`The wall ${found.length === 16 ? 'is solved!' : 'has frozen.'} Proceed to guessing connections.`}
-            </Button>}
-        </Stack>
-        {gameState === RoundState.GUESS &&
-          <Stack display='flex' spacing={1} width='30%'>
-            {Array.from(Array(4).keys()).map((index) => {
-              if (index < foundGroups.length) {
-                const connectionKey = foundGroups[index]
-                const groupId = connectionKey.charAt(connectionKey.length - 1)
-                return (
-                  <StyledSheet key={connectionKey} variant='outlined' height='100%' colorid={groupId}>
-                    <StyledButton
-                      variant='soft'
-                      onClick={() => {
-                        playAudio(ClickSFX)
-                        setGuessing(guessing + 1)
-                      }}
-                      disabled={guessing !== index}
-                      sx={{
-                        position: 'absolute',
-                        width: '100%',
-                        visibility: guessing > index ? 'hidden' : 'visible'
-                      }} >
-                      What is the connection in this group?
-                    </StyledButton>
-                    <Typography level='h2' px='4px'>
-                      {wallData[connectionKey]['description']}
+                      ':disabled': {
+                        backgroundColor: getColor(i, groupId),
+                      }
+                    }}
+                  >
+                    <Typography textAlign='center' whiteSpace='pre-line' level='h3'>
+                      {wallData[groupKey][clueKey]}
                     </Typography>
-                  </StyledSheet>
+                  </Button>
                 )
-              } else {
-                return (
-                  <StyledSheet key={index} variant='outlined' height='100%'>
-                    <StyledButton
-                      disabled={guessing !== index}
-                      variant='soft' onClick={() => {
-                        playAudio(NextClueSFX)
-                        solveWall()
-                      }}>
-                      Resolve wall
-                    </StyledButton>
-                  </StyledSheet>
-                )
-              }
-            })}
-          </Stack>}
-      </Stack>
-    }
-  </Box>
+              })}
+            </StyledReactGridLayout>
+            {gameState === RoundState.PLAY &&
+              <Stack direction='row' gap={4}>
+                <Stack direction='row' gap={1} visibility={lives.isActivated ? 'visible' : 'hidden'} width='10%' alignItems='center'>
+                  {Array.from(Array(lives.number).keys()).map((key) => <FavoriteRounded key={key} sx={{ color: colors.red[300] }} />)}
+                </Stack>
+                <LinearTimer
+                  duration={150}
+                  isVisible={true}
+                  isCounting={true}
+                  isEnd={false}
+                  onComplete={() => {
+                    setGameState(RoundState.PAUSE)
+                    setSelections([])
+                  }} />
+              </Stack>}
+            {gameState === RoundState.PAUSE &&
+              <Button
+                variant='soft'
+                fullWidth
+                color={found.length === 16 ? 'success' : 'neutral'}
+                onClick={() => {
+                  playAudio(NextClueSFX)
+                  setGameState(RoundState.GUESS)
+                }}>
+                {found.length === 16 ? t('wall_win') : t('wall_lose')}
+              </Button>}
+          </Stack>
+          {gameState === RoundState.GUESS &&
+            <Stack display='flex' spacing={1} width='30%'>
+              {Array.from(Array(4).keys()).map((index) => {
+                if (index < foundGroups.length) {
+                  const connectionKey = foundGroups[index]
+                  const groupId = connectionKey.charAt(connectionKey.length - 1)
+                  return (
+                    <StyledSheet key={connectionKey} variant='outlined' height='100%' colorid={groupId}>
+                      <StyledButton
+                        variant='soft'
+                        onClick={() => {
+                          playAudio(ClickSFX)
+                          setGuessing(guessing + 1)
+                        }}
+                        disabled={guessing !== index}
+                        sx={{
+                          position: 'absolute',
+                          width: '100%',
+                          visibility: guessing > index ? 'hidden' : 'visible'
+                        }} >
+                        {t('ask_wall_connection')}
+                      </StyledButton>
+                      <Typography level='h2' px='4px'>
+                        {wallData[connectionKey]['description']}
+                      </Typography>
+                    </StyledSheet>
+                  )
+                } else {
+                  return (
+                    <StyledSheet key={index} variant='outlined' height='100%'>
+                      <StyledButton
+                        disabled={guessing !== index}
+                        variant='soft' onClick={() => {
+                          playAudio(NextClueSFX)
+                          solveWall()
+                        }}>
+                        {t('resolve_wall')}
+                      </StyledButton>
+                    </StyledSheet>
+                  )
+                }
+              })}
+            </Stack>}
+        </Stack>
+      }
+    </Box>
+  )
 }
 
 

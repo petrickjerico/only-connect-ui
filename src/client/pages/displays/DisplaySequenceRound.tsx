@@ -4,6 +4,8 @@ import { useState } from 'react'
 import DisplayGroupBox from '../../components/DisplayGroupBox'
 import DisplayClues from '../../layout/display/DisplayClues'
 import { getGroupName } from '../../utils/titles'
+import { stopAudio } from '../../utils/audios'
+import { CluesBGM } from '../../../assets/audios'
 
 export default function DisplaySequenceRound({ data }: { data: SequenceRound }) {
   const [groupKey, setGroupKey] = useState<string>('')
@@ -48,7 +50,10 @@ export default function DisplaySequenceRound({ data }: { data: SequenceRound }) 
           ))}
         </Grid >
       </Stack>
-      <Modal open={!!clues} onClose={() => setClues(undefined)}>
+      <Modal open={!!clues} onClose={() => {
+        setClues(undefined)
+        stopAudio(CluesBGM)
+      }}>
         <ModalDialog layout='fullscreen' sx={{ justifyContent: 'center' }}>
           <DisplayClues groupKey={groupKey} data={clues as ClueGroup} hideLast />
         </ModalDialog>

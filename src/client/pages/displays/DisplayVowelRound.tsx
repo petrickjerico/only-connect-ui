@@ -62,7 +62,6 @@ export default function DisplayVowelRound({ data }: { data: VowelRound }) {
         if (!isAudioPlaying) {
           setIsAudioPlaying(true)
           playAudio(VowelLongBGM)
-          VowelLongBGM.onended = endGame
         }
         setClue(value)
         break

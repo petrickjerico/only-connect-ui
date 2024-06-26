@@ -50,7 +50,6 @@ export default function LinearTimer({
       <Typography
         level="body-lg"
         fontWeight="md"
-        textColor='common.black'
         sx={{
           transform: 'rotate(180deg)'
         }}

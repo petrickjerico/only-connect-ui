@@ -1,21 +1,23 @@
-import { Stack, Divider, Typography } from '@mui/joy'
+import { Stack, Typography } from '@mui/joy'
 import CoverImage from '../../../assets/img/cover.png'
+import { useTranslation } from 'react-i18next'
 
 export default function DisplayEndScreen() {
+  const { t } = useTranslation()
   return (
     <Stack
       direction='row'
       alignItems='center'
       justifyContent='center'
       spacing={8}
-      divider={<Divider orientation='vertical' />}>
+    >
       <img src={CoverImage} width='20%' height='auto' />
       <Stack spacing={2} maxWidth='30%'>
         <Typography level='h1'>
-          End of the game!
+          {t('end_title')}
         </Typography>
         <Typography level='body-lg'>
-          {'Thank you for playing! Hope you enjoyed the puzzles.'}
+          {t('end_message')}
         </Typography>
       </Stack>
     </Stack>

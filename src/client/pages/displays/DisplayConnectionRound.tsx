@@ -4,6 +4,8 @@ import { useState } from 'react'
 import DisplayGroupBox from '../../components/DisplayGroupBox'
 import DisplayClues from '../../layout/display/DisplayClues'
 import { getGroupName } from '../../utils/titles'
+import { stopAudio } from '../../utils/audios'
+import { CluesBGM } from '../../../assets/audios'
 
 export default function DisplayConnectionRound({ data }: { data: ConnectionRound }) {
   const [groupKey, setGroupKey] = useState<string>('')
@@ -22,8 +24,9 @@ export default function DisplayConnectionRound({ data }: { data: ConnectionRound
               title={getGroupName((index + 1).toString())}
               placement='top'
               size='lg'
-              variant='soft'>
-              <Grid xs='auto'>
+              variant='soft'
+            >
+              <Grid xs='auto' position='relative'>
                 <DisplayGroupBox
                   groupId={key}
                   onClick={() => {
@@ -59,7 +62,10 @@ export default function DisplayConnectionRound({ data }: { data: ConnectionRound
           ))}
         </Grid >
       </Stack>
-      <Modal open={!!clues} onClose={() => setClues(undefined)}>
+      <Modal open={!!clues} onClose={() => {
+        setClues(undefined)
+        stopAudio(CluesBGM)
+      }}>
         <ModalDialog layout='fullscreen' sx={{ justifyContent: 'center' }}>
           <DisplayClues groupKey={groupKey} data={clues as ClueGroup} />
         </ModalDialog>

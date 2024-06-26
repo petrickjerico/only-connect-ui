@@ -13,6 +13,7 @@ import HourglassTopRoundedIcon from '@mui/icons-material/HourglassTopRounded'
 import MusicNoteRoundedIcon from '@mui/icons-material/MusicNoteRounded'
 import ImageRoundedIcon from '@mui/icons-material/ImageRounded'
 import NotesRoundedIcon from '@mui/icons-material/NotesRounded'
+import { useTranslation } from 'react-i18next'
 
 const enum RoundState {
   READY,
@@ -37,7 +38,7 @@ export default function DisplayClues({
   const description = data.description
   const [shown, setShown] = useState<number[]>([0])
   const [gameState, setGameState] = useState<RoundState>(RoundState.READY)
-
+  const { t } = useTranslation()
 
   function showUntil(index: number) {
     if (hideLast && index === 2) {
@@ -54,13 +55,13 @@ export default function DisplayClues({
   function getScore(index: 0 | 1 | 2 | 3 | number): string {
     switch (index) {
       case 0:
-        return '5 points'
+        return `5 ${t('points')}`
       case 1:
-        return '3 points'
+        return `3 ${t('points')}`
       case 2:
-        return '2 points'
+        return `2 ${t('points')}`
       case 3:
-        return '1 point'
+        return `1 ${t('point')}`
       default:
         return ''
     }
@@ -95,7 +96,6 @@ export default function DisplayClues({
 
   useEffect(() => {
     playAudio(GroupSelectedSFX)
-    console.log(mediaAppendage)
   }, [])
 
   return (
@@ -114,18 +114,18 @@ export default function DisplayClues({
           <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' />}>
             {getClueMediaType() === 'audio' &&
               <Typography startDecorator={<MusicNoteRoundedIcon />} level='body-lg'>
-                Music clues
+                {t('music_clues')}
               </Typography>}
             {getClueMediaType() === 'image' &&
               <Typography startDecorator={<ImageRoundedIcon />} level='body-lg'>
-                Image clues
+                {t('image_clues')}
               </Typography>}
             {!getClueMediaType() &&
               <Typography startDecorator={<NotesRoundedIcon />} level='body-lg'>
-                Text clues
+                {t('text_clues')}
               </Typography>}
             <Typography startDecorator={<HourglassTopRoundedIcon />} level='body-lg'>
-              40 seconds
+              {t('40_seconds')}
             </Typography>
           </Stack>
         </Stack>}
@@ -154,11 +154,20 @@ export default function DisplayClues({
               if (index < 4) return (
                 <Sheet key={key} sx={{ width: '100%' }}>
                   {!shown.includes(index) && (
-                    <StyledButton variant='plain' onClick={() => {
-                      playAudio(NextClueSFX)
-                      showUntil(index)
-                    }}>
-                      show until here
+                    <StyledButton
+                      variant='plain'
+                      onClick={() => {
+                        playAudio(NextClueSFX)
+                        showUntil(index)
+                      }}
+                      sx={(theme) => ({
+                        backgroundColor: `${theme.vars.palette.neutral.softBg}`,
+                        ':hover': {
+                          backgroundColor: `${theme.vars.palette.neutral.softBg}`,
+                          color: `${theme.vars.palette.primary.softColor}`
+                        }
+                      })}>
+                      {t('show_until_here')}
                     </StyledButton>
                   )}
                   {(mediaAppendage && (!hideLast || index < 3 || gameState >= RoundState.SEQUECNE_SHOW_END_PICTURE)) && (
@@ -183,7 +192,15 @@ export default function DisplayClues({
           </Stack>
           <Sheet>
             {gameState < RoundState.END &&
-              <StyledButtonGroup variant='plain'>
+              <StyledButtonGroup
+                variant='plain'
+                sx={(theme) => ({
+                  backgroundColor: `${theme.vars.palette.neutral.softBg}`,
+                  ':hover': {
+                    backgroundColor: `${theme.vars.palette.neutral.softBg}`,
+                    color: `${theme.vars.palette.primary.softColor}`
+                  }
+                })}>
                 <Button
                   fullWidth
                   disabled={gameState >= RoundState.GUESS}
@@ -192,7 +209,7 @@ export default function DisplayClues({
                     stopAudio(CluesBGM)
                     playAudio(BuzzerSFX)
                   }}>
-                  Stop timer
+                  {t('stop_timer')}
                 </Button>
                 <Button
                   fullWidth
@@ -202,7 +219,7 @@ export default function DisplayClues({
                     playAudio(NextClueSFX)
                     showUntil(3)
                   }}>
-                  Throw
+                  {t('throw')}
                 </Button>
                 <Button
                   fullWidth
@@ -216,7 +233,7 @@ export default function DisplayClues({
                     playAudio(ClickSFX)
                     showUntil(4)
                   }}>
-                  Show answer
+                  {t('show_answer')}
                 </Button>
               </StyledButtonGroup>}
             <DisplayDescriptionBox description={description} />
@@ -226,22 +243,17 @@ export default function DisplayClues({
   )
 }
 
-const StyledButton = styled(Button)(({ theme }) => ({
+const StyledButton = styled(Button)(() => ({
   height: '100%',
   width: '100%',
   textAlign: 'center',
   position: 'absolute',
   borderRadius: '12px',
   color: 'transparent',
-  backgroundColor: theme.palette.neutral[100],
   zIndex: '2',
-  [':hover']: {
-    backgroundColor: theme.palette.neutral[100],
-    color: theme.palette.primary[500]
-  }
 }))
 
-const StyledButtonGroup = styled(ButtonGroup)(({ theme }) => ({
+const StyledButtonGroup = styled(ButtonGroup)(() => ({
   height: '100%',
   width: '100%',
   justifyContent: 'space-between',
@@ -249,11 +261,6 @@ const StyledButtonGroup = styled(ButtonGroup)(({ theme }) => ({
   position: 'absolute',
   borderRadius: '12px',
   color: 'transparent',
-  backgroundColor: theme.palette.neutral[100],
   zIndex: '1',
-  [':hover']: {
-    backgroundColor: theme.palette.neutral[100],
-    color: theme.palette.primary[500]
-  }
 }))
 

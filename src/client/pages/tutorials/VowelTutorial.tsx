@@ -7,32 +7,64 @@ import { Box, Button, Divider, Modal, ModalDialog, Stack, Typography } from '@mu
 import { useState } from 'react'
 import { VowelRound } from '../../utils/types/display'
 import DisplayVowelRound from '../displays/DisplayVowelRound'
+import { useTranslation } from 'react-i18next'
+import i18n from '../../i18n'
+import { stopAllBGM } from '../../utils/audios'
 
 export default function VowelTutorial({ verbose }: { verbose?: boolean }) {
   console.log(verbose)
 
-  const data: VowelRound = {
-    group1: {
-      clue1: 'DN',
-      clue2: 'ND M',
-      clue3: 'TN',
-      clue4: 'RG N',
-      solution1: 'IODINE',
-      solution2: 'INDIUM',
-      solution3: 'TIN',
-      solution4: 'ARGON',
-      description: 'Elements in the periodic table'
+  const { t } = useTranslation()
+
+
+  const data: Record<string, VowelRound> = {
+    en: {
+      group1: {
+        clue1: 'DN',
+        clue2: 'ND M',
+        clue3: 'TN',
+        clue4: 'RG N',
+        solution1: 'IODINE',
+        solution2: 'INDIUM',
+        solution3: 'TIN',
+        solution4: 'ARGON',
+        description: 'Elements in the periodic table'
+      },
+      group2: {
+        clue1: 'ND ND S',
+        clue2: 'N DNS NDS',
+        clue3: 'RL NDND RP',
+        clue4: 'G NDN DFR C',
+        solution1: 'INDIA AND ASIA',
+        solution2: 'INDONESIA AND ASIA',
+        solution3: 'IRELAND AND EUROPE',
+        solution4: 'UGANDA AND AFRICA',
+        description: 'Countries and the continent they are in'
+      }
     },
-    group2: {
-      clue1: 'ND ND S',
-      clue2: 'N DNS NDS',
-      clue3: 'RL NDND RP',
-      clue4: 'VC TRN DST RL',
-      solution1: 'INDIA AND ASIA',
-      solution2: 'INDONESIA AND ASIA',
-      solution3: 'IRELAND AND EUROPE',
-      solution4: 'VICTORIA AND AUSTRALIA',
-      description: 'Countries and the continent they are in'
+    id: {
+      group1: {
+        clue1: 'NTR M',
+        clue2: 'KLM',
+        clue3: 'MS',
+        clue4: 'R GN',
+        solution1: 'NATRIUM',
+        solution2: 'KALIUM',
+        solution3: 'EMAS',
+        solution4: 'ARGON',
+        description: 'Elemen dalam tabel periodik'
+      },
+      group2: {
+        clue1: 'BL DNDNP SR',
+        clue2: 'SM TRTR DNMDN',
+        clue3: 'JWB RTD NBN DG',
+        clue4: 'ML KDNM BN',
+        solution1: 'BALI DAN DENPASAR',
+        solution2: 'SUMATERA UTARA DAN MEDAN',
+        solution3: 'JAWA BARAT DAN BANDUNG',
+        solution4: 'MALUKU DAN AMBON',
+        description: 'Provinsi Indonesia dan ibukotanya'
+      }
     }
   }
 
@@ -42,7 +74,7 @@ export default function VowelTutorial({ verbose }: { verbose?: boolean }) {
     <Stack direction='row' spacing={2} >
       <Stack minWidth='25%'>
         <Typography level='h4' pb={2}>
-          Quick Glance
+          {t('quick_glance')}
         </Typography>
         <Typography
           variant='plain'
@@ -50,7 +82,7 @@ export default function VowelTutorial({ verbose }: { verbose?: boolean }) {
           whiteSpace='pre'
           flexWrap='wrap'
         >
-          {'"'}What is the <b>phrase</b>?{'"'}
+          {t('round4_description_question')}
         </Typography>
         <Typography
           variant='plain'
@@ -58,36 +90,39 @@ export default function VowelTutorial({ verbose }: { verbose?: boolean }) {
           whiteSpace='pre'
           flexWrap='wrap'
         >
-          90 seconds - 3 minutes
+          {t('round4_description_time')}
         </Typography>
         <Typography
           variant='plain'
           startDecorator={<CheckCircleRoundedIcon />}
           flexWrap='wrap'
         >
-          +1 point (if correct)
+          {t('round4_description_win')}
         </Typography>
         <Typography
           variant='plain'
           startDecorator={<CancelRoundedIcon />}
           flexWrap='wrap'
         >
-          -1 point (if incorrect)
+          {t('round4_description_lose')}
         </Typography>
         <Typography
           variant='plain'
           startDecorator={<InfoRoundedIcon />}
           flexWrap='wrap'
         >
-          All text
+          {t('round4_description_info')}
         </Typography>
         <Button sx={{ mt: 2, py: 2 }} onClick={() => setTrial(true)} variant='soft' size='lg'>
-          Try out
+          {t('try_out')}
         </Button>
-        <Modal open={trial} onClose={() => setTrial(false)}>
+        <Modal open={trial} onClose={() => {
+          setTrial(false)
+          stopAllBGM()
+        }}>
           <ModalDialog layout='fullscreen' sx={{ alignItems: 'center', justifyContent: 'center' }}>
             <Box width='100%' justifyContent='center' display='flex'>
-              <DisplayVowelRound data={data} />
+              <DisplayVowelRound data={data[i18n.language]} />
             </Box>
           </ModalDialog>
         </Modal>
@@ -95,25 +130,15 @@ export default function VowelTutorial({ verbose }: { verbose?: boolean }) {
       <Divider orientation='vertical' />
       <Stack spacing={2}>
         <Typography level='h4'>
-          Round Description
+          {t('round_description')}
         </Typography>
-        <Typography>
-          In a final buzzer round, the teams are presented with a series of word puzzles.
-          The category of the puzzles is given before they are displayed, and each category contains a
-          maximum of four puzzles. Each puzzle is a word or phrase with the vowels removed and the
-          spaces shifted to disguise the original words.
-        </Typography>
-        <Typography>
-          Teams answer simultaneously using buzzers, and score 1 point for each puzzle they solve.
-          Otherwise, teams face a penalty of 1 point for each incorrect answer.
-        </Typography>
-        <Typography>
-          If the team that buzzes provides an incorrect answer (even by a single letter) or fails to answer quickly,
-          the opposing team is given an opportunity to answer for a bonus point.
-        </Typography>
-        <Typography>
-          The round lasts for between 90 seconds and three minutes.
-        </Typography>
+        {t('round4_description_paragraph')
+          .split('\n')
+          .map((line, key) => (
+            <Typography key={key}>
+              {line}
+            </Typography>
+          ))}
       </Stack>
     </Stack >
   )

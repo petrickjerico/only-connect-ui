@@ -1,4 +1,4 @@
-import { Sheet, Typography, TypographySystem, colors, styled } from '@mui/joy'
+import { Sheet, Typography, TypographySystem, styled } from '@mui/joy'
 
 export default function DisplayDescriptionBox({
   description,
@@ -8,7 +8,11 @@ export default function DisplayDescriptionBox({
   level?: keyof TypographySystem
 }) {
   return (
-    <StyledSheet variant='plain'>
+    <StyledSheet
+      variant='plain'
+      sx={(theme) => ({
+        backgroundColor: `${theme.vars.palette.primary.softHoverBg}`
+      })}>
       <Typography level={level}>
         {description}
       </Typography>
@@ -25,5 +29,4 @@ const StyledSheet = styled(Sheet)(() => ({
   justifyContent: 'center',
   borderRadius: '12px',
   padding: '8px 0px',
-  backgroundColor: `${colors.blue[200]}`,
 }))

@@ -4,6 +4,8 @@ import { useState } from 'react'
 import DisplayGroupBox from '../../components/DisplayGroupBox'
 import DisplayWall from '../../layout/display/DisplayWall'
 import { DEFAULT_WALL_INDEXES, getGroupName } from '../../utils/titles'
+import { stopAudio } from '../../utils/audios'
+import { WallBGM } from '../../../assets/audios'
 
 export default function DisplayWallRound({ data }: { data: WallRound }) {
   const [groupKey, setGroupKey] = useState<string>('')
@@ -31,7 +33,10 @@ export default function DisplayWallRound({ data }: { data: WallRound }) {
           )
         })}
       </Grid >
-      <Modal open={!!wall} onClose={() => setWall(undefined)}>
+      <Modal open={!!wall} onClose={() => {
+        setWall(undefined)
+        stopAudio(WallBGM)
+      }}>
         <ModalDialog layout='fullscreen'>
           <DisplayWall groupKey={groupKey} data={wall as WallGroup} />
         </ModalDialog>

@@ -6,6 +6,10 @@ import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded'
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded'
 import { useEffect, useState } from 'react'
 import { Outlet, useMatch, useNavigate } from 'react-router-dom'
+import LanguageSelection from '../components/LanguageSelection'
+import PointCounter from '../components/PointCounter'
+import { stopAllBGM } from '../utils/audios'
+import SystemModeToggle from '../components/SystemModeToggle'
 
 const screens = [
   'start',
@@ -40,6 +44,7 @@ export default function DisplayGame() {
       setScreenId(currId)
       navigate(screens[currId])
     }
+    stopAllBGM()
   }
 
   return (
@@ -66,7 +71,19 @@ export default function DisplayGame() {
         }}>
         <ChevronLeftRoundedIcon />
       </IconButton>
-      <Outlet />
+      <Stack alignItems='center' direction='column' width='95%' >
+        <PointCounter />
+        <Outlet />
+        <Stack
+          direction='row'
+          position='absolute'
+          zIndex='2'
+          bottom='2%'
+          gap={1}>
+          <SystemModeToggle />
+          <LanguageSelection />
+        </Stack>
+      </Stack>
       <IconButton
         onMouseEnter={() => setShowButton(true)}
         onMouseOut={() => setShowButton(false)}

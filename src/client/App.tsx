@@ -1,4 +1,6 @@
 import {
+  CssBaseline,
+  CssVarsProvider,
   ThemeProvider,
   useTheme,
 } from '@mui/joy'
@@ -32,24 +34,28 @@ export default function App() {
   }: GameDisplay = transformInputsToDisplay(gameState.game)
 
   return (
-    <ThemeProvider theme={theme}>
-      <GameProvider>
-        <Router>
-          <Routes>
-            <Route path='/' element={<CreateGame />} />
-            <Route path='display' element={<DisplayGame />}>
-              <Route index element={<Navigate to='start' />} />
-              <Route path='start' element={<DisplayStartScreen />} />
-              <Route path='connections' element={<DisplayConnectionRound data={connections} />} />
-              <Route path='sequences' element={<DisplaySequenceRound data={sequences} />} />
-              <Route path='walls' element={<DisplayWallRound data={walls} />} />
-              <Route path='vowels' element={<DisplayVowelRound data={vowels} />} />
-              <Route path='end' element={<DisplayEndScreen />} />
-              <Route path='*' element={<Navigate to='start' />} />
-            </Route>
-          </Routes>
-        </Router>
-      </GameProvider>
-    </ThemeProvider>
+    <CssVarsProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <GameProvider>
+          <Router>
+            <Routes>
+              <Route path='/' element={<CreateGame />} />
+              <Route path='display' element={<DisplayGame />}>
+                <Route index element={<Navigate to='start' />} />
+                <Route path='start' element={<DisplayStartScreen />} />
+                <Route path='connections' element={<DisplayConnectionRound data={connections} />} />
+                <Route path='sequences' element={<DisplaySequenceRound data={sequences} />} />
+                <Route path='walls' element={<DisplayWallRound data={walls} />} />
+                <Route path='vowels' element={<DisplayVowelRound data={vowels} />} />
+                <Route path='end' element={<DisplayEndScreen />} />
+                <Route path='*' element={<Navigate to='start' />} />
+              </Route>
+            </Routes>
+          </Router>
+        </GameProvider>
+      </ThemeProvider>
+    </CssVarsProvider>
+
   )
 }

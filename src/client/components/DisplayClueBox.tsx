@@ -1,4 +1,4 @@
-import { Modal, ModalDialog, Sheet, Typography, colors, styled } from '@mui/joy'
+import { Modal, ModalDialog, Sheet, Typography, styled, useColorScheme } from '@mui/joy'
 import Gramophone from '../../assets/img/music.png'
 import { useState } from 'react'
 
@@ -20,13 +20,16 @@ export default function DisplayClueBox({
   wordSpacing?: string
 }) {
   const [enlargePicture, setEnlargePicture] = useState<boolean>(false)
+  const { mode } = useColorScheme()
 
   return (
     <StyledSheet
       variant='soft'
       height={height}
-      istransparent={isTransparent ? 'true' : 'false'}
-      z={clueType === 'audio' || clueType === 'image' ? 1 : 0}>
+      z={clueType === 'audio' || clueType === 'image' ? 1 : 0}
+      sx={(theme) => ({
+        backgroundColor: isTransparent ? 'transparent' : `${theme.vars.palette.primary.softBg}`
+      })}>
       {clueType === 'audio' && (
         <img
           width='150px'
@@ -34,7 +37,9 @@ export default function DisplayClueBox({
           src={Gramophone}
           alt={clue}
           draggable={false}
-          style={{ opacity: isTransparent ? 0.15 : 1 }}
+          style={{ opacity: isTransparent ? 0.1 : 0.75 }}
+          title={mode === 'dark' ? 'invert' : undefined}
+          className={mode === 'dark' ? 'invert' : undefined}
         />)}
       {clueType === 'image' && (
         <img
@@ -43,7 +48,7 @@ export default function DisplayClueBox({
           alt={clue}
           draggable={false}
           style={{
-            opacity: isTransparent ? 0.15 : 1,
+            opacity: isTransparent ? 0.1 : 1,
             maxHeight: '100%',
             minHeight: '100%'
           }}
@@ -80,11 +85,9 @@ export default function DisplayClueBox({
 
 const StyledSheet = styled(Sheet)<{
   height?: 'short' | 'tall' | string,
-  istransparent?: string,
   z?: number
 }>(({
   height,
-  istransparent,
   z
 }) => ({
   display: 'flex',
@@ -98,5 +101,4 @@ const StyledSheet = styled(Sheet)<{
   zIndex: z ?? undefined,
   position: z ? 'absolute' : undefined,
   overflow: 'clip',
-  backgroundColor: istransparent === 'true' ? 'transparent' : `${colors.blue[100]}`,
 }))

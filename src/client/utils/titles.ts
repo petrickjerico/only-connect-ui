@@ -1,19 +1,30 @@
+import { useTranslation } from 'react-i18next'
 import { RoundType } from './types/attributes'
 
 const DEFAULT_VOWELS_CATEGORY_MAX_COUNT = 5
 const DEFAULT_WALL_CONNECTION_COUNT = 4
 export const DEFAULT_WALL_INDEXES: string[] = ['2', '5']
 const DEFAULT_GROUP_NAMES: Record<string, string> = {
-  '1': '𓇌 Two Reeds',
-  '2': '𓃭 Lion',
-  '3': '𓎛 Twisted Flax',
-  '4': '𓆑 Horned Viper',
-  '5': '𓈗 Water',
-  '6': '𓂀 Eye of Horus'
+  '1': 'two_reeds',
+  '2': 'lion',
+  '3': 'twisted_flax',
+  '4': 'snake',
+  '5': 'water',
+  '6': 'eye_of_horus'
+}
+
+const DEFAULT_GROUP_LOGOS: Record<string, string> = {
+  '1': '𓇌',
+  '2': '𓃭',
+  '3': '𓎛 ',
+  '4': '𓆑',
+  '5': '𓈗',
+  '6': '𓂀'
 }
 
 export function getGroupName(index: string) {
-  return DEFAULT_GROUP_NAMES[index]
+  const { t } = useTranslation()
+  return `${DEFAULT_GROUP_LOGOS[index]} ${t(DEFAULT_GROUP_NAMES[index])}`
 }
 
 function getGroupEntries(groupNames?: Record<string, string>): [string, string][] {
