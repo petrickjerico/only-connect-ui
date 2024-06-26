@@ -1,9 +1,9 @@
-import { Box, Grid, Modal, ModalDialog, Tooltip } from '@mui/joy'
+import { Box, Grid, Modal, ModalDialog } from '@mui/joy'
 import { WallGroup, WallRound } from '../../utils/types/display'
 import { useState } from 'react'
 import DisplayGroupBox from '../../components/DisplayGroupBox'
 import DisplayWall from '../../layout/display/DisplayWall'
-import { DEFAULT_WALL_INDEXES, getGroupName } from '../../utils/titles'
+import { DEFAULT_WALL_INDEXES } from '../../utils/titles'
 import { stopAudio } from '../../utils/audios'
 import { WallBGM } from '../../../assets/audios'
 
@@ -14,22 +14,20 @@ export default function DisplayWallRound({ data }: { data: WallRound }) {
 
   return (
     <Box>
-      <Grid container columns={2} spacing={1}>
+      <Grid container columns={2} gap={1} alignItems='start'>
         {Object.entries(data).map(([key, value], index) => {
           const groupId = `group${DEFAULT_WALL_INDEXES[index]}`
           return (
-            <Tooltip open={!opened.includes(key) && !wall} key={key} title={getGroupName(DEFAULT_WALL_INDEXES[index])} placement='bottom' size='lg' variant='soft'>
-              <Grid xs={1}>
-                <DisplayGroupBox
-                  groupId={groupId}
-                  onClick={() => {
-                    setGroupKey(groupId)
-                    setWall(value)
-                    setOpened(opened.concat(key))
-                  }}
-                  isDisabled={opened.includes(key)} />
-              </Grid>
-            </Tooltip>
+            <DisplayGroupBox
+              key={key}
+              groupId={groupId}
+              isDisabled={opened.includes(key)}
+              namePlacement='bottom'
+              onClick={() => {
+                setGroupKey(groupId)
+                setWall(value)
+                setOpened(opened.concat(key))
+              }} />
           )
         })}
       </Grid >
