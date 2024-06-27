@@ -17,7 +17,6 @@ export default function DisplayGroupBox({
   const isVisible = !isDisabled && !!namePlacement
   const groupName = getGroupName(groupId.slice(-1))
 
-
   return (
     <Stack gap={2} alignItems='center'>
       {isVisible && namePlacement === 'top' && (<Chip size='lg'>{groupName}</Chip>)}

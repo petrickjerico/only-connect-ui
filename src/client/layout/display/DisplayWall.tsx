@@ -12,6 +12,7 @@ import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
 import HourglassTopRoundedIcon from '@mui/icons-material/HourglassTopRounded'
 import { useTranslation } from 'react-i18next'
 import { useTheme } from '@mui/joy/styles'
+import { useKeyboardShortcut } from '../../utils/shortcuts'
 
 const ReactGridLayout = WidthProvider(Responsive)
 
@@ -152,6 +153,12 @@ export default function DisplayWall({
     setFoundGroups(foundGroups.concat(remainingGroups))
   }
 
+  function startWall() {
+    playAudio(ClickSFX)
+    playAudio(WallBGM)
+    setGameState(RoundState.PLAY)
+  }
+
   useEffect(() => {
     playAudio(GroupSelectedSFX)
     initializeLayout()
@@ -173,6 +180,10 @@ export default function DisplayWall({
     }
   }, [found])
 
+  useKeyboardShortcut({
+    key: ' ',
+    onKeyPressed: startWall
+  })
 
   return (
     <Box display='flex' alignItems='center' justifyContent='center' height='100%'>
@@ -180,11 +191,7 @@ export default function DisplayWall({
         <Stack alignItems='center' spacing={4}>
           <DisplayGroupBox
             groupId={groupKey}
-            onClick={() => {
-              playAudio(ClickSFX)
-              playAudio(WallBGM)
-              setGameState(RoundState.PLAY)
-            }} />
+            onClick={startWall} />
           <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' />}>
             <Typography startDecorator={<GridViewRoundedIcon />} level='body-lg'>
               {t('wall')}

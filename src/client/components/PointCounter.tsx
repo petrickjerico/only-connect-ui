@@ -54,7 +54,10 @@ function Counter() {
     <Stack
       direction='column'
       width='7%'>
-      <IconButton onClick={() => setScore(score + 1)} size='sm'>
+      <IconButton
+        onClick={() => setScore(score + 1)}
+        size='sm'
+        sx={{ ':focus-visible': { outline: 'none' } }}>
         <PlusIcon style={{ opacity: 0.2 }} />
       </IconButton>
       <Input
@@ -68,7 +71,10 @@ function Counter() {
           '& input': { textAlign: 'center', fontWeight: '700' },
           '--Input-focusedThickness': 0,
         }} />
-      <IconButton onClick={() => setScore(score - 1)} size='sm'>
+      <IconButton
+        onClick={() => setScore(score - 1)}
+        size='sm'
+        sx={{ ':focus-visible': { outline: 'none' } }}>
         <MinusIcon style={{ opacity: 0.2 }} />
       </IconButton>
     </Stack>

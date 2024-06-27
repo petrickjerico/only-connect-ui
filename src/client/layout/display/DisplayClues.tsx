@@ -14,6 +14,7 @@ import MusicNoteRoundedIcon from '@mui/icons-material/MusicNoteRounded'
 import ImageRoundedIcon from '@mui/icons-material/ImageRounded'
 import NotesRoundedIcon from '@mui/icons-material/NotesRounded'
 import { useTranslation } from 'react-i18next'
+import { useKeyboardShortcut } from '../../utils/shortcuts'
 
 const enum RoundState {
   READY,
@@ -94,9 +95,63 @@ export default function DisplayClues({
     }
   }
 
+  function startQuestion() {
+    playAudio(ClickSFX)
+    if (!getClueMediaType() || getClueMediaType() !== 'audio') {
+      playAudio(CluesBGM)
+    }
+    setGameState(RoundState.PLAY)
+  }
+
+  function stopTimer() {
+    setGameState(RoundState.GUESS)
+    stopAudio(CluesBGM)
+    playAudio(BuzzerSFX)
+  }
+
+  function throwQuestion() {
+    setGameState(RoundState.THROW)
+    playAudio(NextClueSFX)
+    showUntil(3)
+  }
+
+  function showAnswer() {
+    if (
+      hideLast
+      && getClueMediaType() === 'image'
+      && gameState < RoundState.SEQUECNE_SHOW_END_PICTURE
+    ) {
+      setGameState(RoundState.SEQUECNE_SHOW_END_PICTURE)
+    } else {
+      setGameState(RoundState.END)
+    }
+    playAudio(ClickSFX)
+    showUntil(4)
+  }
+
   useEffect(() => {
     playAudio(GroupSelectedSFX)
   }, [])
+
+  useKeyboardShortcut({
+    key: 'z',
+    onKeyPressed: stopTimer
+  })
+
+  useKeyboardShortcut({
+    key: 'x',
+    onKeyPressed: throwQuestion
+  })
+
+  useKeyboardShortcut({
+    key: 'c',
+    onKeyPressed: showAnswer
+  })
+
+  useKeyboardShortcut({
+    key: ' ',
+    onKeyPressed: startQuestion
+  })
 
   return (
     <Box display='flex' alignItems='center' justifyContent='center' px={4}>
@@ -104,13 +159,7 @@ export default function DisplayClues({
         <Stack alignItems='center' spacing={4}>
           <DisplayGroupBox
             groupId={groupKey}
-            onClick={() => {
-              playAudio(ClickSFX)
-              if (!getClueMediaType() || getClueMediaType() !== 'audio') {
-                playAudio(CluesBGM)
-              }
-              setGameState(RoundState.PLAY)
-            }} />
+            onClick={startQuestion} />
           <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' />}>
             {getClueMediaType() === 'audio' &&
               <Typography startDecorator={<MusicNoteRoundedIcon />} level='body-lg'>
@@ -204,35 +253,19 @@ export default function DisplayClues({
                 <Button
                   fullWidth
                   disabled={gameState >= RoundState.GUESS}
-                  onClick={() => {
-                    setGameState(RoundState.GUESS)
-                    stopAudio(CluesBGM)
-                    playAudio(BuzzerSFX)
-                  }}>
+                  onClick={stopTimer}>
                   {t('stop_timer')}
                 </Button>
                 <Button
                   fullWidth
                   disabled={gameState !== RoundState.GUESS}
-                  onClick={() => {
-                    setGameState(RoundState.THROW)
-                    playAudio(NextClueSFX)
-                    showUntil(3)
-                  }}>
+                  onClick={throwQuestion}>
                   {t('throw')}
                 </Button>
                 <Button
                   fullWidth
                   disabled={gameState <= RoundState.PLAY}
-                  onClick={() => {
-                    if (hideLast && getClueMediaType() === 'image' && gameState < RoundState.SEQUECNE_SHOW_END_PICTURE) {
-                      setGameState(RoundState.SEQUECNE_SHOW_END_PICTURE)
-                    } else {
-                      setGameState(RoundState.END)
-                    }
-                    playAudio(ClickSFX)
-                    showUntil(4)
-                  }}>
+                  onClick={showAnswer}>
                   {t('show_answer')}
                 </Button>
               </StyledButtonGroup>}

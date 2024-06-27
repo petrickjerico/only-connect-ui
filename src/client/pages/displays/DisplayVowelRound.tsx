@@ -5,6 +5,7 @@ import DisplayDescriptionBox from '../../components/DisplayDescriptionBox'
 import DisplayClueBox from '../../components/DisplayClueBox'
 import { SolvedSFX, VowelLongBGM, ClickSFX } from '../../../assets/audios'
 import { playAudio, stopAudio } from '../../utils/audios'
+import { useKeyboardShortcut } from '../../utils/shortcuts'
 
 type VowelDisplayOrder = [string, 'description' | 'clue' | 'solution' | 'pause']
 
@@ -73,13 +74,20 @@ export default function DisplayVowelRound({ data }: { data: VowelRound }) {
 
   const handleShowNext = useCallback(showNext, [])
 
+  function handleShowNextWithSound() {
+    handleShowNext()
+    playAudio(ClickSFX)
+  }
+
+  useKeyboardShortcut({
+    key: ' ',
+    onKeyPressed: handleShowNextWithSound
+  })
+
   return (
     <Box width='100%' marginX={4}>
       <Button
-        onClick={() => {
-          handleShowNext()
-          playAudio(ClickSFX)
-        }}
+        onClick={handleShowNextWithSound}
         fullWidth
         variant='plain'
         disabled={disabled}
