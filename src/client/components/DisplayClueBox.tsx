@@ -7,6 +7,7 @@ export default function DisplayClueBox({
   height = 'tall',
   clueType,
   isTransparent,
+  isHidden,
   fontSize,
   fontWeight,
   wordSpacing,
@@ -17,6 +18,7 @@ export default function DisplayClueBox({
   height?: 'short' | 'tall' | string
   clueType?: 'audio' | 'image'
   isTransparent?: boolean
+  isHidden?: boolean
   fontSize?: number
   fontWeight?: number
   wordSpacing?: string
@@ -32,7 +34,7 @@ export default function DisplayClueBox({
       height={height}
       z={clueType === 'audio' || clueType === 'image' ? 1 : 0}
       sx={(theme) => ({
-        backgroundColor: isTransparent ? 'transparent' : `${theme.vars.palette.primary.softBg}`
+        backgroundColor: isHidden || isTransparent ? 'transparent' : `${theme.vars.palette.primary.softBg}`
       })}>
       {clueType === 'audio' && (
         <img
@@ -41,7 +43,7 @@ export default function DisplayClueBox({
           src={Gramophone}
           alt={clue}
           draggable={false}
-          style={{ opacity: isTransparent ? 0.1 : 0.75 }}
+          style={{ opacity: isHidden ? 0 : isTransparent ? 0.1 : 0.75 }}
           title={mode === 'dark' ? 'invert' : undefined}
           className={mode === 'dark' ? 'invert' : undefined}
         />)}
@@ -52,7 +54,7 @@ export default function DisplayClueBox({
           alt={clue}
           draggable={false}
           style={{
-            opacity: isTransparent ? 0.1 : 1,
+            opacity: isHidden ? 0 : isTransparent ? 0.1 : 1,
             maxHeight: '100%',
             minHeight: '100%'
           }}

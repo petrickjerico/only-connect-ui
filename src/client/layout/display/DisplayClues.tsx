@@ -167,6 +167,8 @@ export default function DisplayClues({
     onKeyPressed: startQuestion
   })
 
+  useEffect(() => { console.log(mediaPreloaded) }, [mediaPreloaded])
+
   return (
     <Box
       display='flex'
@@ -186,7 +188,8 @@ export default function DisplayClues({
           <DisplayGroupBox
             groupId={groupKey}
             onClick={startQuestion}
-            isDisabled={(mediaAppendage && mediaPreloaded.mediaSuccess.length < 4) ?? undefined} />
+            isDisabled={(mediaAppendage && mediaPreloaded.mediaSuccess.length < 4) ?? undefined}
+          />
           <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' />}>
             {getClueMediaType() === 'audio' &&
               <Typography startDecorator={<MusicNoteRoundedIcon />} level='body-lg'>
@@ -212,16 +215,16 @@ export default function DisplayClues({
               zIndex={11}
               sx={{ bottom: '4%' }}
               startDecorator={
-                mediaPreloaded.count < 4
-                  ? <CircularProgress color='primary' size='sm' variant='soft' thickness={4} />
-                  : mediaPreloaded.mediaError.length > 0
-                    ? <BlockRoundedIcon color='error' />
+                mediaPreloaded.mediaError.length > 0
+                  ? <BlockRoundedIcon color='error' />
+                  : mediaPreloaded.count < 4
+                    ? <CircularProgress color='primary' size='sm' variant='soft' thickness={4} />
                     : <DoneRoundedIcon color='primary' />
               }>{
-                mediaPreloaded.count < 4
-                  ? 'Loading media...'
-                  : mediaPreloaded.mediaError.length > 0
-                    ? `Some clues cannot be loaded: ${mediaPreloaded.mediaError.map((index) => `Clue ${index + 1}`).join(', ')}.`
+                mediaPreloaded.mediaError.length > 0
+                  ? `Some clues cannot be loaded: ${mediaPreloaded.mediaError.map((index) => `Clue ${index + 1}`).join(', ')}.`
+                  : mediaPreloaded.count < 4
+                    ? 'Loading media...'
                     : 'Loading done!'
               }</Typography>
           )}
@@ -267,11 +270,12 @@ export default function DisplayClues({
                     {t('show_until_here')}
                   </StyledButton>
                 )}
-                {(mediaAppendage && (!hideLast || index < 3 || gameState >= RoundState.SEQUECNE_SHOW_END_PICTURE)) && (
+                {mediaAppendage && (
                   <DisplayClueBox
                     clueType={getClueMediaType()}
                     clue={getClueMediaUrl(index)}
                     isTransparent={gameState === RoundState.END}
+                    isHidden={hideLast && index === 3 && gameState < RoundState.SEQUECNE_SHOW_END_PICTURE}
                     onFinishedPreloading={() =>
                       setMediaPreloaded(mediaPreloaded => (
                         {
@@ -281,7 +285,8 @@ export default function DisplayClues({
                         }
                       ))
                     }
-                    onErrorPreloading={() =>
+                    onErrorPreloading={() => {
+                      console.log(index)
                       setMediaPreloaded(mediaPreloaded => (
                         {
                           ...mediaPreloaded,
@@ -289,11 +294,12 @@ export default function DisplayClues({
                           count: mediaPreloaded.count + 1
                         }
                       ))
-                    } />
+                    }} />
                 )}
                 {shown.includes(index) && (
                   <DisplayClueBox
-                    clue={hideLast && index === 3 && gameState < RoundState.END ? '?' : value} />
+                    clue={hideLast && index === 3 && gameState < RoundState.END ? '?' : value}
+                  />
                 )}
                 {mediaAppendage && (
                   <AudioClue
@@ -308,7 +314,8 @@ export default function DisplayClues({
                         }
                       ))
                     }
-                    onErrorPreloading={() =>
+                    onErrorPreloading={() => {
+                      console.log(index)
                       setMediaPreloaded(mediaPreloaded => (
                         {
                           ...mediaPreloaded,
@@ -316,6 +323,7 @@ export default function DisplayClues({
                           count: mediaPreloaded.count + 1
                         }
                       ))
+                    }
                     } />
                 )}
               </Sheet>)
