@@ -233,24 +233,24 @@ export default function DisplayClues({
         <Sheet>
           {roundState < RoundState.END &&
             <StyledButtonGroup variant='plain'>
-              <Button
+              <StyledBottomButton
                 fullWidth
                 disabled={roundState >= RoundState.GUESS}
                 onClick={stopTimer}>
                 {t('stop_timer')}
-              </Button>
-              <Button
+              </StyledBottomButton>
+              <StyledBottomButton
                 fullWidth
                 disabled={roundState !== RoundState.GUESS}
                 onClick={throwQuestion}>
                 {t('throw')}
-              </Button>
-              <Button
+              </StyledBottomButton>
+              <StyledBottomButton
                 fullWidth
                 disabled={roundState <= RoundState.PLAY}
                 onClick={showAnswer}>
                 {t('show_answer')}
-              </Button>
+              </StyledBottomButton>
             </StyledButtonGroup>}
           <DisplayDescriptionBox description={description} />
         </Sheet>
@@ -286,7 +286,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
   zIndex: '2',
   backgroundColor: theme.vars.palette.neutral.softBg,
   ':hover': {
-    backgroundColor: theme.vars.palette.neutral.softBg,
+    backgroundColor: theme.vars.palette.neutral.softHoverBg,
     color: theme.vars.palette.primary.softColor
   }
 }))
@@ -297,12 +297,14 @@ const StyledButtonGroup = styled(ButtonGroup)(({ theme }) => ({
   justifyContent: 'space-between',
   textAlign: 'center',
   position: 'absolute',
-  borderRadius: '12px',
-  color: 'transparent',
   zIndex: '1',
+  '--ButtonGroup-radius': '12px',
   backgroundColor: theme.vars.palette.neutral.softBg,
+}))
+
+const StyledBottomButton = styled(Button)(({ theme }) => ({
   ':hover': {
-    backgroundColor: theme.vars.palette.neutral.softBg,
+    backgroundColor: theme.vars.palette.neutral.softHoverBg,
     color: theme.vars.palette.primary.softColor
   }
 }))
