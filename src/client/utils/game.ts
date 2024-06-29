@@ -1,6 +1,6 @@
 import { GameInput } from './types/attributes'
 import { ClueGroup, GameDisplay, MediaAppendage } from './types/display'
-import mock from '../../assets/mock/E.json'
+import mock from '../../assets/mock/A.json'
 
 export function transformInputsToDisplay(input: GameInput): GameDisplay {
   console.log(input)

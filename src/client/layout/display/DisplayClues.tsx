@@ -221,10 +221,10 @@ export default function DisplayClues({
                     : <DoneRoundedIcon color='primary' />
               }>{
                 mediaPreloaded.mediaError.length > 0
-                  ? `Some clues cannot be loaded: ${mediaPreloaded.mediaError.map((index) => `Clue ${index + 1}`).join(', ')}.`
+                  ? `${t('clue_error')}: ${mediaPreloaded.mediaError.map((index) => `${t('clue')} ${index + 1}`).join(', ')}.`
                   : mediaPreloaded.count < 4
-                    ? 'Loading media...'
-                    : 'Loading done!'
+                    ? t('clue_loading')
+                    : t('clue_success')
               }</Typography>
           )}
         </Stack>
