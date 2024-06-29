@@ -26,7 +26,7 @@ export default function AudioClue({
 
   useEffect(() => {
     if (mediaState === MediaState.STANDBY && isTurnToPlay) {
-      setTimeout(() => setMediaState(MediaState.PLAYING), 300)
+      setTimeout(() => setMediaState(MediaState.PLAYING), 500)
     }
     if (mediaState === MediaState.PLAYING && !isTurnToPlay) {
       setMediaState(MediaState.DONE)
