@@ -1,4 +1,4 @@
-import { Box, Button, ButtonGroup, CircularProgress, Divider, Sheet, Stack, Typography, styled } from '@mui/joy'
+import { Box, Button, ButtonGroup, Divider, Sheet, Stack, Typography, styled } from '@mui/joy'
 import { ClueGroup } from '../../utils/types/display'
 import DisplayClueBox from '../../components/DisplayClueBox'
 import DisplayDescriptionBox from '../../components/DisplayDescriptionBox'
@@ -12,10 +12,9 @@ import HourglassTopRoundedIcon from '@mui/icons-material/HourglassTopRounded'
 import MusicNoteRoundedIcon from '@mui/icons-material/MusicNoteRounded'
 import ImageRoundedIcon from '@mui/icons-material/ImageRounded'
 import NotesRoundedIcon from '@mui/icons-material/NotesRounded'
-import DoneRoundedIcon from '@mui/icons-material/DoneRounded'
-import BlockRoundedIcon from '@mui/icons-material/BlockRounded'
 import { useTranslation } from 'react-i18next'
 import { useKeyboardShortcut } from '../../utils/shortcuts'
+import PreloadStatus, { MediaPreload } from '../../components/PreloadStatus'
 
 const enum RoundState {
   READY,
@@ -24,12 +23,6 @@ const enum RoundState {
   THROW,
   SEQUECNE_SHOW_END_PICTURE,
   END
-}
-
-interface MediaPreload {
-  count: number
-  mediaSuccess: number[]
-  mediaError: number[]
 }
 
 export default function DisplayClues({
@@ -185,25 +178,7 @@ export default function DisplayClues({
             </Typography>
           </Stack>
           {type && (
-            <Typography
-              level='body-lg'
-              position='absolute'
-              gap={1}
-              zIndex={11}
-              sx={{ bottom: '4%' }}
-              startDecorator={
-                mediaPreloaded.mediaError.length > 0
-                  ? <BlockRoundedIcon color='error' />
-                  : mediaPreloaded.count < 4
-                    ? <CircularProgress color='primary' size='sm' variant='soft' thickness={4} />
-                    : <DoneRoundedIcon color='primary' />
-              }>{
-                mediaPreloaded.mediaError.length > 0
-                  ? `${t('clue_error')}: ${mediaPreloaded.mediaError.map((index) => `${t('clue')} ${index + 1}`).join(', ')}.`
-                  : mediaPreloaded.count < 4
-                    ? t('clue_loading')
-                    : t('clue_success')
-              }</Typography>
+            <PreloadStatus mediaPreload={mediaPreloaded} />
           )}
         </Stack>
       </ReadyBox>
