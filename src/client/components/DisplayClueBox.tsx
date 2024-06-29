@@ -9,7 +9,9 @@ export default function DisplayClueBox({
   isTransparent,
   fontSize,
   fontWeight,
-  wordSpacing
+  wordSpacing,
+  onFinishedPreloading,
+  onErrorPreloading
 }: {
   clue: string,
   height?: 'short' | 'tall' | string
@@ -18,6 +20,8 @@ export default function DisplayClueBox({
   fontSize?: number
   fontWeight?: number
   wordSpacing?: string
+  onFinishedPreloading?: () => void
+  onErrorPreloading?: () => void
 }) {
   const [enlargePicture, setEnlargePicture] = useState<boolean>(false)
   const { mode } = useColorScheme()
@@ -52,6 +56,8 @@ export default function DisplayClueBox({
             maxHeight: '100%',
             minHeight: '100%'
           }}
+          onLoad={onFinishedPreloading}
+          onError={onErrorPreloading}
         />)}
       {!clueType && (
         <Typography

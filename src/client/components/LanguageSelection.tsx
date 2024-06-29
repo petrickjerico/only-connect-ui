@@ -18,7 +18,6 @@ export default function LanguageSelection() {
       defaultValue={i18n.resolvedLanguage}
       onChange={changeLanguage}
       variant='soft'
-      size='sm'
       sx={{
         width: 'fit-content'
       }}
@@ -30,5 +29,4 @@ export default function LanguageSelection() {
       )}
     </Select>
   )
-
 }
