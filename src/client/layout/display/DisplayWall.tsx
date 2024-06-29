@@ -165,9 +165,13 @@ export default function DisplayWall({
   }, [])
 
   useEffect(() => {
-    if (!fastAnimation && selections.length === 1) {
-      setFastAnimation(true)
+    if (gameState === RoundState.PLAY) {
+      const animationTimeout = setTimeout(() => setFastAnimation(true), 1)
+      return () => { clearTimeout(animationTimeout) }
     }
+  }, [gameState])
+
+  useEffect(() => {
     if (selections.length === 4) {
       checkSelections()
       setSelections([])
@@ -202,8 +206,14 @@ export default function DisplayWall({
           </Stack>
         </Stack>}
       {gameState > RoundState.READY &&
-        <Stack direction='row' gap={4} justifyContent='space-between'>
-          <Stack width='70vw' gap={2}>
+        <Stack
+          direction='row'
+          gap={4}
+          justifyContent='space-between'
+          width={gameState < RoundState.GUESS ? '70vw' : '100vw'}>
+          <Stack
+            width={gameState < RoundState.GUESS ? '100%' : '70%'}
+            gap={2}>
             <StyledReactGridLayout
               fast={fastAnimation}
               className='layout'
@@ -255,7 +265,7 @@ export default function DisplayWall({
                   {Array.from(Array(lives.number).keys()).map((key) => <FavoriteRounded key={key} sx={{ color: colors.red[300] }} />)}
                 </Stack>
                 <LinearTimer
-                  duration={150}
+                  duration={10}
                   isVisible={true}
                   isCounting={true}
                   isEnd={false}
