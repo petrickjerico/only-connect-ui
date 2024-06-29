@@ -63,7 +63,11 @@
       "points": "points",
       "point": "point",
       "end_title": "End of the game!",
-      "end_message": "Thank you for playing! Hope you enjoyed the puzzles."
+      "end_message": "Thank you for playing! Hope you enjoyed the puzzles.",
+      "clue_error": "Some clues cannot be loaded",
+      "clue": "Clue",
+      "clue_loading": "Loading media...",
+      "clue_success": "Loading done!"
     }
   },
   "id": {
@@ -130,7 +134,11 @@
       "points": "poin",
       "point": "poin",
       "end_title": "Permainan selesai!",
-      "end_message": "Terima kasih sudah bermain! Semoga permainannya sudah menghibur."
+      "end_message": "Terima kasih sudah bermain! Semoga permainannya sudah menghibur.",
+      "clue_error": "Ada petunjuk yang tidak bisa dimuat",
+      "clue": "Petunjuk",
+      "clue_loading": "Memuat media...",
+      "clue_success": "Media siap!"
     }
   }
 }
