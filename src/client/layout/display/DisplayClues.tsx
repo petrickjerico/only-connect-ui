@@ -167,7 +167,6 @@ export default function DisplayClues({
     onKeyPressed: startQuestion
   })
 
-  useEffect(() => { console.log(mediaPreloaded) }, [mediaPreloaded])
 
   return (
     <Box
@@ -285,8 +284,7 @@ export default function DisplayClues({
                         }
                       ))
                     }
-                    onErrorPreloading={() => {
-                      console.log(index)
+                    onErrorPreloading={() =>
                       setMediaPreloaded(mediaPreloaded => (
                         {
                           ...mediaPreloaded,
@@ -294,7 +292,7 @@ export default function DisplayClues({
                           count: mediaPreloaded.count + 1
                         }
                       ))
-                    }} />
+                    } />
                 )}
                 {shown.includes(index) && (
                   <DisplayClueBox
@@ -314,8 +312,7 @@ export default function DisplayClues({
                         }
                       ))
                     }
-                    onErrorPreloading={() => {
-                      console.log(index)
+                    onErrorPreloading={() =>
                       setMediaPreloaded(mediaPreloaded => (
                         {
                           ...mediaPreloaded,
@@ -323,7 +320,6 @@ export default function DisplayClues({
                           count: mediaPreloaded.count + 1
                         }
                       ))
-                    }
                     } />
                 )}
               </Sheet>)
