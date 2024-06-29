@@ -1,102 +1,86 @@
-import { Modal, ModalDialog, Sheet, Typography, styled, useColorScheme } from '@mui/joy'
-import Gramophone from '../../assets/img/music.png'
-import { useState } from 'react'
+import { Sheet, Typography, styled } from '@mui/joy'
+import ImageClue from './ImageClue'
+import AudioClue from './AudioClue'
 
 export default function DisplayClueBox({
   clue,
+  url = '',
   height = 'tall',
-  clueType,
-  isTransparent,
-  isHidden,
+  clueType = 'text',
+  isContentPlaying = undefined,
+  isContentTransparent,
+  isContentHidden,
   fontSize,
   fontWeight,
   wordSpacing,
-  onFinishedPreloading,
-  onErrorPreloading
+  onFinishedPreloading = () => { },
+  onErrorPreloading = () => { }
 }: {
-  clue: string,
+  clue?: string
+  url?: string
   height?: 'short' | 'tall' | string
-  clueType?: 'audio' | 'image'
-  isTransparent?: boolean
-  isHidden?: boolean
+  clueType?: 'audio' | 'image' | 'text' | string
+  isContentPlaying?: boolean
+  isContentTransparent?: boolean
+  isContentHidden?: boolean
   fontSize?: number
   fontWeight?: number
   wordSpacing?: string
   onFinishedPreloading?: () => void
   onErrorPreloading?: () => void
 }) {
-  const [enlargePicture, setEnlargePicture] = useState<boolean>(false)
-  const { mode } = useColorScheme()
 
   return (
     <StyledSheet
       variant='soft'
+      z={clueType !== 'text' ? 1 : 0}
       height={height}
-      z={clueType === 'audio' || clueType === 'image' ? 1 : 0}
-      sx={(theme) => ({
-        backgroundColor: isHidden || isTransparent ? 'transparent' : `${theme.vars.palette.primary.softBg}`
-      })}>
+      transparent={isContentHidden || isContentTransparent}
+    >
       {clueType === 'audio' && (
-        <img
-          width='150px'
-          height='auto'
-          src={Gramophone}
-          alt={clue}
-          draggable={false}
-          style={{ opacity: isHidden ? 0 : isTransparent ? 0.1 : 0.75 }}
-          title={mode === 'dark' ? 'invert' : undefined}
-          className={mode === 'dark' ? 'invert' : undefined}
-        />)}
+        <AudioClue
+          url={url}
+          isImageHidden={isContentHidden}
+          isImageTransparent={isContentTransparent}
+          isTurnToPlay={isContentPlaying}
+          onFinishedPreloading={onFinishedPreloading}
+          onErrorPreloading={onErrorPreloading}
+        />
+      )}
       {clueType === 'image' && (
-        <img
-          onClick={() => setEnlargePicture(true)}
-          src={clue}
-          alt={clue}
-          draggable={false}
-          style={{
-            opacity: isHidden ? 0 : isTransparent ? 0.1 : 1,
-            maxHeight: '100%',
-            minHeight: '100%'
-          }}
-          onLoad={onFinishedPreloading}
-          onError={onErrorPreloading}
-        />)}
-      {!clueType && (
+        <ImageClue
+          url={url}
+          hidden={isContentHidden}
+          transparent={isContentTransparent}
+          onFinishedPreloading={onFinishedPreloading}
+          onErrorPreloading={onErrorPreloading}
+        />
+      )}
+      {clueType === 'text' && (
         <Typography
           level='h1'
           px='4px'
           whiteSpace='pre-line'
           fontSize={fontSize}
           fontWeight={fontWeight}
-          sx={{
-            wordSpacing: wordSpacing
-          }}>
+          sx={{ wordSpacing: wordSpacing }}
+        >
           {clue}
-        </Typography>)}
-      {clueType === 'image' && (
-        <Modal open={enlargePicture} onClose={() => setEnlargePicture(false)}>
-          <ModalDialog layout='center' sx={{ justifyContent: 'center' }}>
-            <img
-              src={clue}
-              alt={clue}
-              draggable={false}
-              style={{
-                maxHeight: '100%',
-                minHeight: '100%'
-              }}
-            />
-          </ModalDialog>
-        </Modal>)}
+        </Typography>
+      )}
     </StyledSheet>
   )
 }
 
 const StyledSheet = styled(Sheet)<{
-  height?: 'short' | 'tall' | string,
   z?: number
+  height?: 'short' | 'tall' | string
+  transparent?: boolean
 }>(({
+  z,
   height,
-  z
+  transparent,
+  theme
 }) => ({
   display: 'flex',
   height: height === 'tall' ? '200px' : height === 'short' ? '100px' : height,
@@ -109,4 +93,5 @@ const StyledSheet = styled(Sheet)<{
   zIndex: z ?? undefined,
   position: z ? 'absolute' : undefined,
   overflow: 'clip',
+  backgroundColor: transparent ? 'transparent' : `${theme.vars.palette.primary.softBg}`
 }))

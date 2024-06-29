@@ -7,18 +7,11 @@ export function transformInputsToDisplay(input: GameInput): GameDisplay {
   return mock
 }
 
-export function getMediaAppendage(data: ClueGroup): MediaAppendage | undefined {
-  if (Object.getOwnPropertyNames(data).includes('type')) {
-    const res: MediaAppendage = {
-      url1: Object.getOwnPropertyDescriptor(data, 'url1')?.value as string,
-      url2: Object.getOwnPropertyDescriptor(data, 'url2')?.value as string,
-      url3: Object.getOwnPropertyDescriptor(data, 'url3')?.value as string,
-      url4: Object.getOwnPropertyDescriptor(data, 'url4')?.value as string,
-      type: Object.getOwnPropertyDescriptor(data, 'type')?.value as string,
-    }
-    return res
-  } else {
-    return undefined
-  }
-}
+export function sortDataSet(data: ClueGroup & Partial<MediaAppendage>) {
+  const clues = Object.entries(data).filter(([key]) => key.includes('clue'))
+  const description = data.description
+  const urls = Object.entries(data).filter(([key]) => key.includes('url'))
+  const type = data.type
 
+  return { clues, description, urls, type }
+}

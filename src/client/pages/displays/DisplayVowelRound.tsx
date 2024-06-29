@@ -1,4 +1,4 @@
-import { Box, Button } from '@mui/joy'
+import { Box, Button, styled } from '@mui/joy'
 import { VowelGroup, VowelRound } from '../../utils/types/display'
 import { useCallback, useState } from 'react'
 import DisplayDescriptionBox from '../../components/DisplayDescriptionBox'
@@ -86,20 +86,11 @@ export default function DisplayVowelRound({ data }: { data: VowelRound }) {
 
   return (
     <Box width='100%' marginX={4}>
-      <Button
+      <StyledButton
         onClick={handleShowNextWithSound}
         fullWidth
         variant='plain'
         disabled={disabled}
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 1,
-          alignItems: 'stretch',
-          [':hover']: {
-            backgroundColor: 'transparent'
-          }
-        }}
       >
         <DisplayDescriptionBox description={description} />
         <DisplayClueBox
@@ -109,7 +100,17 @@ export default function DisplayVowelRound({ data }: { data: VowelRound }) {
           fontWeight={500}
           wordSpacing='8px'
         />
-      </Button>
+      </StyledButton>
     </Box>
   )
 }
+
+const StyledButton = styled(Button)(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+  alignItems: 'stretch',
+  [':hover']: {
+    backgroundColor: 'transparent'
+  }
+}))

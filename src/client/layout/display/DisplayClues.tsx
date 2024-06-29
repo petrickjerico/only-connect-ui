@@ -1,5 +1,5 @@
-import { Box, Button, ButtonGroup, CircularProgress, Divider, Sheet, Stack, Typography, styled, useTheme } from '@mui/joy'
-import { MediaAppendage, ClueGroup } from '../../utils/types/display'
+import { Box, Button, ButtonGroup, CircularProgress, Divider, Sheet, Stack, Typography, styled } from '@mui/joy'
+import { ClueGroup } from '../../utils/types/display'
 import DisplayClueBox from '../../components/DisplayClueBox'
 import DisplayDescriptionBox from '../../components/DisplayDescriptionBox'
 import { useEffect, useState } from 'react'
@@ -7,7 +7,7 @@ import LinearTimer from '../../components/LinearTimer'
 import DisplayGroupBox from '../../components/DisplayGroupBox'
 import { BuzzerSFX, ClickSFX, CluesBGM, FailSFX, GroupSelectedSFX, NextClueSFX } from '../../../assets/audios'
 import { playAudio, stopAudio } from '../../utils/audios'
-import { getMediaAppendage } from '../../utils/game'
+import { sortDataSet } from '../../utils/game'
 import HourglassTopRoundedIcon from '@mui/icons-material/HourglassTopRounded'
 import MusicNoteRoundedIcon from '@mui/icons-material/MusicNoteRounded'
 import ImageRoundedIcon from '@mui/icons-material/ImageRounded'
@@ -16,7 +16,6 @@ import DoneRoundedIcon from '@mui/icons-material/DoneRounded'
 import BlockRoundedIcon from '@mui/icons-material/BlockRounded'
 import { useTranslation } from 'react-i18next'
 import { useKeyboardShortcut } from '../../utils/shortcuts'
-import AudioClue from '../../components/AudioClue'
 
 const enum RoundState {
   READY,
@@ -42,19 +41,15 @@ export default function DisplayClues({
   data: ClueGroup,
   hideLast?: boolean
 }) {
-  const theme = useTheme()
-  const mediaAppendage = getMediaAppendage(data)
-  const clues = Object.entries(data).filter(([key]) => key !== 'description')
-  const description = data.description
+  const { t } = useTranslation()
+  const { clues, description, urls, type } = sortDataSet(data)
   const [shown, setShown] = useState<number[]>([0])
-  const [gameState, setGameState] = useState<RoundState>(RoundState.READY)
+  const [roundState, setRoundState] = useState<RoundState>(RoundState.READY)
   const [mediaPreloaded, setMediaPreloaded] = useState<MediaPreload>({
     count: 0,
     mediaSuccess: [],
     mediaError: []
   })
-
-  const { t } = useTranslation()
 
   function showUntil(index: number) {
     if (hideLast && index === 2) {
@@ -62,10 +57,6 @@ export default function DisplayClues({
     } else {
       setShown(Array.from(Array(index + 1).keys()))
     }
-  }
-
-  function getLastShown(): number {
-    return shown[shown.length - 1]
   }
 
   function getScore(index: 0 | 1 | 2 | 3 | number): string {
@@ -85,46 +76,30 @@ export default function DisplayClues({
 
   function getTimerVisibility(index: number) {
     if (!hideLast || hideLast && index < 2) {
-      return index === getLastShown()
+      return index === shown.at(-1)
     } else if (index === 2) {
-      return getLastShown() === 3 && gameState < RoundState.THROW
+      return shown.at(-1) === 3 && roundState < RoundState.THROW
     } else {
-      return gameState === RoundState.THROW
-    }
-  }
-
-  function getClueMediaUrl(index: number) {
-    if (mediaAppendage) {
-      return mediaAppendage[`url${index + 1}` as keyof MediaAppendage]
-    } else {
-      return ''
-    }
-  }
-
-  function getClueMediaType(): 'audio' | 'image' | undefined {
-    if (mediaAppendage) {
-      return mediaAppendage['type' as keyof MediaAppendage] as 'audio' | 'image'
-    } else {
-      return undefined
+      return roundState === RoundState.THROW
     }
   }
 
   function startQuestion() {
     playAudio(ClickSFX)
-    if (!getClueMediaType() || getClueMediaType() !== 'audio') {
+    if (!type || type !== 'audio') {
       playAudio(CluesBGM)
     }
-    setGameState(RoundState.PLAY)
+    setRoundState(RoundState.PLAY)
   }
 
   function stopTimer() {
-    setGameState(RoundState.GUESS)
+    setRoundState(RoundState.GUESS)
     stopAudio(CluesBGM)
     playAudio(BuzzerSFX)
   }
 
   function throwQuestion() {
-    setGameState(RoundState.THROW)
+    setRoundState(RoundState.THROW)
     playAudio(NextClueSFX)
     showUntil(3)
   }
@@ -132,15 +107,31 @@ export default function DisplayClues({
   function showAnswer() {
     if (
       hideLast
-      && getClueMediaType() === 'image'
-      && gameState < RoundState.SEQUECNE_SHOW_END_PICTURE
+      && type === 'image'
+      && roundState < RoundState.SEQUECNE_SHOW_END_PICTURE
     ) {
-      setGameState(RoundState.SEQUECNE_SHOW_END_PICTURE)
+      setRoundState(RoundState.SEQUECNE_SHOW_END_PICTURE)
     } else {
-      setGameState(RoundState.END)
+      setRoundState(RoundState.END)
     }
     playAudio(ClickSFX)
     showUntil(4)
+  }
+
+  const handleFinishedPreloading = (index: number) => {
+    setMediaPreloaded(mediaPreloaded => ({
+      ...mediaPreloaded,
+      mediaSuccess: [...mediaPreloaded.mediaSuccess, index],
+      count: mediaPreloaded.count + 1
+    }))
+  }
+
+  const handleErrorPreloading = (index: number) => {
+    setMediaPreloaded(mediaPreloaded => ({
+      ...mediaPreloaded,
+      mediaError: [...mediaPreloaded.mediaError, index],
+      count: mediaPreloaded.count + 1
+    }))
   }
 
   useEffect(() => {
@@ -167,38 +158,25 @@ export default function DisplayClues({
     onKeyPressed: startQuestion
   })
 
-
   return (
-    <Box
-      display='flex'
-      alignItems='center'
-      justifyContent='center'
-      px={4}>
-      <Box
-        display={gameState === RoundState.READY ? 'flex' : 'none'}
-        alignItems='center'
-        justifyContent='center'
-        position='absolute'
-        bgcolor={theme.vars.palette.background.surface}
-        zIndex='10'
-        width='100%'
-        height='100%'>
+    <BackgroundBox>
+      <ReadyBox display={roundState === RoundState.READY ? 'flex' : 'none'}>
         <Stack alignItems='center' spacing={4} >
           <DisplayGroupBox
             groupId={groupKey}
             onClick={startQuestion}
-            isDisabled={(mediaAppendage && mediaPreloaded.mediaSuccess.length < 4) ?? undefined}
+            isDisabled={(!!type && mediaPreloaded.mediaSuccess.length < 4) ?? undefined}
           />
           <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' />}>
-            {getClueMediaType() === 'audio' &&
+            {type === 'audio' &&
               <Typography startDecorator={<MusicNoteRoundedIcon />} level='body-lg'>
                 {t('music_clues')}
               </Typography>}
-            {getClueMediaType() === 'image' &&
+            {type === 'image' &&
               <Typography startDecorator={<ImageRoundedIcon />} level='body-lg'>
                 {t('image_clues')}
               </Typography>}
-            {!getClueMediaType() &&
+            {!type &&
               <Typography startDecorator={<NotesRoundedIcon />} level='body-lg'>
                 {t('text_clues')}
               </Typography>}
@@ -206,7 +184,7 @@ export default function DisplayClues({
               {t('40_seconds')}
             </Typography>
           </Stack>
-          {mediaAppendage && (
+          {type && (
             <Typography
               level='body-lg'
               position='absolute'
@@ -228,129 +206,73 @@ export default function DisplayClues({
               }</Typography>
           )}
         </Stack>
-      </Box>
+      </ReadyBox>
       <Stack gap={2} flexGrow={1}>
         <Stack direction='row' gap={2}>
-          {clues.map(([key], index) => {
-            if (index < 4) return (
-              <LinearTimer
-                key={key}
-                text={getScore(index)}
-                duration={42}
-                isVisible={getTimerVisibility(index)}
-                isCounting={gameState === RoundState.PLAY}
-                isEnd={gameState > RoundState.GUESS}
-                onComplete={() => {
-                  playAudio(FailSFX)
-                  setGameState(RoundState.GUESS)
-                }}
-              />
-            )
-          })}
+          {clues.map(([key], index) => (
+            <LinearTimer
+              key={key}
+              text={getScore(index)}
+              duration={42}
+              isVisible={getTimerVisibility(index)}
+              isCounting={roundState === RoundState.PLAY}
+              isEnd={roundState > RoundState.GUESS}
+              onComplete={() => {
+                playAudio(FailSFX)
+                setRoundState(RoundState.GUESS)
+              }}
+            />
+          ))}
         </Stack>
         <Stack direction='row' gap={2}>
-          {clues.map(([key, value], index) => {
-            if (index < 4) return (
-              <Sheet key={key} sx={{ width: '100%' }}>
-                {!shown.includes(index) && (
-                  <StyledButton
-                    variant='plain'
-                    onClick={() => {
-                      playAudio(NextClueSFX)
-                      showUntil(index)
-                    }}
-                    sx={(theme) => ({
-                      backgroundColor: `${theme.vars.palette.neutral.softBg}`,
-                      ':hover': {
-                        backgroundColor: `${theme.vars.palette.neutral.softBg}`,
-                        color: `${theme.vars.palette.primary.softColor}`
-                      }
-                    })}>
-                    {t('show_until_here')}
-                  </StyledButton>
-                )}
-                {mediaAppendage && (
-                  <DisplayClueBox
-                    clueType={getClueMediaType()}
-                    clue={getClueMediaUrl(index)}
-                    isTransparent={gameState === RoundState.END}
-                    isHidden={hideLast && index === 3 && gameState < RoundState.SEQUECNE_SHOW_END_PICTURE}
-                    onFinishedPreloading={() =>
-                      setMediaPreloaded(mediaPreloaded => (
-                        {
-                          ...mediaPreloaded,
-                          mediaSuccess: [...mediaPreloaded.mediaSuccess, index],
-                          count: mediaPreloaded.count + 1
-                        }
-                      ))
-                    }
-                    onErrorPreloading={() =>
-                      setMediaPreloaded(mediaPreloaded => (
-                        {
-                          ...mediaPreloaded,
-                          mediaError: [...mediaPreloaded.mediaError, index],
-                          count: mediaPreloaded.count + 1
-                        }
-                      ))
-                    } />
-                )}
-                {shown.includes(index) && (
-                  <DisplayClueBox
-                    clue={hideLast && index === 3 && gameState < RoundState.END ? '?' : value}
-                  />
-                )}
-                {mediaAppendage && (
-                  <AudioClue
-                    url={getClueMediaUrl(index)}
-                    isTurnToPlay={gameState === RoundState.PLAY && getLastShown() === index}
-                    onFinishedPreloading={() =>
-                      setMediaPreloaded(mediaPreloaded => (
-                        {
-                          ...mediaPreloaded,
-                          mediaSuccess: [...mediaPreloaded.mediaSuccess, index],
-                          count: mediaPreloaded.count + 1
-                        }
-                      ))
-                    }
-                    onErrorPreloading={() =>
-                      setMediaPreloaded(mediaPreloaded => (
-                        {
-                          ...mediaPreloaded,
-                          mediaError: [...mediaPreloaded.mediaError, index],
-                          count: mediaPreloaded.count + 1
-                        }
-                      ))
-                    } />
-                )}
-              </Sheet>)
-          })}
+          {clues.map(([key, value], index) => (
+            <Sheet key={key} sx={{ width: '100%' }}>
+              {!shown.includes(index) && (
+                <StyledButton
+                  variant='plain'
+                  onClick={() => {
+                    playAudio(NextClueSFX)
+                    showUntil(index)
+                  }}>
+                  {t('show_until_here')}
+                </StyledButton>
+              )}
+              {type && (
+                <DisplayClueBox
+                  url={urls[index][1]}
+                  clueType={type}
+                  isContentPlaying={roundState === RoundState.PLAY && shown.at(-1) === index}
+                  isContentTransparent={roundState === RoundState.END}
+                  isContentHidden={hideLast && index === 3 && roundState < RoundState.SEQUECNE_SHOW_END_PICTURE}
+                  onFinishedPreloading={() => handleFinishedPreloading(index)}
+                  onErrorPreloading={() => handleErrorPreloading(index)} />
+              )}
+              {shown.includes(index) && (
+                <DisplayClueBox
+                  clue={hideLast && index === 3 && roundState < RoundState.END ? '?' : value}
+                />
+              )}
+            </Sheet>
+          ))}
         </Stack>
         <Sheet>
-          {gameState < RoundState.END &&
-            <StyledButtonGroup
-              variant='plain'
-              sx={(theme) => ({
-                backgroundColor: `${theme.vars.palette.neutral.softBg}`,
-                ':hover': {
-                  backgroundColor: `${theme.vars.palette.neutral.softBg}`,
-                  color: `${theme.vars.palette.primary.softColor}`
-                }
-              })}>
+          {roundState < RoundState.END &&
+            <StyledButtonGroup variant='plain'>
               <Button
                 fullWidth
-                disabled={gameState >= RoundState.GUESS}
+                disabled={roundState >= RoundState.GUESS}
                 onClick={stopTimer}>
                 {t('stop_timer')}
               </Button>
               <Button
                 fullWidth
-                disabled={gameState !== RoundState.GUESS}
+                disabled={roundState !== RoundState.GUESS}
                 onClick={throwQuestion}>
                 {t('throw')}
               </Button>
               <Button
                 fullWidth
-                disabled={gameState <= RoundState.PLAY}
+                disabled={roundState <= RoundState.PLAY}
                 onClick={showAnswer}>
                 {t('show_answer')}
               </Button>
@@ -358,11 +280,28 @@ export default function DisplayClues({
           <DisplayDescriptionBox description={description} />
         </Sheet>
       </Stack>
-    </Box >
+    </BackgroundBox >
   )
 }
 
-const StyledButton = styled(Button)(() => ({
+const BackgroundBox = styled(Box)(() => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: 16
+}))
+
+const ReadyBox = styled(Box)(({ theme }) => ({
+  alignItems: 'center',
+  justifyContent: 'center',
+  position: 'absolute',
+  zIndex: '10',
+  width: '100%',
+  height: '100%',
+  backgroundColor: theme.vars.palette.background.surface
+}))
+
+const StyledButton = styled(Button)(({ theme }) => ({
   height: '100%',
   width: '100%',
   textAlign: 'center',
@@ -370,9 +309,14 @@ const StyledButton = styled(Button)(() => ({
   borderRadius: '12px',
   color: 'transparent',
   zIndex: '2',
+  backgroundColor: theme.vars.palette.neutral.softBg,
+  ':hover': {
+    backgroundColor: theme.vars.palette.neutral.softBg,
+    color: theme.vars.palette.primary.softColor
+  }
 }))
 
-const StyledButtonGroup = styled(ButtonGroup)(() => ({
+const StyledButtonGroup = styled(ButtonGroup)(({ theme }) => ({
   height: '100%',
   width: '100%',
   justifyContent: 'space-between',
@@ -381,5 +325,10 @@ const StyledButtonGroup = styled(ButtonGroup)(() => ({
   borderRadius: '12px',
   color: 'transparent',
   zIndex: '1',
+  backgroundColor: theme.vars.palette.neutral.softBg,
+  ':hover': {
+    backgroundColor: theme.vars.palette.neutral.softBg,
+    color: theme.vars.palette.primary.softColor
+  }
 }))
 

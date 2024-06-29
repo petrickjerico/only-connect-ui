@@ -8,19 +8,15 @@ export default function DisplayDescriptionBox({
   level?: keyof TypographySystem
 }) {
   return (
-    <StyledSheet
-      variant='plain'
-      sx={(theme) => ({
-        backgroundColor: `${theme.vars.palette.primary.softHoverBg}`
-      })}>
+    <StyledSheet variant='plain'>
       <Typography level={level}>
         {description}
       </Typography>
-    </StyledSheet >
+    </StyledSheet>
   )
 }
 
-const StyledSheet = styled(Sheet)(() => ({
+const StyledSheet = styled(Sheet)(({ theme }) => ({
   display: 'flex',
   height: '50px',
   width: '100%',
@@ -29,4 +25,5 @@ const StyledSheet = styled(Sheet)(() => ({
   justifyContent: 'center',
   borderRadius: '12px',
   padding: '8px 0px',
+  backgroundColor: `${theme.vars.palette.primary.softHoverBg}`
 }))
