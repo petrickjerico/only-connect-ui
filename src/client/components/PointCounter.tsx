@@ -1,4 +1,4 @@
-import { Divider, IconButton, Input, Stack } from '@mui/joy'
+import { Divider, IconButton, Input, Stack, styled } from '@mui/joy'
 import PlusIcon from '@mui/icons-material/AddRounded'
 import MinusIcon from '@mui/icons-material/RemoveRounded'
 import { useHost, useHostDispatch } from '../utils/context/HostProvider'
@@ -36,18 +36,28 @@ export default function PointCounter() {
         justifyContent: 'center',
         alignItems: 'center'
       }}>
-      <Input
+      <StyledInput
         readOnly
         disabled={!isPlaying(0)}
-        variant='plain'
+        variant='outlined'
         size='lg'
         value={teamName0}
-        sx={{
+        sx={(theme) => ({
           height: 'fit-content',
-          backgroundColor: 'transparent',
+          backgroundColor: `${isPlaying(0)
+            ? theme.vars.palette.primary.softBg
+            : 'undefined'}`,
           '--Input-focusedThickness': 0,
-          '& input': { textAlign: 'right' }
-        }}
+          '.Mui-disabled': {
+            borderColor: 'transparent'
+          },
+          '& input': {
+            textAlign: 'center',
+            color: isPlaying(0)
+              ? theme.vars.palette.primary.plainColor
+              : undefined
+          }
+        })}
       />
       <Counter
         count={teamScore0}
@@ -62,17 +72,23 @@ export default function PointCounter() {
         onIncrement={() => dispatch({ type: 'INCREMENT_TEAM_SCORE_1' })}
         onDecrement={() => dispatch({ type: 'DECREMENT_TEAM_SCORE_1' })}
       />
-      <Input
+      <StyledInput
         readOnly
         disabled={!isPlaying(1)}
-        variant='plain'
+        variant='outlined'
         size='lg'
         value={teamName1}
-        sx={{
+        sx={(theme) => ({
           height: 'fit-content',
-          backgroundColor: 'transparent',
-          '--Input-focusedThickness': 0
-        }}
+          backgroundColor: `${isPlaying(1)
+            ? theme.vars.palette.primary.softBg
+            : 'undefined'}`,
+          '--Input-focusedThickness': 0,
+          '& input': {
+            textAlign: 'center',
+            color: isPlaying(1) ? theme.vars.palette.primary.plainColor : undefined
+          }
+        })}
       />
     </Stack>
   )
@@ -145,3 +161,7 @@ function Counter({
     </Stack>
   )
 }
+
+const StyledInput = styled(Input)(({ theme }) => ({
+  borderColor: theme.vars.palette.primary.plainColor
+}))

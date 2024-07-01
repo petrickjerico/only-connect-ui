@@ -33,13 +33,27 @@ export default function TeamsInfo({ onSubmit }: { onSubmit: () => void }) {
             <Input
               placeholder={teamName0}
               onChange={(event) => setTeamsInfo({ ...teamsInfo, teamName0: event.target.value })}
-              sx={{ '& input': { textAlign: 'center' } }}
+              sx={(theme) => ({
+                '& input': { textAlign: 'center' },
+                'input:focus::placeholder': {
+                  color: 'transparent'
+                },
+                '--Input-focusedHighlight': theme.vars.palette.primary.plainColor,
+                '--Input-focusedThickness': '1px',
+              })}
             />
             <Typography>vs.</Typography>
             <Input
               placeholder={teamName1}
               onChange={(event) => setTeamsInfo({ ...teamsInfo, teamName1: event.target.value })}
-              sx={{ '& input': { textAlign: 'center' } }}
+              sx={(theme) => ({
+                '& input': { textAlign: 'center' },
+                'input:focus::placeholder': {
+                  color: 'transparent'
+                },
+                '--Input-focusedHighlight': theme.vars.palette.primary.plainColor,
+                '--Input-focusedThickness': '1px',
+              })}
             />
           </Stack>
         </Stack>
@@ -54,11 +68,16 @@ export default function TeamsInfo({ onSubmit }: { onSubmit: () => void }) {
               value={teamsInfo.teamName0}
               onClick={() => setTeamsInfo({ ...teamsInfo, currentTeam: 0 })}
               sx={(theme) => ({
+                color: `${teamsInfo.currentTeam === 0
+                  ? theme.vars.palette.primary.plainColor
+                  : 'undefined'}`,
                 '& input': { textAlign: 'center', cursor: 'pointer' },
                 cursor: 'pointer',
                 backgroundColor: `${teamsInfo.currentTeam === 0
                   ? theme.vars.palette.primary.softBg
                   : 'undefined'}`,
+                '--Input-focusedHighlight': theme.vars.palette.primary.plainColor,
+                '--Input-focusedThickness': '1px',
               })}
             />
             <Typography>vs.</Typography>
@@ -67,11 +86,16 @@ export default function TeamsInfo({ onSubmit }: { onSubmit: () => void }) {
               value={teamsInfo.teamName1}
               onClick={() => setTeamsInfo({ ...teamsInfo, currentTeam: 1 })}
               sx={(theme) => ({
+                color: `${teamsInfo.currentTeam === 1
+                  ? theme.vars.palette.primary.plainColor
+                  : 'undefined'}`,
                 '& input': { textAlign: 'center', cursor: 'pointer' },
                 cursor: 'pointer',
                 backgroundColor: `${teamsInfo.currentTeam === 1
                   ? theme.vars.palette.primary.softBg
-                  : 'undefined'}`
+                  : 'undefined'}`,
+                '--Input-focusedHighlight': theme.vars.palette.primary.plainColor,
+                '--Input-focusedThickness': '1px',
               })}
             />
           </Stack>
