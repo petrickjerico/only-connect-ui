@@ -3,6 +3,7 @@ import CoverImage from '../../../assets/img/cover.png'
 import { useTranslation } from 'react-i18next'
 import { useHost } from '../../utils/context/HostProvider'
 import { useState } from 'react'
+import DisplayTieBreaker from './DisplayTieBreaker'
 
 export default function DisplayEndScreen() {
   const { t } = useTranslation()
@@ -26,7 +27,7 @@ export default function DisplayEndScreen() {
         <Typography level='h1'>
           {t('end_title')}
         </Typography>
-        <Sheet>
+        <Sheet sx={{ background: 'none' }}>
           {
             !showScores && (
               <Sheet
@@ -67,7 +68,7 @@ export default function DisplayEndScreen() {
               </Stack>
             </Sheet>
             <Stack gap={2}>
-              {isTie ? <Button variant='soft' fullWidth>Tie-breaker</Button> : <Typography level='body-lg'>{winner} wins!</Typography>}
+              {isTie ? <DisplayTieBreaker /> : <Typography level='body-lg'>{winner} wins!</Typography>}
               <Typography level='body-lg' >
                 {isTie ? 'It\'s a tie! Team captains will now go head-to-head in a tie-breaker.' : t('end_message')}
               </Typography>

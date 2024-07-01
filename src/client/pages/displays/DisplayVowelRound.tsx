@@ -8,7 +8,7 @@ import { playAudio, stopAudio } from '../../utils/audios'
 import { useKeyboardShortcut } from '../../utils/shortcuts'
 import { useHostDispatch } from '../../utils/context/HostProvider'
 
-type VowelDisplayOrder = [string, 'description' | 'clue' | 'solution' | 'pause']
+export type VowelDisplayOrder = [string, 'description' | 'clue' | 'solution' | 'pause']
 
 export default function DisplayVowelRound({ data }: { data: VowelRound }) {
   const order: VowelDisplayOrder[] =

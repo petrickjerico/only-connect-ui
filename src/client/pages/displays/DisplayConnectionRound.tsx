@@ -3,8 +3,8 @@ import { Box, Grid, Modal, ModalDialog, Stack } from '@mui/joy'
 import { useState } from 'react'
 import DisplayGroupBox from '../../components/DisplayGroupBox'
 import DisplayClues from '../../layout/display/DisplayClues'
-import { stopAudio } from '../../utils/audios'
-import { CluesBGM } from '../../../assets/audios'
+import { playAudio, stopAudio } from '../../utils/audios'
+import { CluesBGM, GroupSelectedSFX } from '../../../assets/audios'
 import { useHostDispatch } from '../../utils/context/HostProvider'
 
 export default function DisplayConnectionRound({ data }: { data: ConnectionRound }) {
@@ -17,6 +17,7 @@ export default function DisplayConnectionRound({ data }: { data: ConnectionRound
     setGroupKey(key)
     setClues(clues)
     setOpened(opened.concat(key))
+    playAudio(GroupSelectedSFX)
 
     if (opened.length === 5) {
       dispatch({ type: 'UPDATE_CURRENT_ROUND' })

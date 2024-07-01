@@ -4,8 +4,8 @@ import { useState } from 'react'
 import DisplayGroupBox from '../../components/DisplayGroupBox'
 import DisplayWall from '../../layout/display/DisplayWall'
 import { DEFAULT_WALL_INDEXES } from '../../utils/titles'
-import { stopAudio } from '../../utils/audios'
-import { WallBGM } from '../../../assets/audios'
+import { playAudio, stopAudio } from '../../utils/audios'
+import { GroupSelectedSFX, WallBGM } from '../../../assets/audios'
 import { useHostDispatch } from '../../utils/context/HostProvider'
 
 export default function DisplayWallRound({ data }: { data: WallRound }) {
@@ -18,6 +18,7 @@ export default function DisplayWallRound({ data }: { data: WallRound }) {
     setGroupKey(key)
     setWall(wall)
     setOpened(opened.concat(key))
+    playAudio(GroupSelectedSFX)
 
     if (opened.length === 1) {
       dispatch({ type: 'UPDATE_CURRENT_ROUND' })

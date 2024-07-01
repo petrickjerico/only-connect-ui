@@ -2,10 +2,10 @@ import { Box, Button, ButtonGroup, Divider, Sheet, Stack, Typography, styled } f
 import { ClueGroup } from '../../utils/types/display'
 import DisplayClueBox from '../../components/DisplayClueBox'
 import DisplayDescriptionBox from '../../components/DisplayDescriptionBox'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import LinearTimer from '../../components/LinearTimer'
 import DisplayGroupBox from '../../components/DisplayGroupBox'
-import { BuzzerSFX, ClickSFX, CluesBGM, FailSFX, GroupSelectedSFX, NextClueSFX } from '../../../assets/audios'
+import { BuzzerSFX, ClickSFX, CluesBGM, FailSFX, NextClueSFX } from '../../../assets/audios'
 import { playAudio, stopAudio } from '../../utils/audios'
 import { sortDataSet } from '../../utils/game'
 import HourglassTopRoundedIcon from '@mui/icons-material/HourglassTopRounded'
@@ -126,10 +126,6 @@ export default function DisplayClues({
       count: mediaPreloaded.count + 1
     }))
   }
-
-  useEffect(() => {
-    playAudio(GroupSelectedSFX)
-  }, [])
 
   useKeyboardShortcut({
     key: 'z',

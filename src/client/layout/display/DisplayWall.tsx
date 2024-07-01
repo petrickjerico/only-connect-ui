@@ -6,7 +6,7 @@ import { getGroupColor } from '../../utils/colors'
 import DisplayGroupBox from '../../components/DisplayGroupBox'
 import LinearTimer from '../../components/LinearTimer'
 import { FavoriteRounded } from '@mui/icons-material'
-import { ClickSFX, CorrectSFX, FailSFX, GroupSelectedSFX, IncorrectSFX, LifeReducedSFX, NextClueSFX, SolvedSFX, TapSFX, WallBGM } from '../../../assets/audios'
+import { ClickSFX, CorrectSFX, FailSFX, IncorrectSFX, LifeReducedSFX, NextClueSFX, SolvedSFX, TapSFX, WallBGM } from '../../../assets/audios'
 import { stopAudio, playAudio } from '../../utils/audios'
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
 import HourglassTopRoundedIcon from '@mui/icons-material/HourglassTopRounded'
@@ -160,7 +160,6 @@ export default function DisplayWall({
   }
 
   useEffect(() => {
-    playAudio(GroupSelectedSFX)
     initializeLayout()
   }, [])
 
