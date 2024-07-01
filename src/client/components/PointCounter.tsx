@@ -2,10 +2,21 @@ import { Divider, IconButton, Input, Stack } from '@mui/joy'
 import PlusIcon from '@mui/icons-material/AddRounded'
 import MinusIcon from '@mui/icons-material/RemoveRounded'
 import { useState } from 'react'
+import { useHost } from '../utils/context/HostProvider'
+import { RoundTypeEnum } from '../utils/types/attributes'
 
 export default function PointCounter() {
+  const { players, currentPlayer, currentPage, currentRound } = useHost()
+
+  function isPlaying(player: number) {
+    return currentPage === currentRound
+      ? player === currentPlayer || currentRound === RoundTypeEnum.VOWEL
+      : false
+  }
+
   return (
     <Stack
+      display={0 < currentPage && currentPage < 5 ? 'flex' : 'none'}
       direction='row'
       gap={1}
       sx={{
@@ -17,32 +28,33 @@ export default function PointCounter() {
         alignItems: 'center'
       }}>
       <Input
+        readOnly
+        disabled={!isPlaying(0)}
         variant='plain'
-        placeholder='Team A'
         size='lg'
-        sx={(theme) => ({
+        value={players[0]}
+        sx={{
           height: 'fit-content',
           backgroundColor: 'transparent',
-          ':hover': { backgroundColor: `${theme.vars.palette.neutral.softHoverBg}` },
-          ':focus-within': { backgroundColor: `${theme.vars.palette.neutral.softActiveBg}` },
           '--Input-focusedThickness': 0,
-          '& input': { textAlign: 'right', fontWeight: '500' }
-        })} />
+          '& input': { textAlign: 'right' }
+        }}
+      />
       <Counter />
       <Divider orientation='vertical' />
       <Counter />
       <Input
+        readOnly
+        disabled={!isPlaying(1)}
         variant='plain'
-        placeholder='Team B'
         size='lg'
-        sx={(theme) => ({
+        value={players[1]}
+        sx={{
           height: 'fit-content',
           backgroundColor: 'transparent',
-          ':hover': { backgroundColor: `${theme.vars.palette.neutral.softHoverBg}` },
-          ':focus-within': { backgroundColor: `${theme.vars.palette.neutral.softActiveBg}` },
-          '--Input-focusedThickness': 0,
-          '& input': { fontWeight: '500' }
-        })} />
+          '--Input-focusedThickness': 0
+        }}
+      />
     </Stack>
   )
 }

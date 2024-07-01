@@ -22,6 +22,7 @@ import DisplayWallRound from './pages/displays/DisplayWallRound'
 import DisplayVowelRound from './pages/displays/DisplayVowelRound'
 import DisplayStartScreen from './pages/displays/DisplayStartScreen'
 import DisplayEndScreen from './pages/displays/DisplayEndScreen'
+import TurnKeeperProvider from './utils/context/HostProvider'
 
 export default function App() {
   const theme = useTheme()
@@ -41,13 +42,13 @@ export default function App() {
           <Router>
             <Routes>
               <Route path='/' element={<CreateGame />} />
-              <Route path='display' element={<DisplayGame />}>
+              <Route path='display' element={<TurnKeeperProvider><DisplayGame /></TurnKeeperProvider>}>
                 <Route index element={<Navigate to='start' />} />
                 <Route path='start' element={<DisplayStartScreen />} />
-                <Route path='connections' element={<DisplayConnectionRound data={connections} />} />
-                <Route path='sequences' element={<DisplaySequenceRound data={sequences} />} />
-                <Route path='walls' element={<DisplayWallRound data={walls} />} />
-                <Route path='vowels' element={<DisplayVowelRound data={vowels} />} />
+                <Route path='connection' element={<DisplayConnectionRound data={connections} />} />
+                <Route path='sequence' element={<DisplaySequenceRound data={sequences} />} />
+                <Route path='wall' element={<DisplayWallRound data={walls} />} />
+                <Route path='vowel' element={<DisplayVowelRound data={vowels} />} />
                 <Route path='end' element={<DisplayEndScreen />} />
                 <Route path='*' element={<Navigate to='start' />} />
               </Route>
@@ -55,7 +56,7 @@ export default function App() {
           </Router>
         </GameProvider>
       </ThemeProvider>
-    </CssVarsProvider>
+    </CssVarsProvider >
 
   )
 }

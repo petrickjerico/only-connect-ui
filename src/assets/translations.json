@@ -67,7 +67,13 @@
       "clue_error": "Some clues cannot be loaded",
       "clue": "Clue",
       "clue_loading": "Loading media...",
-      "clue_success": "Loading done!"
+      "clue_success": "Loading done!",
+      "teams_info": "Teams Info",
+      "teams_name": "Name your teams.",
+      "teams_turn": "Now select which team plays first.",
+      "skip": "Skip",
+      "next": "Next",
+      "done": "Done"
     }
   },
   "id": {
@@ -138,7 +144,13 @@
       "clue_error": "Ada petunjuk yang tidak bisa dimuat",
       "clue": "Petunjuk",
       "clue_loading": "Memuat media...",
-      "clue_success": "Media siap!"
+      "clue_success": "Media siap!",
+      "teams_info": "Info tim",
+      "teams_name": "Beri nama tim.",
+      "teams_turn": "Sekarang pilih tim yang pertama main.",
+      "skip": "Lewat",
+      "next": "Lanjut",
+      "done": "Selesai"
     }
   }
 }

@@ -265,7 +265,7 @@ export default function DisplayWall({
                   {Array.from(Array(lives.number).keys()).map((key) => <FavoriteRounded key={key} sx={{ color: colors.red[300] }} />)}
                 </Stack>
                 <LinearTimer
-                  duration={10}
+                  duration={150}
                   isVisible={true}
                   isCounting={true}
                   isEnd={false}

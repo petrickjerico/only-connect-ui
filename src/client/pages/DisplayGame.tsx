@@ -1,5 +1,7 @@
 import {
   IconButton,
+  Modal,
+  ModalDialog,
   Stack,
 } from '@mui/joy'
 import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded'
@@ -10,42 +12,60 @@ import LanguageSelection from '../components/LanguageSelection'
 import PointCounter from '../components/PointCounter'
 import { stopAllBGM } from '../utils/audios'
 import SystemModeToggle from '../components/SystemModeToggle'
+import TeamsInfo from '../components/TeamsInfo'
+import { useHostDispatch, HostActionKind } from '../utils/context/HostProvider'
 
 const screens = [
   'start',
-  'connections',
-  'sequences',
-  'walls',
-  'vowels',
+  'connection',
+  'sequence',
+  'wall',
+  'vowel',
   'end'
 ]
 
 export default function DisplayGame() {
   const match = useMatch('/display/:curr')
+  const navigate = useNavigate()
+  const dispatch = useHostDispatch()
   const [screenId, setScreenId] = useState<number>(0)
   const [showButton, setShowButton] = useState<boolean>(false)
-  const navigate = useNavigate()
+  const [openFirstTurnPicker, setOpenFirstTurnPicker] = useState<{
+    isOpen: boolean,
+    hasBeenOpened: boolean
+  }>({
+    isOpen: false,
+    hasBeenOpened: false
+  })
+
+
+  function goTo(where: 'next' | 'previous') {
+    let currId = screenId
+
+    switch (where) {
+      case 'next':
+        currId += 1
+        break
+      case 'previous':
+        currId -= 1
+        break
+      default:
+        break
+    }
+
+    setScreenId(currId)
+    navigate(screens[currId])
+    dispatch({ type: HostActionKind.UPDATE_PAGE, currentPage: currId })
+    stopAllBGM()
+  }
 
   useEffect(() => {
     const index = screens.indexOf(match?.params.curr as string)
-    if (index > 0) {
+    if (0 <= index && index <= 5) {
       setScreenId(index)
+      dispatch({ type: HostActionKind.UPDATE_PAGE, currentPage: index })
     }
   }, [])
-
-  function goTo(where: 'next' | 'previous') {
-    if (where === 'previous' && screenId > 0) {
-      const currId = screenId - 1
-      setScreenId(currId)
-      navigate(screens[currId])
-    }
-    if (where === 'next' && screenId < 5) {
-      const currId = screenId + 1
-      setScreenId(currId)
-      navigate(screens[currId])
-    }
-    stopAllBGM()
-  }
 
   return (
     <Stack
@@ -89,7 +109,13 @@ export default function DisplayGame() {
         onMouseOut={() => setShowButton(false)}
         disabled={screenId === 5}
         variant='plain'
-        onClick={() => goTo('next')}
+        onClick={() => {
+          if (screenId === 0 && !openFirstTurnPicker.hasBeenOpened) {
+            setOpenFirstTurnPicker({ isOpen: true, hasBeenOpened: false })
+          } else {
+            goTo('next')
+          }
+        }}
         sx={{
           height: '100%',
           width: '5%',
@@ -101,6 +127,16 @@ export default function DisplayGame() {
         }}>
         <ChevronRightRoundedIcon />
       </IconButton>
+      <Modal
+        open={openFirstTurnPicker.isOpen}
+        onClose={() => setOpenFirstTurnPicker({ isOpen: false, hasBeenOpened: true })}>
+        <ModalDialog size='md'>
+          <TeamsInfo onSubmit={() => {
+            setOpenFirstTurnPicker({ isOpen: false, hasBeenOpened: true })
+            goTo('next')
+          }} />
+        </ModalDialog>
+      </Modal>
     </Stack >
   )
 }

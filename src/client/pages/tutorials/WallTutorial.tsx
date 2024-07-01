@@ -84,7 +84,7 @@ export default function WallTutorial({ verbose }: { verbose?: boolean }) {
   return (
     <Stack direction='row' spacing={2} >
       <Stack minWidth='25%'>
-        <Typography level='h4' pb={2}>
+        <Typography level='title-lg' pb={2}>
           {t('quick_glance')}
         </Typography>
         <Typography
@@ -138,13 +138,13 @@ export default function WallTutorial({ verbose }: { verbose?: boolean }) {
       </Stack>
       <Divider orientation='vertical' />
       <Stack spacing={2}>
-        <Typography level='h4'>
+        <Typography level='title-lg'>
           {t('round_description')}
         </Typography>
         {t('round3_description_paragraph')
           .split('\n')
           .map((line, key) => (
-            <Typography key={key} level={line.split(' ')[0] === 'Part' ? 'title-lg' : undefined}>
+            <Typography key={key} level={line.split(' ')[0] === 'Part' ? 'title-md' : undefined}>
               {line}
             </Typography>
           ))}

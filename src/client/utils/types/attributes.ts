@@ -1,3 +1,10 @@
+export enum RoundTypeEnum {
+  CONNECTION = 1,
+  SEQUENCE,
+  WALL,
+  VOWEL
+}
+
 export type RoundType = 'connection' | 'sequence' | 'wall' | 'vowel'
 
 export type GameAttribute = {

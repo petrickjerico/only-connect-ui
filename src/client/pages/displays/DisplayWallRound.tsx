@@ -6,11 +6,24 @@ import DisplayWall from '../../layout/display/DisplayWall'
 import { DEFAULT_WALL_INDEXES } from '../../utils/titles'
 import { stopAudio } from '../../utils/audios'
 import { WallBGM } from '../../../assets/audios'
+import { useHostDispatch, HostActionKind } from '../../utils/context/HostProvider'
 
 export default function DisplayWallRound({ data }: { data: WallRound }) {
   const [groupKey, setGroupKey] = useState<string>('')
   const [wall, setWall] = useState<Partial<WallGroup>>()
   const [opened, setOpened] = useState<string[]>([])
+  const dispatch = useHostDispatch()
+
+  function onGroupBoxClick({ key, wall }: { key: string, wall: WallGroup }) {
+    setGroupKey(key)
+    setWall(wall)
+    setOpened(opened.concat(key))
+
+    if (opened.length === 1) {
+      dispatch({ type: HostActionKind.UPDATE_ROUND })
+    }
+    dispatch({ type: HostActionKind.UPDATE_PLAYER })
+  }
 
   return (
     <Box>
@@ -21,13 +34,10 @@ export default function DisplayWallRound({ data }: { data: WallRound }) {
             <DisplayGroupBox
               key={key}
               groupId={groupId}
-              isDisabled={opened.includes(key)}
+              isDisabled={opened.includes(groupId)}
               namePlacement='bottom'
-              onClick={() => {
-                setGroupKey(groupId)
-                setWall(value)
-                setOpened(opened.concat(key))
-              }} />
+              onClick={() => onGroupBoxClick({ key: groupId, wall: value })}
+            />
           )
         })}
       </Grid >

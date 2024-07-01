@@ -1,4 +1,4 @@
-import { Modal, ModalDialog, ModalClose, Typography, Tabs, TabList, Tab, TabPanel, Button } from '@mui/joy';
+import { Modal, ModalDialog, ModalClose, Typography, Tabs, TabList, Tab, TabPanel, Button, DialogTitle } from '@mui/joy';
 import { t } from 'i18next';
 import ConnectionTutorial from './ConnectionTutorial';
 import SequenceTutorial from './SequenceTutorial';
@@ -17,16 +17,8 @@ export default function TutorialModal() {
       <Modal open={open} onClose={() => setOpen(false)}>
         <ModalDialog minWidth='60%'>
           <ModalClose />
-          <Typography
-            component="h2"
-            id="modal-title"
-            level="h3"
-            textColor="inherit"
-            fontWeight="lg"
-            mb={1}
-          >
-            {t('tutorial_title')}
-          </Typography>
+          <DialogTitle>{t('tutorial_title')}</DialogTitle>
+
           <Tabs
             aria-label="Basic tabs"
             defaultValue={0}

@@ -5,11 +5,25 @@ import DisplayGroupBox from '../../components/DisplayGroupBox'
 import DisplayClues from '../../layout/display/DisplayClues'
 import { stopAudio } from '../../utils/audios'
 import { CluesBGM } from '../../../assets/audios'
+import { HostActionKind, useHostDispatch } from '../../utils/context/HostProvider'
 
 export default function DisplaySequenceRound({ data }: { data: SequenceRound }) {
   const [groupKey, setGroupKey] = useState<string>('')
   const [clues, setClues] = useState<Partial<ClueGroup>>()
   const [opened, setOpened] = useState<string[]>([])
+  const dispatch = useHostDispatch()
+
+  function onGroupBoxClick({ key, clues }: { key: string, clues: ClueGroup }) {
+    setGroupKey(key)
+    setClues(clues)
+    setOpened(opened.concat(key))
+
+    if (opened.length === 5) {
+      dispatch({ type: HostActionKind.UPDATE_ROUND })
+      dispatch({ type: HostActionKind.UPDATE_PLAYER })
+    }
+    dispatch({ type: HostActionKind.UPDATE_PLAYER })
+  }
 
   return (
     <Box>
@@ -22,11 +36,7 @@ export default function DisplaySequenceRound({ data }: { data: SequenceRound }) 
               groupId={key}
               isDisabled={opened.includes(key)}
               namePlacement='top'
-              onClick={() => {
-                setGroupKey(key)
-                setClues(value)
-                setOpened(opened.concat(key))
-              }} />
+              onClick={() => onGroupBoxClick({ key: key, clues: value })} />
           ))}
         </Grid>
         <Grid container columns={3} gap={1} alignItems='start'>
@@ -37,11 +47,7 @@ export default function DisplaySequenceRound({ data }: { data: SequenceRound }) 
               groupId={key}
               isDisabled={opened.includes(key)}
               namePlacement='bottom'
-              onClick={() => {
-                setGroupKey(key)
-                setClues(value)
-                setOpened(opened.concat(key))
-              }} />
+              onClick={() => onGroupBoxClick({ key: key, clues: value })} />
           ))}
         </Grid >
       </Stack>

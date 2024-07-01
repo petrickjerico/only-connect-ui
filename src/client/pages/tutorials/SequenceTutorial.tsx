@@ -38,7 +38,7 @@ export default function SequenceTutorial({ verbose }: { verbose?: boolean }) {
   return (
     <Stack direction='row' spacing={2} >
       <Stack minWidth='25%'>
-        <Typography level='h4' pb={2}>
+        <Typography level='title-lg' pb={2}>
           {t('quick_glance')}
         </Typography>
         <Typography
@@ -96,7 +96,7 @@ export default function SequenceTutorial({ verbose }: { verbose?: boolean }) {
       </Stack>
       <Divider orientation='vertical' />
       <Stack spacing={2}>
-        <Typography level='h4'>
+        <Typography level='title-lg'>
           {t('round_description')}
         </Typography>
         {t('round2_description_paragraph')
