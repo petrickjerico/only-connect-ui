@@ -73,7 +73,10 @@
       "teams_turn": "Now select which team plays first.",
       "skip": "Skip",
       "next": "Next",
-      "done": "Done"
+      "done": "Done",
+      "show_final_scores": "Show final scores",
+      "tie_message": "It's a tie! Team captains will now go head-to-head in a tie-breaker.",
+      "wins": "wins"
     }
   },
   "id": {
@@ -150,7 +153,10 @@
       "teams_turn": "Sekarang pilih tim yang pertama main.",
       "skip": "Lewat",
       "next": "Lanjut",
-      "done": "Selesai"
+      "done": "Selesai",
+      "show_final_scores": "Lihat hasil akhir",
+      "tie_message": "Hasil seri! Kapten dari masing-masing tim akan beradu dalam ronde tie-breaker.",
+      "wins": "menang"
     }
   }
 }

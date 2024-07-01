@@ -45,7 +45,7 @@ export default function DisplayEndScreen() {
                 }}
               >
                 <Button variant='plain' fullWidth onClick={() => setShowScores(true)} >
-                  Show final scores
+                  {t('show_final_scores')}
                 </Button>
               </Sheet>
             )
@@ -68,9 +68,9 @@ export default function DisplayEndScreen() {
               </Stack>
             </Sheet>
             <Stack gap={2}>
-              {isTie ? <DisplayTieBreaker /> : <Typography level='body-lg'>{winner} wins!</Typography>}
+              {isTie ? <DisplayTieBreaker /> : <Typography level='body-lg'>{`${winner} ${t('wins')}!`}</Typography>}
               <Typography level='body-lg' >
-                {isTie ? 'It\'s a tie! Team captains will now go head-to-head in a tie-breaker.' : t('end_message')}
+                {isTie ? t('tie_message') : t('end_message')}
               </Typography>
             </Stack>
           </Stack>

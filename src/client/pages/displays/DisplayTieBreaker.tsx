@@ -13,7 +13,7 @@ import { useHost, useHostDispatch } from '../../utils/context/HostProvider';
 export default function DisplayTieBreaker() {
   let order: VowelDisplayOrder[] = []
 
-  const { i18n } = useTranslation()
+  const { t, i18n } = useTranslation()
   const { teamName0, teamName1 } = useHost()
   const dispatch = useHostDispatch()
   const [open, setOpen] = useState<boolean>(false)
@@ -57,7 +57,7 @@ export default function DisplayTieBreaker() {
       [clue, 'clue'],
       ['Tie-breaker', 'description']
     ]
-  }, [open])
+  }, [])
 
   const handleShowNext = useCallback(showNext, [])
 
@@ -114,7 +114,7 @@ export default function DisplayTieBreaker() {
                     setOpen(false)
                     playAudio(ClickSFX)
                   }}>
-                  {`${teamName0} wins`}
+                  {`${teamName0} ${t('wins')}`}
                 </StyledBottomButton>
                 <StyledBottomButton
                   fullWidth
@@ -124,7 +124,7 @@ export default function DisplayTieBreaker() {
                     setOpen(false)
                     playAudio(ClickSFX)
                   }}>
-                  {`${teamName1} wins`}
+                  {`${teamName1} ${t('wins')}`}
                 </StyledBottomButton>
               </StyledButtonGroup>
             </Box>
