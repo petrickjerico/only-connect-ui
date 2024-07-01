@@ -1,6 +1,6 @@
 import { DialogTitle, Box, Button, Stack, Typography, Input } from '@mui/joy'
 import React, { useState } from 'react'
-import { HostActionKind, useHost, useHostDispatch } from '../utils/context/HostProvider'
+import { useHost, useHostDispatch } from '../utils/context/HostProvider'
 import { useTranslation } from 'react-i18next'
 
 const enum TeamsInfoState {
@@ -10,11 +10,18 @@ const enum TeamsInfoState {
 
 export default function TeamsInfo({ onSubmit }: { onSubmit: () => void }) {
   const dispatch = useHostDispatch()
-  const { players } = useHost()
   const { t } = useTranslation()
-  const [playerNames, setPlayerNames] = useState<[string, string]>(players)
-  const [firstPlayer, setFirstPlayer] = useState<number>()
+  const { teamName0, teamName1, currentTeam } = useHost()
   const [teamsInfoState, setTeamsInfoState] = useState<TeamsInfoState>(TeamsInfoState.NAMES)
+  const [teamsInfo, setTeamsInfo] = useState<{
+    teamName0: string,
+    teamName1: string,
+    currentTeam?: number
+  }>({
+    teamName0: teamName0,
+    teamName1: teamName1,
+    currentTeam: undefined
+  })
 
   return (
     <React.Fragment>
@@ -24,14 +31,14 @@ export default function TeamsInfo({ onSubmit }: { onSubmit: () => void }) {
           <Typography>{t('teams_name')}</Typography>
           <Stack direction='row' alignItems='center' gap={2}>
             <Input
-              placeholder={players[0]}
-              onChange={(event) => setPlayerNames([event.target.value, playerNames[1]])}
+              placeholder={teamName0}
+              onChange={(event) => setTeamsInfo({ ...teamsInfo, teamName0: event.target.value })}
               sx={{ '& input': { textAlign: 'center' } }}
             />
             <Typography>vs.</Typography>
             <Input
-              placeholder={players[1]}
-              onChange={(event) => setPlayerNames([playerNames[0], event.target.value])}
+              placeholder={teamName1}
+              onChange={(event) => setTeamsInfo({ ...teamsInfo, teamName1: event.target.value })}
               sx={{ '& input': { textAlign: 'center' } }}
             />
           </Stack>
@@ -44,23 +51,27 @@ export default function TeamsInfo({ onSubmit }: { onSubmit: () => void }) {
           <Stack direction='row' alignItems='center' gap={2}>
             <Input
               readOnly
-              value={playerNames[0]}
-              onClick={() => setFirstPlayer(0)}
+              value={teamsInfo.teamName0}
+              onClick={() => setTeamsInfo({ ...teamsInfo, currentTeam: 0 })}
               sx={(theme) => ({
                 '& input': { textAlign: 'center', cursor: 'pointer' },
                 cursor: 'pointer',
-                backgroundColor: `${firstPlayer === 0 ? theme.vars.palette.primary.softBg : 'undefined'}`,
+                backgroundColor: `${teamsInfo.currentTeam === 0
+                  ? theme.vars.palette.primary.softBg
+                  : 'undefined'}`,
               })}
             />
             <Typography>vs.</Typography>
             <Input
               readOnly
-              value={playerNames[1]}
-              onClick={() => setFirstPlayer(1)}
+              value={teamsInfo.teamName1}
+              onClick={() => setTeamsInfo({ ...teamsInfo, currentTeam: 1 })}
               sx={(theme) => ({
                 '& input': { textAlign: 'center', cursor: 'pointer' },
                 cursor: 'pointer',
-                backgroundColor: `${firstPlayer === 1 ? theme.vars.palette.primary.softBg : 'undefined'}`
+                backgroundColor: `${teamsInfo.currentTeam === 1
+                  ? theme.vars.palette.primary.softBg
+                  : 'undefined'}`
               })}
             />
           </Stack>
@@ -81,8 +92,9 @@ export default function TeamsInfo({ onSubmit }: { onSubmit: () => void }) {
               setTeamsInfoState(TeamsInfoState.TURN)
               break
             case TeamsInfoState.TURN:
-              dispatch({ type: HostActionKind.INITIALIZE, initialPlayer: Number(firstPlayer) })
-              dispatch({ type: HostActionKind.UPDATE_NAMES, players: playerNames })
+              dispatch({ type: 'UPDATE_TEAM_NAME_0', payload: teamsInfo.teamName0 })
+              dispatch({ type: 'UPDATE_TEAM_NAME_1', payload: teamsInfo.teamName1 })
+              dispatch({ type: 'INITIALIZE_CURRENT_TEAM', payload: teamsInfo.currentTeam ?? currentTeam })
               onSubmit()
               break
             default:

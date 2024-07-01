@@ -1,74 +1,99 @@
 import React, { Dispatch, createContext, useContext, useReducer } from 'react'
 import { RoundTypeEnum } from '../types/attributes'
 
-export const enum HostActionKind {
-  INITIALIZE = 'INITIALIZE',
-  UPDATE_NAMES = 'UPDATE_NAMES',
-  UPDATE_PLAYER = 'UPDATE_PLAYER',
-  UPDATE_ROUND = 'UPDATE_ROUND',
-  UPDATE_PAGE = 'UPDATE_PAGE',
-  UPDATE_USAGE = 'UPDATE_USAGE'
-}
+export type HostAction =
+  | { type: 'UPDATE_TEAM_NAME_0', payload: string }
+  | { type: 'UPDATE_TEAM_NAME_1', payload: string }
+  | { type: 'INCREMENT_TEAM_SCORE_0' }
+  | { type: 'DECREMENT_TEAM_SCORE_0' }
+  | { type: 'INCREMENT_TEAM_SCORE_1' }
+  | { type: 'DECREMENT_TEAM_SCORE_1' }
+  | { type: 'INITIALIZE_CURRENT_TEAM', payload: number }
+  | { type: 'UPDATE_CURRENT_TEAM' }
+  | { type: 'UPDATE_CURRENT_PAGE', payload: number }
+  | { type: 'UPDATE_CURRENT_ROUND' }
+  | { type: 'TOGGLE_INCREMENT' }
 
-interface HostAction {
-  type: HostActionKind
-  currentPage?: number
-  initialPlayer?: number
-  players?: [string, string]
-}
 
 interface HostState {
-  players: [string, string]
-  currentPlayer: number
-  currentRound: RoundTypeEnum
+  teamName0: string
+  teamName1: string
+  teamScore0: number
+  teamScore1: number
+  currentTeam: number
   currentPage: number
-  initialized: boolean
+  currentRound: RoundTypeEnum
+  applyScoreIncrements: boolean
 }
 
 const initialHostState: HostState = {
-  players: ['Team A', 'Team B'],
-  currentPlayer: 0,
-  currentRound: RoundTypeEnum.CONNECTION,
+  teamName0: 'Team A',
+  teamName1: 'Team B',
+  teamScore0: 0,
+  teamScore1: 0,
+  currentTeam: 0,
   currentPage: 0,
-  initialized: false
+  currentRound: RoundTypeEnum.CONNECTION,
+  applyScoreIncrements: false
 }
 
 // Our reducer function that uses a switch statement to handle our actions
 function hostReducer(state: HostState, action: HostAction): HostState {
-  const { type, currentPage, initialPlayer, players } = action
-
-  switch (type) {
-    case HostActionKind.INITIALIZE:
+  switch (action.type) {
+    case 'UPDATE_TEAM_NAME_0':
       return {
         ...state,
-        currentPlayer: initialPlayer ?? state.currentPlayer,
-        initialized: true
+        teamName0: action.payload
       }
-    case HostActionKind.UPDATE_NAMES:
-      return state.initialized
-        ? {
-          ...state,
-          players: players ?? state.players
-        }
-        : state
-    case HostActionKind.UPDATE_PLAYER:
-      return state.initialized
-        ? {
-          ...state,
-          currentPlayer: 1 - state.currentPlayer
-        }
-        : state
-    case HostActionKind.UPDATE_ROUND:
-      return state.initialized
-        ? {
-          ...state,
-          currentRound: state.currentRound + 1
-        }
-        : state
-    case HostActionKind.UPDATE_PAGE:
+    case 'UPDATE_TEAM_NAME_1':
       return {
         ...state,
-        currentPage: currentPage ?? state.currentPage
+        teamName1: action.payload
+      }
+    case 'INCREMENT_TEAM_SCORE_0':
+      return {
+        ...state,
+        teamScore0: state.teamScore0 + 1
+      }
+    case 'DECREMENT_TEAM_SCORE_0':
+      return {
+        ...state,
+        teamScore0: state.teamScore0 - 1
+      }
+    case 'INCREMENT_TEAM_SCORE_1':
+      return {
+        ...state,
+        teamScore1: state.teamScore1 + 1
+      }
+    case 'DECREMENT_TEAM_SCORE_1':
+      return {
+        ...state,
+        teamScore1: state.teamScore1 - 1
+      }
+    case 'INITIALIZE_CURRENT_TEAM':
+      return {
+        ...state,
+        currentTeam: action.payload
+      }
+    case 'UPDATE_CURRENT_TEAM':
+      return {
+        ...state,
+        currentTeam: 1 - state.currentTeam
+      }
+    case 'UPDATE_CURRENT_PAGE':
+      return {
+        ...state,
+        currentPage: action.payload
+      }
+    case 'UPDATE_CURRENT_ROUND':
+      return {
+        ...state,
+        currentRound: state.currentRound + 1
+      }
+    case 'TOGGLE_INCREMENT':
+      return {
+        ...state,
+        applyScoreIncrements: !state.applyScoreIncrements
       }
     default:
       return state

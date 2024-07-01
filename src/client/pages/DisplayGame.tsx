@@ -13,7 +13,7 @@ import PointCounter from '../components/PointCounter'
 import { stopAllBGM } from '../utils/audios'
 import SystemModeToggle from '../components/SystemModeToggle'
 import TeamsInfo from '../components/TeamsInfo'
-import { useHostDispatch, HostActionKind } from '../utils/context/HostProvider'
+import { useHostDispatch } from '../utils/context/HostProvider'
 
 const screens = [
   'start',
@@ -55,7 +55,7 @@ export default function DisplayGame() {
 
     setScreenId(currId)
     navigate(screens[currId])
-    dispatch({ type: HostActionKind.UPDATE_PAGE, currentPage: currId })
+    dispatch({ type: 'UPDATE_CURRENT_PAGE', payload: currId })
     stopAllBGM()
   }
 
@@ -63,7 +63,7 @@ export default function DisplayGame() {
     const index = screens.indexOf(match?.params.curr as string)
     if (0 <= index && index <= 5) {
       setScreenId(index)
-      dispatch({ type: HostActionKind.UPDATE_PAGE, currentPage: index })
+      dispatch({ type: 'UPDATE_CURRENT_PAGE', payload: index })
     }
   }, [])
 

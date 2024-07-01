@@ -6,7 +6,7 @@ import DisplayWall from '../../layout/display/DisplayWall'
 import { DEFAULT_WALL_INDEXES } from '../../utils/titles'
 import { stopAudio } from '../../utils/audios'
 import { WallBGM } from '../../../assets/audios'
-import { useHostDispatch, HostActionKind } from '../../utils/context/HostProvider'
+import { useHostDispatch } from '../../utils/context/HostProvider'
 
 export default function DisplayWallRound({ data }: { data: WallRound }) {
   const [groupKey, setGroupKey] = useState<string>('')
@@ -20,9 +20,9 @@ export default function DisplayWallRound({ data }: { data: WallRound }) {
     setOpened(opened.concat(key))
 
     if (opened.length === 1) {
-      dispatch({ type: HostActionKind.UPDATE_ROUND })
+      dispatch({ type: 'UPDATE_CURRENT_ROUND' })
     }
-    dispatch({ type: HostActionKind.UPDATE_PLAYER })
+    dispatch({ type: 'UPDATE_CURRENT_TEAM' })
   }
 
   return (

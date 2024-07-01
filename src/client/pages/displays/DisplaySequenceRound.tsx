@@ -5,7 +5,7 @@ import DisplayGroupBox from '../../components/DisplayGroupBox'
 import DisplayClues from '../../layout/display/DisplayClues'
 import { stopAudio } from '../../utils/audios'
 import { CluesBGM } from '../../../assets/audios'
-import { HostActionKind, useHostDispatch } from '../../utils/context/HostProvider'
+import { useHostDispatch } from '../../utils/context/HostProvider'
 
 export default function DisplaySequenceRound({ data }: { data: SequenceRound }) {
   const [groupKey, setGroupKey] = useState<string>('')
@@ -19,10 +19,10 @@ export default function DisplaySequenceRound({ data }: { data: SequenceRound }) 
     setOpened(opened.concat(key))
 
     if (opened.length === 5) {
-      dispatch({ type: HostActionKind.UPDATE_ROUND })
-      dispatch({ type: HostActionKind.UPDATE_PLAYER })
+      dispatch({ type: 'UPDATE_CURRENT_ROUND' })
+      dispatch({ type: 'UPDATE_CURRENT_TEAM' })
     }
-    dispatch({ type: HostActionKind.UPDATE_PLAYER })
+    dispatch({ type: 'UPDATE_CURRENT_TEAM' })
   }
 
   return (

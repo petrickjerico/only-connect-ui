@@ -6,6 +6,7 @@ import DisplayClueBox from '../../components/DisplayClueBox'
 import { SolvedSFX, VowelLongBGM, ClickSFX } from '../../../assets/audios'
 import { playAudio, stopAudio } from '../../utils/audios'
 import { useKeyboardShortcut } from '../../utils/shortcuts'
+import { useHostDispatch } from '../../utils/context/HostProvider'
 
 type VowelDisplayOrder = [string, 'description' | 'clue' | 'solution' | 'pause']
 
@@ -33,10 +34,12 @@ export default function DisplayVowelRound({ data }: { data: VowelRound }) {
   const [clue, setClue] = useState<string>('')
   const [disabled, setDisabled] = useState<boolean>(false)
   const [isAudioPlaying, setIsAudioPlaying] = useState<boolean>(false)
+  const dispatch = useHostDispatch()
 
   function endGame() {
     setDescription('')
     setClue('')
+    dispatch({ type: 'TOGGLE_INCREMENT' })
     playAudio(SolvedSFX)
     setDisabled(true)
   }
@@ -55,6 +58,7 @@ export default function DisplayVowelRound({ data }: { data: VowelRound }) {
       case 'pause':
         setDescription('')
         setClue('')
+        dispatch({ type: 'TOGGLE_INCREMENT' })
         break
       case 'description':
         setDescription(value)
@@ -64,6 +68,7 @@ export default function DisplayVowelRound({ data }: { data: VowelRound }) {
           setIsAudioPlaying(true)
           playAudio(VowelLongBGM)
         }
+        dispatch({ type: 'TOGGLE_INCREMENT' })
         setClue(value)
         break
       case 'solution':
