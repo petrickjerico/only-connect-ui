@@ -34,7 +34,7 @@ export default function DisplayClueBox({
     <StyledSheet
       variant='soft'
       z={clueType !== 'text' ? 1 : 0}
-      height={height}
+      height={fontSize ? 'fit-content' : height}
       transparent={isContentHidden || isContentTransparent}
     >
       {clueType === 'audio' && (
@@ -90,6 +90,7 @@ const StyledSheet = styled(Sheet)<{
   alignItems: 'center',
   justifyContent: 'center',
   borderRadius: '12px',
+  minHeight: height ? '100px' : undefined,
   zIndex: z ?? undefined,
   position: z ? 'absolute' : undefined,
   overflow: 'clip',
