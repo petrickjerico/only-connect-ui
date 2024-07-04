@@ -21,9 +21,12 @@ const enum RoundState {
   PLAY,
   GUESS,
   THROW,
+  THROW_END_MUSIC,
   SEQUECNE_SHOW_END_PICTURE,
   END
 }
+
+const THROW_MUSIC_PREVIEW_LENGTH_MS = 5000
 
 export default function DisplayClues({
   groupKey,
@@ -68,7 +71,9 @@ export default function DisplayClues({
   }
 
   function getTimerVisibility(index: number) {
-    if (!hideLast || hideLast && index < 2) {
+    if (type === 'audio' && RoundState.THROW <= roundState && roundState < RoundState.END) {
+      return index === 3
+    } else if (!hideLast || hideLast && index < 2) {
       return index === shown.at(-1)
     } else if (index === 2) {
       return shown.at(-1) === 3 && roundState < RoundState.THROW
@@ -93,8 +98,22 @@ export default function DisplayClues({
 
   function throwQuestion() {
     setRoundState(RoundState.THROW)
-    playAudio(NextClueSFX)
-    showUntil(3)
+    if (type === 'audio') {
+      const start = shown.length
+      const end = hideLast ? 2 : 3
+      for (let i = start; i <= end; i++) {
+        setTimeout(() => {
+          playAudio(NextClueSFX)
+          showUntil(i)
+        }, (i - start) * THROW_MUSIC_PREVIEW_LENGTH_MS)
+      }
+      setTimeout(() => {
+        setRoundState(RoundState.THROW_END_MUSIC)
+      }, (end - start + 1) * THROW_MUSIC_PREVIEW_LENGTH_MS)
+    } else {
+      playAudio(NextClueSFX)
+      showUntil(3)
+    }
   }
 
   function showAnswer() {
@@ -212,7 +231,7 @@ export default function DisplayClues({
                 <DisplayClueBox
                   url={urls[index][1]}
                   clueType={type}
-                  isContentPlaying={roundState === RoundState.PLAY && shown.at(-1) === index}
+                  isContentPlaying={(roundState === RoundState.PLAY || roundState === RoundState.THROW) && shown.at(-1) === index}
                   isContentTransparent={roundState === RoundState.END}
                   isContentHidden={hideLast && index === 3 && roundState < RoundState.SEQUECNE_SHOW_END_PICTURE}
                   onFinishedPreloading={() => handleFinishedPreloading(index)}
