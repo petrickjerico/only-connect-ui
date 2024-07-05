@@ -26,7 +26,7 @@ const enum RoundState {
   END
 }
 
-const THROW_MUSIC_PREVIEW_LENGTH_MS = 5000
+const THROW_MUSIC_PREVIEW_LENGTH_MS = 7000
 
 export default function DisplayClues({
   groupKey,
@@ -262,7 +262,7 @@ export default function DisplayClues({
               </StyledBottomButton>
               <StyledBottomButton
                 fullWidth
-                disabled={roundState <= RoundState.PLAY}
+                disabled={roundState <= RoundState.PLAY || (type === 'audio' && (roundState === RoundState.PLAY || roundState === RoundState.THROW))}
                 onClick={showAnswer}>
                 {t('show_answer')}
               </StyledBottomButton>
