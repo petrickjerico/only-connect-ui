@@ -19,7 +19,7 @@ export default function DisplayGroupBox({
 
   return (
     <Stack gap={2} alignItems='center'>
-      {isVisible && namePlacement === 'top' && (<Chip size='lg'>{groupName}</Chip>)}
+      {namePlacement === 'top' && (<Chip size='lg' sx={{ visibility: isVisible ? undefined : 'hidden' }}>{groupName}</Chip>)}
       <Button variant='soft' onClick={onClick} size='sm' disabled={isDisabled}>
         <img
           src={require(`../../assets/img/${groupId}.png`)}
@@ -30,7 +30,7 @@ export default function DisplayGroupBox({
           className={mode === 'dark' ? 'invert' : undefined}
         />
       </Button >
-      {isVisible && namePlacement === 'bottom' && (<Chip size='lg'>{groupName}</Chip>)}
+      {namePlacement === 'bottom' && (<Chip size='lg' sx={{ visibility: isVisible ? undefined : 'hidden' }}>{groupName}</Chip>)}
     </Stack>
   )
 }
