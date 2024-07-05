@@ -26,7 +26,6 @@ export default function DisplayGroupBox({
           alt={groupId}
           draggable={false}
           style={{ opacity: isDisabled ? 0.3 : 0.75 }}
-          title={mode === 'dark' ? 'invert' : undefined}
           className={mode === 'dark' ? 'invert' : undefined}
         />
       </Button >
