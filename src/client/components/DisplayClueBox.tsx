@@ -35,7 +35,7 @@ export default function DisplayClueBox({
       variant='soft'
       z={clueType !== 'text' ? 1 : 0}
       height={fontSize ? 'fit-content' : height}
-      transparent={isContentHidden || isContentTransparent}
+      transparent={String(isContentHidden || isContentTransparent)}
     >
       {clueType === 'audio' && (
         <AudioClue
@@ -75,7 +75,7 @@ export default function DisplayClueBox({
 const StyledSheet = styled(Sheet)<{
   z?: number
   height?: 'short' | 'tall' | string
-  transparent?: boolean
+  transparent?: string
 }>(({
   z,
   height,
@@ -94,5 +94,5 @@ const StyledSheet = styled(Sheet)<{
   zIndex: z ?? undefined,
   position: z ? 'absolute' : undefined,
   overflow: 'clip',
-  backgroundColor: transparent ? 'transparent' : `${theme.vars.palette.primary.softBg}`
+  backgroundColor: transparent === 'true' ? 'transparent' : `${theme.vars.palette.primary.softBg}`
 }))
