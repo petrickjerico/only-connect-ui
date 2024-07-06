@@ -1,4 +1,4 @@
-import { AspectRatio, Modal, ModalDialog } from '@mui/joy'
+import { Modal, ModalDialog } from '@mui/joy'
 import React, { useState } from 'react'
 
 export default function ImageClue({
@@ -30,13 +30,16 @@ export default function ImageClue({
         }}
       />
       <Modal open={enlargePicture} onClose={() => setEnlargePicture(false)}>
-        <ModalDialog layout='center' sx={{ justifyContent: 'center', height: '90%', width: '90%' }}>
-          <AspectRatio objectFit='contain'>
-            <img
-              src={url}
-              draggable={false}
-            />
-          </AspectRatio>
+        <ModalDialog layout='center' sx={{ justifyContent: 'center', height: '80%', width: '80%' }}>
+          <img
+            src={url}
+            draggable={false}
+            style={{
+              maxHeight: '100%',
+              minHeight: '100%',
+              objectFit: 'contain'
+            }}
+          />
         </ModalDialog>
       </Modal>
     </React.Fragment>

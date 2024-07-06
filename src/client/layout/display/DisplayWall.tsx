@@ -6,7 +6,7 @@ import { getGroupColor } from '../../utils/colors'
 import DisplayGroupBox from '../../components/DisplayGroupBox'
 import LinearTimer from '../../components/LinearTimer'
 import { FavoriteRounded } from '@mui/icons-material'
-import { ClickSFX, CorrectSFX, FailSFX, IncorrectSFX, LifeReducedSFX, NextClueSFX, SolvedSFX, TapSFX, WallBGM } from '../../../assets/audios'
+import { ClickSFX, CorrectSFX, FailSFX, GroupSelectedSFX, IncorrectSFX, LifeReducedSFX, NextClueSFX, SolvedSFX, TapSFX, WallBGM } from '../../../assets/audios'
 import { stopAudio, playAudio } from '../../utils/audios'
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
 import HourglassTopRoundedIcon from '@mui/icons-material/HourglassTopRounded'
@@ -22,6 +22,8 @@ const enum RoundState {
   PAUSE,
   GUESS,
 }
+
+const WALL_TIMER_SEC = 150
 
 export default function DisplayWall({
   data,
@@ -161,6 +163,7 @@ export default function DisplayWall({
 
   useEffect(() => {
     initializeLayout()
+    playAudio(GroupSelectedSFX)
   }, [])
 
   useEffect(() => {
@@ -264,7 +267,7 @@ export default function DisplayWall({
                   {Array.from(Array(lives.number).keys()).map((key) => <FavoriteRounded key={key} sx={{ color: colors.red[300] }} />)}
                 </Stack>
                 <LinearTimer
-                  duration={150}
+                  duration={WALL_TIMER_SEC}
                   isVisible={true}
                   isCounting={true}
                   isEnd={false}
