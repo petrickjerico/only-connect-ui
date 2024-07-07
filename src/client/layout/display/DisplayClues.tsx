@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import LinearTimer from '../../components/LinearTimer'
 import DisplayGroupBox from '../../components/DisplayGroupBox'
 import { BuzzerSFX, ClickSFX, CluesBGM, FailSFX, GroupSelectedSFX, NextClueSFX } from '../../../assets/audios'
-import { playAudio, stopAudio } from '../../utils/audios'
+import { playAudio, stopAudio, MUSIC_PREVIEW_LENGTH_MS } from '../../utils/audios'
 import { sortDataSet } from '../../utils/game'
 import HourglassTopRoundedIcon from '@mui/icons-material/HourglassTopRounded'
 import MusicNoteRoundedIcon from '@mui/icons-material/MusicNoteRounded'
@@ -15,6 +15,7 @@ import NotesRoundedIcon from '@mui/icons-material/NotesRounded'
 import { useTranslation } from 'react-i18next'
 import { useKeyboardShortcut } from '../../utils/shortcuts'
 import PreloadStatus, { MediaPreload } from '../../components/PreloadStatus'
+import AudioTurnProvider from '../../utils/context/AudioTurnProvider'
 
 const enum RoundState {
   READY,
@@ -25,8 +26,6 @@ const enum RoundState {
   SEQUECNE_SHOW_END_PICTURE,
   END
 }
-
-const THROW_MUSIC_PREVIEW_LENGTH_MS = 7000
 
 export default function DisplayClues({
   groupKey,
@@ -48,11 +47,7 @@ export default function DisplayClues({
   })
 
   function showUntil(index: number) {
-    if (hideLast && index === 2) {
-      setShown(Array.from(Array(index + 2).keys()))
-    } else {
-      setShown(Array.from(Array(index + 1).keys()))
-    }
+    setShown(Array.from(Array(index + 1).keys()))
   }
 
   function getScore(index: 0 | 1 | 2 | 3 | number): string {
@@ -73,7 +68,7 @@ export default function DisplayClues({
   function getTimerVisibility(index: number) {
     if (type === 'audio' && RoundState.THROW <= roundState && roundState < RoundState.END) {
       return index === 3
-    } else if (!hideLast || hideLast && index < 2) {
+    } else if (!hideLast || hideLast && index < 3) {
       return index === shown.at(-1)
     } else if (index === 2) {
       return shown.at(-1) === 3 && roundState < RoundState.THROW
@@ -105,11 +100,11 @@ export default function DisplayClues({
         setTimeout(() => {
           playAudio(NextClueSFX)
           showUntil(i)
-        }, (i - start) * THROW_MUSIC_PREVIEW_LENGTH_MS)
+        }, (i - start) * MUSIC_PREVIEW_LENGTH_MS)
       }
       setTimeout(() => {
         setRoundState(RoundState.THROW_END_MUSIC)
-      }, (end - start + 1) * THROW_MUSIC_PREVIEW_LENGTH_MS)
+      }, (end - start + 1) * MUSIC_PREVIEW_LENGTH_MS)
     } else {
       playAudio(NextClueSFX)
       showUntil(3)
@@ -219,35 +214,41 @@ export default function DisplayClues({
           ))}
         </Stack>
         <Stack direction='row' gap={2}>
-          {clues.map(([key, value], index) => (
-            <Sheet key={key} sx={{ width: '100%' }}>
-              {!shown.includes(index) && (
-                <StyledButton
-                  variant='plain'
-                  onClick={() => {
-                    playAudio(NextClueSFX)
-                    showUntil(index)
-                  }}>
-                  {t('show_until_here')}
-                </StyledButton>
-              )}
-              {type && (
-                <DisplayClueBox
-                  url={urls[index][1]}
-                  clueType={type}
-                  isContentPlaying={(roundState === RoundState.PLAY || roundState === RoundState.THROW) && shown.at(-1) === index}
-                  isContentTransparent={roundState === RoundState.END}
-                  isContentHidden={hideLast && index === 3 && roundState < RoundState.SEQUECNE_SHOW_END_PICTURE}
-                  onFinishedPreloading={() => handleFinishedPreloading(index)}
-                  onErrorPreloading={() => handleErrorPreloading(index)} />
-              )}
-              {shown.includes(index) && (
-                <DisplayClueBox
-                  clue={hideLast && index === 3 && roundState < RoundState.END ? '?' : value}
-                />
-              )}
-            </Sheet>
-          ))}
+          <AudioTurnProvider>
+            {clues.map(([key, value], index) => (
+              <Sheet key={key} sx={{ width: '100%' }}>
+                {hideLast && (shown.at(-1) === 2 || shown.at(-1) === 3) && index === 3 && (
+                  <DisplayClueBox isQuestionMark />
+                )}
+                {!shown.includes(index) && (
+                  <StyledButton
+                    variant='plain'
+                    disabled={roundState === RoundState.THROW}
+                    onClick={() => {
+                      playAudio(NextClueSFX)
+                      showUntil(index)
+                    }}>
+                    {roundState !== RoundState.THROW && t('show_until_here')}
+                  </StyledButton>
+                )}
+                {type && (
+                  <DisplayClueBox
+                    url={urls[index][1]}
+                    clueType={type}
+                    isContentPlaying={(roundState === RoundState.PLAY || roundState === RoundState.THROW) && shown.at(-1) === index}
+                    isContentTransparent={roundState === RoundState.END}
+                    isContentHidden={hideLast && index === 3 && roundState < RoundState.SEQUECNE_SHOW_END_PICTURE}
+                    onFinishedPreloading={() => handleFinishedPreloading(index)}
+                    onErrorPreloading={() => handleErrorPreloading(index)} />
+                )}
+                {shown.includes(index) && (
+                  <DisplayClueBox
+                    clue={value}
+                  />
+                )}
+              </Sheet>
+            ))}
+          </AudioTurnProvider>
         </Stack>
         <Sheet>
           {roundState < RoundState.END &&

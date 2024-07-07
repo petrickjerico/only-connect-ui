@@ -1,5 +1,5 @@
-import { Modal, ModalDialog } from '@mui/joy'
-import React, { useState } from 'react'
+import { Modal, ModalDialog, Sheet, styled } from '@mui/joy'
+import { useState } from 'react'
 
 export default function ImageClue({
   url,
@@ -17,11 +17,12 @@ export default function ImageClue({
   const [enlargePicture, setEnlargePicture] = useState<boolean>(false)
 
   return (
-    <React.Fragment>
+    <StyledSheet
+      transparent={String(transparent)}
+      onClick={() => { !hidden && setEnlargePicture(true) }}>
       <img
         src={url}
         draggable={false}
-        onClick={() => { !hidden && setEnlargePicture(true) }}
         onLoad={onFinishedPreloading}
         onError={onErrorPreloading}
         style={{
@@ -42,7 +43,15 @@ export default function ImageClue({
           />
         </ModalDialog>
       </Modal>
-    </React.Fragment>
+    </StyledSheet>
   )
 
 }
+
+const StyledSheet = styled(Sheet)<{ transparent: string }>(({ transparent }) => ({
+  height: '100%',
+  width: '100%',
+  alignContent: 'center',
+  background: 'none',
+  cursor: transparent === 'true' ? 'pointer' : 'default'
+}))

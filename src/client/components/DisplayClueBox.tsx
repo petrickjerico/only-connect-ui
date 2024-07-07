@@ -1,6 +1,7 @@
 import { Sheet, Typography, styled } from '@mui/joy'
 import ImageClue from './ImageClue'
 import AudioClue from './AudioClue'
+import QuestionMarkRoundedIcon from '@mui/icons-material/QuestionMarkRounded';
 
 export default function DisplayClueBox({
   clue,
@@ -10,6 +11,7 @@ export default function DisplayClueBox({
   isContentPlaying = undefined,
   isContentTransparent,
   isContentHidden,
+  isQuestionMark = false,
   fontSize,
   fontWeight,
   wordSpacing,
@@ -23,6 +25,7 @@ export default function DisplayClueBox({
   isContentPlaying?: boolean
   isContentTransparent?: boolean
   isContentHidden?: boolean
+  isQuestionMark?: boolean
   fontSize?: number
   fontWeight?: number
   wordSpacing?: string
@@ -33,7 +36,7 @@ export default function DisplayClueBox({
   return (
     <StyledSheet
       variant='soft'
-      z={clueType !== 'text' ? 1 : 0}
+      z={clueType !== 'text' ? 1 : isQuestionMark ? 3 : 0}
       height={fontSize ? 'fit-content' : height}
       transparent={String(isContentHidden || isContentTransparent)}
     >
@@ -67,6 +70,9 @@ export default function DisplayClueBox({
         >
           {clue}
         </Typography>
+      )}
+      {isQuestionMark && (
+        <QuestionMarkRoundedIcon sx={{ height: '80%', width: 'auto' }} />
       )}
     </StyledSheet>
   )

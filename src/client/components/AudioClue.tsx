@@ -1,8 +1,11 @@
-import { useColorScheme } from '@mui/joy/styles'
-import React, { useEffect, useRef, useState } from 'react'
+import { styled, useColorScheme } from '@mui/joy/styles'
+import { useEffect, useRef, useState } from 'react'
 import ReactPlayer from 'react-player/youtube'
 import Gramophone from '../../assets/img/music.png'
-
+import { Sheet } from '@mui/joy'
+import { MUSIC_PREVIEW_LENGTH_MS } from '../utils/audios'
+import { useAudioTurn } from '../utils/context/AudioTurnProvider'
+import VolumeUpRoundedIcon from '@mui/icons-material/VolumeUpRounded'
 
 const enum MediaState {
   PRELOADING,
@@ -26,7 +29,7 @@ export default function AudioClue({
   onFinishedPreloading?: () => void
   onErrorPreloading?: () => void
 }) {
-
+  const { isMediaPlaying, setIsMediaPlaying } = useAudioTurn()
   const [mediaState, setMediaState] = useState<MediaState>(MediaState.PRELOADING)
   const playerRef = useRef<ReactPlayer>(null)
   const startSecond = +url.split('t=')[1]
@@ -37,11 +40,26 @@ export default function AudioClue({
     }
     if (mediaState === MediaState.PLAYING && !isTurnToPlay) {
       setMediaState(MediaState.DONE)
+      playerRef.current?.seekTo(startSecond, 'seconds')
     }
   }, [isTurnToPlay])
 
+  function playPreview() {
+    if (isImageTransparent && !isMediaPlaying) {
+      setMediaState(MediaState.PLAYING)
+      setIsMediaPlaying(true)
+      setTimeout(() => {
+        setMediaState(MediaState.DONE)
+        playerRef.current?.seekTo(startSecond, 'seconds')
+        setIsMediaPlaying(false)
+      }, MUSIC_PREVIEW_LENGTH_MS)
+    }
+  }
+
   return (
-    <React.Fragment>
+    <StyledSheet
+      transparent={String(isImageTransparent)}
+      onClick={playPreview}>
       <GramophoneImage
         hidden={isImageHidden}
         transparent={isImageTransparent}
@@ -59,12 +77,19 @@ export default function AudioClue({
           if (mediaState === MediaState.PRELOADING && loadedSeconds > 15) {
             setMediaState(MediaState.STANDBY)
             playerRef.current?.seekTo(startSecond, 'seconds')
-            if (onFinishedPreloading) onFinishedPreloading()
+            onFinishedPreloading && onFinishedPreloading()
           }
         }}
         onError={onErrorPreloading}
       />
-    </React.Fragment>
+      <VolumeUpRoundedIcon sx={{
+        visibility: mediaState === MediaState.PLAYING ? 'visible' : 'hidden',
+        position: 'absolute',
+        right: 8,
+        bottom: 8
+      }} />
+    </StyledSheet>
+
   )
 }
 
@@ -77,7 +102,14 @@ function GramophoneImage({ hidden, transparent }: { hidden?: boolean, transparen
     src={Gramophone}
     draggable={false}
     style={{ opacity: hidden ? 0 : transparent ? 0.1 : 0.75 }}
-    title={mode === 'dark' ? 'invert' : undefined}
     className={mode === 'dark' ? 'invert' : undefined}
   />
 }
+
+const StyledSheet = styled(Sheet)<{ transparent: string }>(({ transparent }) => ({
+  height: '100%',
+  width: '100%',
+  alignContent: 'center',
+  background: 'none',
+  cursor: transparent === 'true' ? 'pointer' : 'default'
+}))
