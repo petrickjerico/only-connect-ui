@@ -58,7 +58,7 @@ export default function AudioClue({
 
   return (
     <StyledSheet
-      transparent={String(isImageTransparent)}
+      isClickable={String(isImageTransparent && !isMediaPlaying)}
       onClick={playPreview}>
       <GramophoneImage
         hidden={isImageHidden}
@@ -106,10 +106,10 @@ function GramophoneImage({ hidden, transparent }: { hidden?: boolean, transparen
   />
 }
 
-const StyledSheet = styled(Sheet)<{ transparent: string }>(({ transparent }) => ({
+const StyledSheet = styled(Sheet)<{ isClickable: string }>(({ isClickable }) => ({
   height: '100%',
   width: '100%',
   alignContent: 'center',
   background: 'none',
-  cursor: transparent === 'true' ? 'pointer' : 'default'
+  cursor: isClickable === 'true' ? 'pointer' : 'default'
 }))

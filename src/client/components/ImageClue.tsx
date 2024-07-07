@@ -18,7 +18,6 @@ export default function ImageClue({
 
   return (
     <StyledSheet
-      transparent={String(transparent)}
       onClick={() => { !hidden && setEnlargePicture(true) }}>
       <img
         src={url}
@@ -48,10 +47,10 @@ export default function ImageClue({
 
 }
 
-const StyledSheet = styled(Sheet)<{ transparent: string }>(({ transparent }) => ({
+const StyledSheet = styled(Sheet)(() => ({
   height: '100%',
   width: '100%',
   alignContent: 'center',
   background: 'none',
-  cursor: transparent === 'true' ? 'pointer' : 'default'
+  cursor: 'pointer'
 }))
