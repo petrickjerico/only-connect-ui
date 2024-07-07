@@ -82,12 +82,14 @@ export default function AudioClue({
         }}
         onError={onErrorPreloading}
       />
-      <VolumeUpRoundedIcon sx={{
-        visibility: mediaState === MediaState.PLAYING ? 'visible' : 'hidden',
-        position: 'absolute',
-        right: 8,
-        bottom: 8
-      }} />
+      <VolumeUpRoundedIcon
+        className='blink'
+        sx={{
+          display: mediaState === MediaState.PLAYING ? undefined : 'none',
+          position: 'absolute',
+          right: 8,
+          bottom: 8
+        }} />
     </StyledSheet>
 
   )
