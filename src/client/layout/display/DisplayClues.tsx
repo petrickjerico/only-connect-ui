@@ -16,6 +16,7 @@ import { useTranslation } from 'react-i18next'
 import { useKeyboardShortcut } from '../../utils/shortcuts'
 import PreloadStatus, { MediaPreload } from '../../components/PreloadStatus'
 import AudioTurnProvider from '../../utils/context/AudioTurnProvider'
+import VolumeSlider from '../../components/VolumeSlider'
 
 const enum RoundState {
   READY,
@@ -196,25 +197,25 @@ export default function DisplayClues({
           )}
         </Stack>
       </ReadyBox>
-      <Stack gap={2} flexGrow={1}>
-        <Stack direction='row' gap={2}>
-          {clues.map(([key], index) => (
-            <LinearTimer
-              key={key}
-              text={getScore(index)}
-              duration={42}
-              isVisible={getTimerVisibility(index)}
-              isCounting={roundState === RoundState.PLAY}
-              isEnd={roundState > RoundState.GUESS}
-              onComplete={() => {
-                playAudio(FailSFX)
-                setRoundState(RoundState.GUESS)
-              }}
-            />
-          ))}
-        </Stack>
-        <Stack direction='row' gap={2}>
-          <AudioTurnProvider>
+      <AudioTurnProvider>
+        <Stack gap={2} flexGrow={1}>
+          <Stack direction='row' gap={2}>
+            {clues.map(([key], index) => (
+              <LinearTimer
+                key={key}
+                text={getScore(index)}
+                duration={42}
+                isVisible={getTimerVisibility(index)}
+                isCounting={roundState === RoundState.PLAY}
+                isEnd={roundState > RoundState.GUESS}
+                onComplete={() => {
+                  playAudio(FailSFX)
+                  setRoundState(RoundState.GUESS)
+                }}
+              />
+            ))}
+          </Stack>
+          <Stack direction='row' gap={2}>
             {clues.map(([key, value], index) => (
               <Sheet key={key} sx={{ width: '100%' }}>
                 {hideLast && (shown.at(-1) === 2 || shown.at(-1) === 3) && index === 3 && (
@@ -248,33 +249,34 @@ export default function DisplayClues({
                 )}
               </Sheet>
             ))}
-          </AudioTurnProvider>
+          </Stack>
+          <Sheet>
+            {roundState < RoundState.END &&
+              <StyledButtonGroup variant='plain'>
+                <StyledBottomButton
+                  fullWidth
+                  disabled={roundState >= RoundState.GUESS}
+                  onClick={stopTimer}>
+                  {t('stop_timer')}
+                </StyledBottomButton>
+                <StyledBottomButton
+                  fullWidth
+                  disabled={roundState !== RoundState.GUESS}
+                  onClick={throwQuestion}>
+                  {t('throw')}
+                </StyledBottomButton>
+                <StyledBottomButton
+                  fullWidth
+                  disabled={roundState <= RoundState.PLAY || (type === 'audio' && (roundState === RoundState.PLAY || roundState === RoundState.THROW))}
+                  onClick={showAnswer}>
+                  {t('show_answer')}
+                </StyledBottomButton>
+              </StyledButtonGroup>}
+            <DisplayDescriptionBox description={description} />
+          </Sheet>
+          {type === 'audio' && <VolumeSlider />}
         </Stack>
-        <Sheet>
-          {roundState < RoundState.END &&
-            <StyledButtonGroup variant='plain'>
-              <StyledBottomButton
-                fullWidth
-                disabled={roundState >= RoundState.GUESS}
-                onClick={stopTimer}>
-                {t('stop_timer')}
-              </StyledBottomButton>
-              <StyledBottomButton
-                fullWidth
-                disabled={roundState !== RoundState.GUESS}
-                onClick={throwQuestion}>
-                {t('throw')}
-              </StyledBottomButton>
-              <StyledBottomButton
-                fullWidth
-                disabled={roundState <= RoundState.PLAY || (type === 'audio' && (roundState === RoundState.PLAY || roundState === RoundState.THROW))}
-                onClick={showAnswer}>
-                {t('show_answer')}
-              </StyledBottomButton>
-            </StyledButtonGroup>}
-          <DisplayDescriptionBox description={description} />
-        </Sheet>
-      </Stack>
+      </AudioTurnProvider>
     </BackgroundBox >
   )
 }

@@ -29,7 +29,7 @@ export default function AudioClue({
   onFinishedPreloading?: () => void
   onErrorPreloading?: () => void
 }) {
-  const { isMediaPlaying, setIsMediaPlaying } = useAudioTurn()
+  const { isMediaPlaying, volume, setIsMediaPlaying } = useAudioTurn()
   const [mediaState, setMediaState] = useState<MediaState>(MediaState.PRELOADING)
   const playerRef = useRef<ReactPlayer>(null)
   const startSecond = +url.split('t=')[1]
@@ -58,7 +58,7 @@ export default function AudioClue({
 
   return (
     <StyledSheet
-      isClickable={String(isImageTransparent && !isMediaPlaying)}
+      clickable={String(isImageTransparent && !isMediaPlaying)}
       onClick={playPreview}>
       <GramophoneImage
         hidden={isImageHidden}
@@ -67,6 +67,7 @@ export default function AudioClue({
       <ReactPlayer
         ref={playerRef}
         url={url}
+        volume={volume / 100}
         width='0'
         height='0'
         playing={mediaState === MediaState.PLAYING}
@@ -91,7 +92,6 @@ export default function AudioClue({
           bottom: 8
         }} />
     </StyledSheet>
-
   )
 }
 
@@ -108,10 +108,10 @@ function GramophoneImage({ hidden, transparent }: { hidden?: boolean, transparen
   />
 }
 
-const StyledSheet = styled(Sheet)<{ isClickable: string }>(({ isClickable }) => ({
+const StyledSheet = styled(Sheet)<{ clickable: string }>(({ clickable }) => ({
   height: '100%',
   width: '100%',
   alignContent: 'center',
   background: 'none',
-  cursor: isClickable === 'true' ? 'pointer' : 'default'
+  cursor: clickable === 'true' ? 'pointer' : 'default'
 }))
