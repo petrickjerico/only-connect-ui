@@ -5,69 +5,17 @@ import CancelRoundedIcon from '@mui/icons-material/CancelRounded'
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded'
 import { Box, Button, Divider, Modal, ModalDialog, Stack, Typography } from '@mui/joy'
 import { useState } from 'react'
-import { VowelRound } from '../../utils/types/display'
 import DisplayVowelRound from '../displays/DisplayVowelRound'
 import { useTranslation } from 'react-i18next'
 import i18n from '../../i18n'
 import { stopAllBGM } from '../../utils/audios'
+import { getTutorial } from '../../utils/tutorials'
 
 export default function VowelTutorial({ verbose }: { verbose?: boolean }) {
   console.log(verbose)
 
   const { t } = useTranslation()
-
-
-  const data: Record<string, VowelRound> = {
-    en: {
-      group1: {
-        clue1: 'DN',
-        clue2: 'ND M',
-        clue3: 'TN',
-        clue4: 'RG N',
-        solution1: 'IODINE',
-        solution2: 'INDIUM',
-        solution3: 'TIN',
-        solution4: 'ARGON',
-        description: 'Elements in the periodic table'
-      },
-      group2: {
-        clue1: 'ND ND S',
-        clue2: 'N DNS NDS',
-        clue3: 'RL NDND RP',
-        clue4: 'G NDN DFR C',
-        solution1: 'INDIA AND ASIA',
-        solution2: 'INDONESIA AND ASIA',
-        solution3: 'IRELAND AND EUROPE',
-        solution4: 'UGANDA AND AFRICA',
-        description: 'Countries and the continent they are in'
-      }
-    },
-    id: {
-      group1: {
-        clue1: 'NTR M',
-        clue2: 'KLM',
-        clue3: 'MS',
-        clue4: 'R GN',
-        solution1: 'NATRIUM',
-        solution2: 'KALIUM',
-        solution3: 'EMAS',
-        solution4: 'ARGON',
-        description: 'Elemen dalam tabel periodik'
-      },
-      group2: {
-        clue1: 'BL DNDNP SR',
-        clue2: 'SM TRTR DNMDN',
-        clue3: 'JWB RTD NBN DG',
-        clue4: 'ML KDNM BN',
-        solution1: 'BALI DAN DENPASAR',
-        solution2: 'SUMATERA UTARA DAN MEDAN',
-        solution3: 'JAWA BARAT DAN BANDUNG',
-        solution4: 'MALUKU DAN AMBON',
-        description: 'Provinsi Indonesia dan ibukotanya'
-      }
-    }
-  }
-
+  const { vowelTutorial } = getTutorial(i18n.language)
   const [trial, setTrial] = useState<boolean>(false)
 
   return (
@@ -122,7 +70,7 @@ export default function VowelTutorial({ verbose }: { verbose?: boolean }) {
         }}>
           <ModalDialog layout='fullscreen' sx={{ alignItems: 'center', justifyContent: 'center' }}>
             <Box width='100%' justifyContent='center' display='flex'>
-              <DisplayVowelRound data={data[i18n.language]} />
+              <DisplayVowelRound data={vowelTutorial} />
             </Box>
           </ModalDialog>
         </Modal>

@@ -6,33 +6,16 @@ import InfoRoundedIcon from '@mui/icons-material/InfoRounded'
 import { Button, Divider, Modal, ModalDialog, Stack, Typography } from '@mui/joy'
 import { useState } from 'react'
 import DisplayClues from '../../layout/display/DisplayClues'
-import { ClueGroup } from '../../utils/types/display'
 import { useTranslation } from 'react-i18next'
 import { stopAudio } from '../../utils/audios'
 import { CluesBGM } from '../../../assets/audios'
+import { getTutorial } from '../../utils/tutorials'
 
 export default function ConnectionTutorial({ verbose }: { verbose?: boolean }) {
   console.log(verbose)
 
   const { t, i18n } = useTranslation()
-
-  const clues: Record<string, ClueGroup> = {
-    en: {
-      clue1: 'Quark',
-      clue2: 'Type of load',
-      clue3: 'Paradise Falls',
-      clue4: 'What Astley will never give you',
-      description: 'Up'
-    },
-    id: {
-      clue1: 'Zodiak April-Mei',
-      clue2: 'Mobil mewah',
-      clue3: 'Minuman energi',
-      clue4: 'Sila ke-4',
-      description: 'Banteng'
-    }
-  }
-
+  const { connectionTutorial } = getTutorial(i18n.language)
   const [trial, setTrial] = useState<boolean>(false)
 
   return (
@@ -86,7 +69,7 @@ export default function ConnectionTutorial({ verbose }: { verbose?: boolean }) {
           stopAudio(CluesBGM)
         }}>
           <ModalDialog layout='fullscreen' sx={{ justifyContent: 'center' }}>
-            <DisplayClues groupKey={'group1'} data={clues[i18n.language]} />
+            <DisplayClues groupKey={'group1'} data={connectionTutorial} />
           </ModalDialog>
         </Modal>
       </Stack>

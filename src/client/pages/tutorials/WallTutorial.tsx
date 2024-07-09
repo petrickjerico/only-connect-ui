@@ -5,80 +5,17 @@ import CancelRoundedIcon from '@mui/icons-material/CancelRounded'
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded'
 import { Button, Divider, Modal, ModalDialog, Stack, Typography } from '@mui/joy'
 import { useState } from 'react'
-import { WallGroup } from '../../utils/types/display'
 import DisplayWall from '../../layout/display/DisplayWall'
 import { useTranslation } from 'react-i18next'
 import { stopAudio } from '../../utils/audios'
 import { WallBGM } from '../../../assets/audios'
+import { getTutorial } from '../../utils/tutorials'
 
 export default function WallTutorial({ verbose }: { verbose?: boolean }) {
   console.log(verbose)
 
   const { t, i18n } = useTranslation()
-
-
-  const data: Record<string, WallGroup> = {
-    en: {
-      group1: {
-        clue1: 'Brain',
-        clue2: 'Stomach',
-        clue3: 'Lung',
-        clue4: 'Kidney',
-        description: 'Body organs'
-      },
-      group2: {
-        clue1: 'Heart',
-        clue2: 'Spade',
-        clue3: 'Club',
-        clue4: 'Diamond',
-        description: 'Card suits'
-      },
-      group3: {
-        clue1: 'Eye',
-        clue2: 'Tea',
-        clue3: 'Axe',
-        clue4: 'Cue',
-        description: 'Letter homophones'
-      },
-      group4: {
-        clue1: 'Ewe',
-        clue2: 'Bee',
-        clue3: 'Jay',
-        clue4: 'Doe',
-        description: 'Animals'
-      }
-    }, id: {
-      group1: {
-        clue1: 'Lambung',
-        clue2: 'Usus',
-        clue3: 'Ginjal',
-        clue4: 'Pankreas',
-        description: 'Organ tubuh'
-      },
-      group2: {
-        clue1: 'Hati',
-        clue2: 'Sekop',
-        clue3: 'Keriting',
-        clue4: 'Wajik',
-        description: 'Lambang kartu main'
-      },
-      group3: {
-        clue1: 'Otak',
-        clue2: 'Gado',
-        clue3: 'Bala',
-        clue4: 'Ongol',
-        description: 'Diulang jadi makanan'
-      },
-      group4: {
-        clue1: 'Kepang',
-        clue2: 'Kribo',
-        clue3: 'Cepak',
-        clue4: 'Botak',
-        description: 'Gaya rambut'
-      }
-    }
-  }
-
+  const { wallTutorial } = getTutorial(i18n.language)
   const [trial, setTrial] = useState<boolean>(false)
 
   return (
@@ -132,7 +69,7 @@ export default function WallTutorial({ verbose }: { verbose?: boolean }) {
           stopAudio(WallBGM)
         }}>
           <ModalDialog layout='fullscreen' sx={{ justifyContent: 'center' }}>
-            <DisplayWall groupKey='group2' data={data[i18n.language]} />
+            <DisplayWall groupKey='group2' data={wallTutorial} />
           </ModalDialog>
         </Modal>
       </Stack>

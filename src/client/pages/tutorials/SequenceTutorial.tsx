@@ -1,7 +1,6 @@
 import { Stack, Typography, Button, Modal, ModalDialog, Divider } from '@mui/joy'
 import { useState } from 'react'
 import DisplayClues from '../../layout/display/DisplayClues'
-import { ClueGroup } from '../../utils/types/display'
 import AccessTimeFilledRoundedIcon from '@mui/icons-material/AccessTimeFilledRounded'
 import HelpRoundedIcon from '@mui/icons-material/HelpRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
@@ -10,29 +9,13 @@ import InfoRoundedIcon from '@mui/icons-material/InfoRounded'
 import { useTranslation } from 'react-i18next'
 import { stopAudio } from '../../utils/audios'
 import { CluesBGM } from '../../../assets/audios'
+import { getTutorial } from '../../utils/tutorials'
 
 export default function SequenceTutorial({ verbose }: { verbose?: boolean }) {
   console.log(verbose)
 
   const { t, i18n } = useTranslation()
-
-  const clues: Record<string, ClueGroup> = {
-    en: {
-      clue1: 'November',
-      clue2: 'Mike',
-      clue3: 'Lima',
-      clue4: 'Kilo',
-      description: 'NATO alphabets in reverse order'
-    },
-    id: {
-      clue1: 'Januari',
-      clue2: 'Juli',
-      clue3: 'Juni',
-      clue4: 'Maret',
-      description: 'Bulan dalam urutan alfabet'
-    }
-  }
-
+  const { sequenceTutorial } = getTutorial(i18n.language)
   const [trial, setTrial] = useState<boolean>(false)
 
   return (
@@ -90,7 +73,7 @@ export default function SequenceTutorial({ verbose }: { verbose?: boolean }) {
           stopAudio(CluesBGM)
         }}>
           <ModalDialog layout='fullscreen' sx={{ justifyContent: 'center' }}>
-            <DisplayClues groupKey={'group1'} data={clues[i18n.language]} hideLast />
+            <DisplayClues groupKey={'group1'} data={sequenceTutorial} hideLast />
           </ModalDialog>
         </Modal>
       </Stack>
