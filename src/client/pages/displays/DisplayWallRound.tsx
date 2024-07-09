@@ -1,14 +1,17 @@
 import { Box, Grid, Modal, ModalDialog } from '@mui/joy'
-import { WallGroup, WallRound } from '../../utils/types/display'
+import { WallGroup } from '../../utils/types/display'
 import { useState } from 'react'
 import DisplayGroupBox from '../../components/DisplayGroupBox'
 import DisplayWall from '../../layout/display/DisplayWall'
 import { DEFAULT_WALL_INDEXES } from '../../utils/titles'
 import { stopAudio } from '../../utils/audios'
 import { WallBGM } from '../../../assets/audios'
-import { useHostDispatch } from '../../utils/context/HostProvider'
+import { useHost, useHostDispatch } from '../../utils/context/HostProvider'
 
-export default function DisplayWallRound({ data }: { data: WallRound }) {
+export default function DisplayWallRound() {
+  const { game } = useHost()
+  const data = game.walls
+
   const [groupKey, setGroupKey] = useState<string>('')
   const [wall, setWall] = useState<Partial<WallGroup>>()
   const [opened, setOpened] = useState<string[]>([])

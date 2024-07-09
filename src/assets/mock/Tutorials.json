@@ -1,0 +1,142 @@
+{
+  "en": {
+    "connection": {
+      "clue1": "Quark",
+      "clue2": "Type of load",
+      "clue3": "Paradise Falls",
+      "clue4": "What Astley will never give you",
+      "description": "Up"
+    },
+    "sequence": {
+      "clue1": "November",
+      "clue2": "Mike",
+      "clue3": "Lima",
+      "clue4": "Kilo",
+      "description": "NATO alphabets in reverse order"
+    },
+    "wall": {
+      "group1": {
+        "clue1": "Brain",
+        "clue2": "Stomach",
+        "clue3": "Lung",
+        "clue4": "Kidney",
+        "description": "Body organs"
+      },
+      "group2": {
+        "clue1": "Heart",
+        "clue2": "Spade",
+        "clue3": "Club",
+        "clue4": "Diamond",
+        "description": "Card suits"
+      },
+      "group3": {
+        "clue1": "Eye",
+        "clue2": "Tea",
+        "clue3": "Axe",
+        "clue4": "Cue",
+        "description": "Letter homophones"
+      },
+      "group4": {
+        "clue1": "Ewe",
+        "clue2": "Bee",
+        "clue3": "Jay",
+        "clue4": "Doe",
+        "description": "Animals"
+      }
+    },
+    "vowel": {
+      "group1": {
+        "clue1": "DN",
+        "clue2": "ND M",
+        "clue3": "TN",
+        "clue4": "RG N",
+        "solution1": "IODINE",
+        "solution2": "INDIUM",
+        "solution3": "TIN",
+        "solution4": "ARGON",
+        "description": "Elements in the periodic table"
+      },
+      "group2": {
+        "clue1": "ND ND S",
+        "clue2": "N DNS NDS",
+        "clue3": "RL NDND RP",
+        "clue4": "G NDN DFR C",
+        "solution1": "INDIA AND ASIA",
+        "solution2": "INDONESIA AND ASIA",
+        "solution3": "IRELAND AND EUROPE",
+        "solution4": "UGANDA AND AFRICA",
+        "description": "Countries and the continent they are in"
+      }
+    }
+  },
+  "id": {
+    "connection": {
+      "clue1": "Zodiak April-Mei",
+      "clue2": "Mobil mewah",
+      "clue3": "Minuman energi",
+      "clue4": "Sila ke-4",
+      "description": "Banteng"
+    },
+    "sequence": {
+      "clue1": "Januari",
+      "clue2": "Juli",
+      "clue3": "Juni",
+      "clue4": "Maret",
+      "description": "Bulan dalam urutan alfabet"
+    },
+    "wall": {
+      "group1": {
+        "clue1": "Lambung",
+        "clue2": "Usus",
+        "clue3": "Ginjal",
+        "clue4": "Pankreas",
+        "description": "Organ tubuh"
+      },
+      "group2": {
+        "clue1": "Hati",
+        "clue2": "Sekop",
+        "clue3": "Keriting",
+        "clue4": "Wajik",
+        "description": "Lambang kartu main"
+      },
+      "group3": {
+        "clue1": "Otak",
+        "clue2": "Gado",
+        "clue3": "Bala",
+        "clue4": "Ongol",
+        "description": "Diulang jadi makanan"
+      },
+      "group4": {
+        "clue1": "Kepang",
+        "clue2": "Kribo",
+        "clue3": "Cepak",
+        "clue4": "Botak",
+        "description": "Gaya rambut"
+      }
+    },
+    "vowel": {
+      "group1": {
+        "clue1": "NTR M",
+        "clue2": "KLM",
+        "clue3": "MS",
+        "clue4": "R GN",
+        "solution1": "NATRIUM",
+        "solution2": "KALIUM",
+        "solution3": "EMAS",
+        "solution4": "ARGON",
+        "description": "Elemen dalam tabel periodik"
+      },
+      "group2": {
+        "clue1": "BL DNDNP SR",
+        "clue2": "SM TRTR DNMDN",
+        "clue3": "JWB RTD NBN DG",
+        "clue4": "ML KDNM BN",
+        "solution1": "BALI DAN DENPASAR",
+        "solution2": "SUMATERA UTARA DAN MEDAN",
+        "solution3": "JAWA BARAT DAN BANDUNG",
+        "solution4": "MALUKU DAN AMBON",
+        "description": "Provinsi Indonesia dan ibukotanya"
+      }
+    }
+  }
+}

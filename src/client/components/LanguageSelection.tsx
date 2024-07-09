@@ -1,4 +1,4 @@
-import { Select, Option } from '@mui/joy'
+import { Select, Option, Typography } from '@mui/joy'
 import { useTranslation } from 'react-i18next'
 import languages from '../../assets/translations.json'
 
@@ -18,6 +18,7 @@ export default function LanguageSelection() {
       defaultValue={i18n.resolvedLanguage}
       onChange={changeLanguage}
       variant='soft'
+      startDecorator={<Typography >Language:</Typography>}
       sx={{
         width: 'fit-content'
       }}

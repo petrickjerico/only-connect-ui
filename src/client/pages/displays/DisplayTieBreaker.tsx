@@ -5,10 +5,10 @@ import { ClickSFX, GroupSelectedSFX, SolvedSFX, VowelLongBGM } from '../../../as
 import DisplayClueBox from '../../components/DisplayClueBox';
 import DisplayDescriptionBox from '../../components/DisplayDescriptionBox';
 import { useKeyboardShortcut } from '../../utils/shortcuts';
-import { VowelDisplayOrder } from './DisplayVowelRound';
 import { getRandomTiebreaker } from '../../utils/tiebreaker';
 import { useTranslation } from 'react-i18next';
 import { useHost, useHostDispatch } from '../../utils/context/HostProvider';
+import { VowelDisplayOrder } from '../../layout/display/DisplayVowel';
 
 export default function DisplayTieBreaker() {
   let order: VowelDisplayOrder[] = []

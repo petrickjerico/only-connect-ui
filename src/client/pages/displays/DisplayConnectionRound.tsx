@@ -1,13 +1,15 @@
-import { ClueGroup, ConnectionRound } from '../../utils/types/display'
+import { ClueGroup } from '../../utils/types/display'
 import { Box, Grid, Modal, ModalDialog, Stack } from '@mui/joy'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import DisplayGroupBox from '../../components/DisplayGroupBox'
 import DisplayClues from '../../layout/display/DisplayClues'
 import { stopAudio } from '../../utils/audios'
 import { CluesBGM } from '../../../assets/audios'
-import { useHostDispatch } from '../../utils/context/HostProvider'
+import { useHost, useHostDispatch } from '../../utils/context/HostProvider'
 
-export default function DisplayConnectionRound({ data }: { data: ConnectionRound }) {
+export default function DisplayConnectionRound() {
+  const { game } = useHost()
+  const data = game.connections
   const [groupKey, setGroupKey] = useState<string>('')
   const [clues, setClues] = useState<Partial<ClueGroup>>()
   const [opened, setOpened] = useState<string[]>([])

@@ -14,6 +14,7 @@ import { stopAllBGM } from '../utils/audios'
 import SystemModeToggle from '../components/SystemModeToggle'
 import TeamsInfo from '../components/TeamsInfo'
 import { useHostDispatch } from '../utils/context/HostProvider'
+import GamePicker from '../components/GamePicker'
 
 const screens = [
   'start',
@@ -102,6 +103,7 @@ export default function DisplayGame() {
           gap={1}>
           <SystemModeToggle />
           <LanguageSelection />
+          <GamePicker />
         </Stack>
       </Stack>
       <IconButton

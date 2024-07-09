@@ -1,7 +1,10 @@
 import React, { Dispatch, createContext, useContext, useReducer } from 'react'
 import { RoundTypeEnum } from '../types/attributes'
+import { GameDisplay } from '../types/display'
+import { DEFAULT_GAME } from '../../components/GamePicker'
 
 export type HostAction =
+  | { type: 'UPDATE_GAME', payload: GameDisplay }
   | { type: 'UPDATE_TEAM_NAME_0', payload: string }
   | { type: 'UPDATE_TEAM_NAME_1', payload: string }
   | { type: 'INCREMENT_TEAM_SCORE_0' }
@@ -16,6 +19,7 @@ export type HostAction =
 
 
 interface HostState {
+  game: GameDisplay
   teamName0: string
   teamName1: string
   teamScore0: number
@@ -27,6 +31,7 @@ interface HostState {
 }
 
 const initialHostState: HostState = {
+  game: DEFAULT_GAME[1],
   teamName0: 'Team A',
   teamName1: 'Team B',
   teamScore0: 0,
@@ -40,6 +45,11 @@ const initialHostState: HostState = {
 // Our reducer function that uses a switch statement to handle our actions
 function hostReducer(state: HostState, action: HostAction): HostState {
   switch (action.type) {
+    case 'UPDATE_GAME':
+      return {
+        ...state,
+        game: action.payload
+      }
     case 'UPDATE_TEAM_NAME_0':
       return {
         ...state,
