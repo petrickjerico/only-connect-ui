@@ -1,6 +1,6 @@
 import { ClueGroup } from '../../utils/types/display'
 import { Box, Grid, Modal, ModalDialog, Stack } from '@mui/joy'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import DisplayGroupBox from '../../components/DisplayGroupBox'
 import DisplayClues from '../../layout/display/DisplayClues'
 import { stopAudio } from '../../utils/audios'

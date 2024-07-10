@@ -1,9 +1,9 @@
-import { Select, Option, Typography } from '@mui/joy'
+import { Select, Option } from '@mui/joy'
 import { useTranslation } from 'react-i18next'
 import languages from '../../assets/translations.json'
+import LanguageRoundedIcon from '@mui/icons-material/LanguageRounded'
 
 export default function LanguageSelection() {
-
   const { i18n } = useTranslation()
 
   const changeLanguage = (
@@ -14,11 +14,12 @@ export default function LanguageSelection() {
   }
 
   return (
+
     <Select
       defaultValue={i18n.resolvedLanguage}
       onChange={changeLanguage}
       variant='soft'
-      startDecorator={<Typography >Language:</Typography>}
+      startDecorator={<LanguageRoundedIcon />}
       sx={{
         width: 'fit-content'
       }}

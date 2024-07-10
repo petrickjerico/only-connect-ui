@@ -1,7 +1,8 @@
-import { Select, Option, Typography } from '@mui/joy'
+import { Select, Option } from '@mui/joy'
 import games from '../../assets/mock'
 import { GameDisplay } from '../utils/types/display'
 import { useHostDispatch } from '../utils/context/HostProvider'
+import LibraryBooksRoundedIcon from '@mui/icons-material/LibraryBooksRounded';
 
 const GAMES_LIST = Object.entries(games) as [string, GameDisplay][]
 export const DEFAULT_GAME = GAMES_LIST[0] as [string, GameDisplay]
@@ -18,7 +19,7 @@ export default function GamePicker() {
       defaultValue={DEFAULT_GAME[0]}
       onChange={(_, value) => dispatch({ type: 'UPDATE_GAME', payload: getGame(value) })}
       variant='soft'
-      startDecorator={<Typography >Game Set:</Typography>}
+      startDecorator={<LibraryBooksRoundedIcon />}
       sx={{
         width: 'fit-content'
       }}
