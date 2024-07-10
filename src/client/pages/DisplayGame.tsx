@@ -15,8 +15,9 @@ import PointCounter from '../components/PointCounter'
 import { stopAllBGM } from '../utils/audios'
 import SystemModeToggle from '../components/SystemModeToggle'
 import TeamsInfo from '../components/TeamsInfo'
-import { useHostDispatch } from '../utils/context/HostProvider'
+import { useHost, useHostDispatch } from '../utils/context/HostProvider'
 import GamePicker from '../components/GamePicker'
+import ResetGame from '../components/ResetGame'
 
 const screens = [
   'start',
@@ -31,6 +32,7 @@ export default function DisplayGame() {
   const match = useMatch('/display/:curr')
   const navigate = useNavigate()
   const dispatch = useHostDispatch()
+  const { isNewGame } = useHost()
   const [screenId, setScreenId] = useState<number>(0)
   const [showButton, setShowButton] = useState<boolean>(false)
   const [openFirstTurnPicker, setOpenFirstTurnPicker] = useState<{
@@ -69,6 +71,17 @@ export default function DisplayGame() {
       dispatch({ type: 'UPDATE_CURRENT_PAGE', payload: index })
     }
   }, [])
+
+  useEffect(() => {
+    if (isNewGame) {
+      setScreenId(0)
+      dispatch({ type: 'UPDATE_CURRENT_PAGE', payload: 0 })
+      setOpenFirstTurnPicker({
+        isOpen: false,
+        hasBeenOpened: false
+      })
+    }
+  }, [isNewGame])
 
   return (
     <Stack
@@ -194,6 +207,7 @@ function QuickSettings() {
         <SystemModeToggle />
         <LanguageSelection />
         <GamePicker />
+        <ResetGame />
       </Stack>
     </Stack >
   )

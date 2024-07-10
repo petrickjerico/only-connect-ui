@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { useHost } from '../../utils/context/HostProvider'
 import { useState } from 'react'
 import DisplayTieBreaker from './DisplayTieBreaker'
+import { playAudio } from '../../utils/audios'
+import { SolvedSFX } from '../../../assets/audios'
 
 export default function DisplayEndScreen() {
   const { t } = useTranslation()
@@ -44,7 +46,11 @@ export default function DisplayEndScreen() {
                   justifyContent: 'center'
                 }}
               >
-                <Button variant='plain' fullWidth onClick={() => setShowScores(true)} >
+                <Button variant='plain' fullWidth onClick={() => {
+                  setShowScores(true)
+                  !isTie && playAudio(SolvedSFX)
+                }}
+                >
                   {t('show_final_scores')}
                 </Button>
               </Sheet>

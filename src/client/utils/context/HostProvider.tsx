@@ -16,9 +16,12 @@ export type HostAction =
   | { type: 'UPDATE_CURRENT_PAGE', payload: number }
   | { type: 'UPDATE_CURRENT_ROUND' }
   | { type: 'TOGGLE_INCREMENT' }
+  | { type: 'RESET_GAME' }
+  | { type: 'TOGGLE_NEW_GAME' }
 
 
 interface HostState {
+  isNewGame: boolean
   game: GameDisplay
   teamName0: string
   teamName1: string
@@ -30,7 +33,21 @@ interface HostState {
   applyScoreIncrements: boolean
 }
 
+const DEFAULT_INITIAL_HOST_STATE: HostState = {
+  isNewGame: true,
+  game: DEFAULT_GAME[1],
+  teamName0: 'Team A',
+  teamName1: 'Team B',
+  teamScore0: 0,
+  teamScore1: 0,
+  currentTeam: 0,
+  currentPage: 0,
+  currentRound: RoundTypeEnum.CONNECTION,
+  applyScoreIncrements: false
+}
+
 const initialHostState: HostState = {
+  isNewGame: true,
   game: DEFAULT_GAME[1],
   teamName0: 'Team A',
   teamName1: 'Team B',
@@ -105,6 +122,13 @@ function hostReducer(state: HostState, action: HostAction): HostState {
         ...state,
         applyScoreIncrements: !state.applyScoreIncrements
       }
+    case 'TOGGLE_NEW_GAME':
+      return {
+        ...state,
+        isNewGame: !state.isNewGame
+      }
+    case 'RESET_GAME':
+      return DEFAULT_INITIAL_HOST_STATE
     default:
       return state
   }
