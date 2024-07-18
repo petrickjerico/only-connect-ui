@@ -119,7 +119,6 @@ export default function TeamsInfo({ onSubmit }: { onSubmit: () => void }) {
               dispatch({ type: 'UPDATE_TEAM_NAME_0', payload: teamsInfo.teamName0 })
               dispatch({ type: 'UPDATE_TEAM_NAME_1', payload: teamsInfo.teamName1 })
               dispatch({ type: 'INITIALIZE_CURRENT_TEAM', payload: teamsInfo.currentTeam ?? currentTeam })
-              dispatch({ type: 'TOGGLE_NEW_GAME' })
               onSubmit()
               break
             default:

@@ -76,7 +76,8 @@
       "done": "Done",
       "show_final_scores": "Show final scores",
       "tie_message": "It's a tie! Team captains will now go head-to-head in a tie-breaker.",
-      "wins": "wins"
+      "wins": "wins",
+      "reload_message": "Game reloaded. You are now back to first page."
     }
   },
   "id": {
@@ -156,7 +157,8 @@
       "done": "Selesai",
       "show_final_scores": "Lihat hasil akhir",
       "tie_message": "Hasil seri! Kapten dari masing-masing tim akan beradu dalam ronde tie-breaker.",
-      "wins": "menang"
+      "wins": "menang",
+      "reload_message": "Permainan dimuat ulang. Anda kembali ke halaman pertama."
     }
   }
 }

@@ -1,4 +1,4 @@
-import React, { Dispatch, createContext, useContext, useReducer } from 'react'
+import React, { Dispatch, createContext, useContext, useEffect, useReducer } from 'react'
 import { RoundTypeEnum } from '../types/attributes'
 import { GameDisplay } from '../types/display'
 import { DEFAULT_GAME } from '../../components/GamePicker'
@@ -147,6 +147,10 @@ export function useHostDispatch() {
 
 export default function HostProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(hostReducer, initialHostState)
+
+  useEffect(() => {
+    console.log(state)
+  }, [state, dispatch])
 
   return (
     <HostContext.Provider value={state}>

@@ -1,23 +1,20 @@
 import {
-  Box,
   IconButton,
   Modal,
   ModalDialog,
   Stack,
-  styled,
 } from '@mui/joy'
 import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded'
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded'
 import { useEffect, useState } from 'react'
-import { Outlet, useMatch, useNavigate } from 'react-router-dom'
-import LanguageSelection from '../components/LanguageSelection'
-import PointCounter from '../components/PointCounter'
+import { Outlet, useNavigate } from 'react-router-dom'
 import { stopAllBGM } from '../utils/audios'
-import SystemModeToggle from '../components/SystemModeToggle'
-import TeamsInfo from '../components/TeamsInfo'
 import { useHost, useHostDispatch } from '../utils/context/HostProvider'
-import GamePicker from '../components/GamePicker'
-import ResetGame from '../components/ResetGame'
+import LevelStepperSnackBar from '../components/LevelStepperSnackBar'
+import PointCounter from '../components/PointCounter'
+import QuickSettings from '../layout/display/QuickSettings'
+import ReloadSnackBar from '../components/ReloadSnackBar'
+import TeamsInfo from '../components/TeamsInfo'
 
 const screens = [
   'start',
@@ -29,7 +26,6 @@ const screens = [
 ]
 
 export default function DisplayGame() {
-  const match = useMatch('/display/:curr')
   const navigate = useNavigate()
   const dispatch = useHostDispatch()
   const { isNewGame } = useHost()
@@ -57,7 +53,6 @@ export default function DisplayGame() {
       default:
         break
     }
-
     setScreenId(currId)
     navigate(screens[currId])
     dispatch({ type: 'UPDATE_CURRENT_PAGE', payload: currId })
@@ -65,16 +60,9 @@ export default function DisplayGame() {
   }
 
   useEffect(() => {
-    const index = screens.indexOf(match?.params.curr as string)
-    if (0 <= index && index <= 5) {
-      setScreenId(index)
-      dispatch({ type: 'UPDATE_CURRENT_PAGE', payload: index })
-    }
-  }, [])
-
-  useEffect(() => {
     if (isNewGame) {
       setScreenId(0)
+      navigate('start')
       dispatch({ type: 'UPDATE_CURRENT_PAGE', payload: 0 })
       setOpenFirstTurnPicker({
         isOpen: false,
@@ -137,84 +125,21 @@ export default function DisplayGame() {
       </IconButton>
       <Modal
         open={openFirstTurnPicker.isOpen}
-        onClose={() => setOpenFirstTurnPicker({ isOpen: false, hasBeenOpened: true })}>
+        onClose={() => {
+          setOpenFirstTurnPicker({ isOpen: false, hasBeenOpened: true })
+        }}
+      >
         <ModalDialog size='md'>
           <TeamsInfo onSubmit={() => {
             setOpenFirstTurnPicker({ isOpen: false, hasBeenOpened: true })
+            dispatch({ type: 'TOGGLE_NEW_GAME' })
             goTo('next')
-          }} />
+          }}
+          />
         </ModalDialog>
       </Modal>
+      <ReloadSnackBar />
+      <LevelStepperSnackBar currId={screenId} />
     </Stack >
   )
 }
-
-function QuickSettings() {
-  const [hoverState, setHoverState] = useState<'in' | 'transition-in' | 'out' | 'transition-out'>('out')
-
-  return (
-    <Stack
-      position='absolute'
-      zIndex='2'
-      bottom={['in', 'transition-in'].includes(hoverState) ? 0 : '-5vh'}
-      onMouseEnter={() => {
-        setHoverState('transition-in')
-        setTimeout(() => {
-          setHoverState('in')
-        }, 300)
-      }}
-      onMouseLeave={() => {
-        setHoverState('transition-out')
-        setTimeout(() => {
-          setHoverState('out')
-        }, 300)
-      }}
-      sx={(theme) => ({
-        transition: 'bottom 0.3s',
-        ':hover': {
-          '.hover-up-bar': {
-            backgroundColor: theme.vars.palette.neutral.softHoverBg,
-            width: '100%',
-            transition: 'all 0.3s',
-          }
-        },
-        ':not(:hover)': {
-          '.hover-up-bar': {
-            backgroundColor: theme.vars.palette.neutral.softBg,
-            width: '10vw',
-            transition: 'all 0.3s',
-          }
-        }
-      })}
-    >
-      <Box
-        height={['out', 'transition-in'].includes(hoverState) ? '5vh' : 'fit-content'}
-        sx={{
-          display: 'flex',
-          paddingBottom: 1,
-          alignItems: 'end',
-          justifyContent: 'center',
-        }}
-      >
-        <HoverUpBar className='hover-up-bar' />
-      </Box>
-      <Stack
-        direction='row'
-        gap={1}
-        paddingBottom={1}
-        height='5vh'
-      >
-        <SystemModeToggle />
-        <LanguageSelection />
-        <GamePicker />
-        <ResetGame />
-      </Stack>
-    </Stack >
-  )
-}
-
-const HoverUpBar = styled(Box)(() => ({
-  height: 6,
-  borderRadius: 4,
-  transition: 'all 0.3s',
-}))
