@@ -30,32 +30,30 @@ export default function DisplayEndScreen() {
           {t('end_title')}
         </Typography>
         <Sheet sx={{ background: 'none' }}>
-          {
-            !showScores && (
-              <Sheet
-                variant='soft'
-                color='neutral'
-                sx={{
-                  display: 'flex',
-                  zIndex: '1',
-                  position: 'absolute',
-                  minWidth: '100%',
-                  minHeight: '100%',
-                  borderRadius: 8,
-                  alignContent: 'center',
-                  justifyContent: 'center'
-                }}
+          {!showScores && (
+            <Sheet
+              variant='soft'
+              color='neutral'
+              sx={{
+                display: 'flex',
+                zIndex: '1',
+                position: 'absolute',
+                minWidth: '100%',
+                minHeight: '100%',
+                borderRadius: 8,
+                alignContent: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              <Button variant='plain' fullWidth onClick={() => {
+                setShowScores(true)
+                !isTie && playAudio(SolvedSFX)
+              }}
               >
-                <Button variant='plain' fullWidth onClick={() => {
-                  setShowScores(true)
-                  !isTie && playAudio(SolvedSFX)
-                }}
-                >
-                  {t('show_final_scores')}
-                </Button>
-              </Sheet>
-            )
-          }
+                {t('show_final_scores')}
+              </Button>
+            </Sheet>
+          )}
           <Stack direction='column' gap={2}>
             <Sheet variant='soft' sx={{ borderRadius: 8 }} color={teamScore0 > teamScore1 ? 'primary' : undefined}>
               <Stack direction='row' padding={2} alignItems='center' justifyContent='space-between'>

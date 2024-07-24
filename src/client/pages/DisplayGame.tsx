@@ -77,7 +77,10 @@ export default function DisplayGame() {
       height='100%'
       alignItems='center'
       justifyContent='center'
-      px={10}>
+      position='fixed'
+      width='100%'
+      px={10}
+    >
       <IconButton
         onMouseEnter={() => setShowButton(true)}
         onMouseOut={() => setShowButton(false)}

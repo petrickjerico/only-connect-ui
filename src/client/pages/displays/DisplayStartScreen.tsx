@@ -12,7 +12,7 @@ export default function DisplayStartScreen() {
       alignItems='center'
       justifyContent='center'
       spacing={8}>
-      <img src={CoverImage} width='15%' height='auto' />
+      <img src={CoverImage} width='20%' height='auto' />
       <Stack spacing={2} maxWidth='30%'>
         <Typography level='h1'>
           {t('welcome_title')}
