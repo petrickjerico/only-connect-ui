@@ -254,7 +254,7 @@ export default function DisplayWall({
                       }
                     }}
                   >
-                    <Typography textAlign='center' whiteSpace='pre-line' level='h3'>
+                    <Typography textAlign='center' whiteSpace='pre-line' level='h2'>
                       {wallData[groupKey][clueKey]}
                     </Typography>
                   </Button>
@@ -297,17 +297,14 @@ export default function DisplayWall({
                   return (
                     <StyledSheet key={connectionKey} variant='outlined' height='100%' colorid={groupId}>
                       <StyledButton
+                        visible={String(guessing > index)}
                         variant='soft'
+                        disabled={guessing !== index}
                         onClick={() => {
                           playAudio(ClickSFX)
                           setGuessing(guessing + 1)
                         }}
-                        disabled={guessing !== index}
-                        sx={{
-                          position: 'absolute',
-                          width: '100%',
-                          visibility: guessing > index ? 'hidden' : 'visible'
-                        }} >
+                      >
                         {t('ask_wall_connection')}
                       </StyledButton>
                       <Typography level='h2' px='4px'>
@@ -320,7 +317,8 @@ export default function DisplayWall({
                     <StyledSheet key={index} variant='outlined' height='100%'>
                       <StyledButton
                         disabled={guessing !== index}
-                        variant='soft' onClick={() => {
+                        variant='soft'
+                        onClick={() => {
                           playAudio(NextClueSFX)
                           solveWall()
                         }}>
@@ -345,11 +343,14 @@ const StyledReactGridLayout = styled(ReactGridLayout)<{ fast: boolean }>(({ fast
   },
 }))
 
-const StyledButton = styled(Button)(() => ({
+const StyledButton = styled(Button)<{ visible?: string }>(({ visible }) => ({
   height: '100%',
+  position: 'absolute',
+  width: '100%',
   textAlign: 'center',
   borderRadius: '8px',
   zIndex: '1',
+  visibility: visible === 'true' ? 'hidden' : 'visible'
 }))
 
 const StyledSheet = styled(Sheet)<{ height?: 'short' | 'tall' | string, colorid?: string }>(({ height, colorid }) => ({
