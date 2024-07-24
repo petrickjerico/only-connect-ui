@@ -44,7 +44,6 @@ export default function DisplayVowel({ data }: { data: VowelRound }) {
     setDisabled(true)
   }
 
-
   function showNext() {
     if (order.length === 1) {
       stopAudio(VowelLongBGM)
@@ -66,7 +65,7 @@ export default function DisplayVowel({ data }: { data: VowelRound }) {
       case 'clue':
         if (!isAudioPlaying) {
           setIsAudioPlaying(true)
-          playAudio(VowelLongBGM)
+          playAudio(VowelLongBGM, true)
         }
         dispatch({ type: 'TOGGLE_INCREMENT' })
         setClue(value)
