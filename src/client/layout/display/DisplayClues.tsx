@@ -13,7 +13,7 @@ import MusicNoteRoundedIcon from '@mui/icons-material/MusicNoteRounded'
 import ImageRoundedIcon from '@mui/icons-material/ImageRounded'
 import NotesRoundedIcon from '@mui/icons-material/NotesRounded'
 import { useTranslation } from 'react-i18next'
-import { useKeyboardShortcut } from '../../utils/shortcuts'
+import { useKeyboardShortcuts } from '../../utils/shortcuts'
 import PreloadStatus, { MediaPreload } from '../../components/PreloadStatus'
 import AudioTurnProvider from '../../utils/context/AudioTurnProvider'
 import VolumeSlider from '../../components/VolumeSlider'
@@ -49,6 +49,14 @@ export default function DisplayClues({
 
   function showUntil(index: number) {
     setShown(Array.from(Array(index + 1).keys()))
+  }
+
+  function showNext() {
+    setShown(prev => {
+      return (hideLast && prev.length != 3) || (!hideLast && prev.length != 4)
+        ? [...prev, prev.length]
+        : prev
+    })
   }
 
   function getScore(index: 0 | 1 | 2 | 3 | number): string {
@@ -146,25 +154,13 @@ export default function DisplayClues({
     playAudio(GroupSelectedSFX)
   }, [])
 
-  useKeyboardShortcut({
-    key: 'z',
-    onKeyPressed: stopTimer
-  })
-
-  useKeyboardShortcut({
-    key: 'x',
-    onKeyPressed: throwQuestion
-  })
-
-  useKeyboardShortcut({
-    key: 'c',
-    onKeyPressed: showAnswer
-  })
-
-  useKeyboardShortcut({
-    key: ' ',
-    onKeyPressed: startQuestion
-  })
+  useKeyboardShortcuts([
+    { key: 'z', onKeyPressed: stopTimer },
+    { key: 'x', onKeyPressed: throwQuestion },
+    { key: 'c', onKeyPressed: showAnswer },
+    { key: ' ', onKeyPressed: startQuestion },
+    { key: ' ', onKeyPressed: showNext }
+  ])
 
   return (
     <BackgroundBox>
@@ -209,7 +205,7 @@ export default function DisplayClues({
                 isCounting={roundState === RoundState.PLAY}
                 isEnd={roundState > RoundState.GUESS}
                 onComplete={() => {
-                  playAudio(FailSFX)
+                  type === 'audio' && playAudio(FailSFX)
                   setRoundState(RoundState.GUESS)
                 }}
               />

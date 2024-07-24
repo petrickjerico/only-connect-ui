@@ -2,25 +2,29 @@ import { useEffect } from 'react'
 
 interface UseKeyboardShortcutArgs {
   key: string
-  onKeyPressed: () => void;
+  onKeyPressed: () => void
 }
 
 export function useKeyboardShortcut({
   key,
-  onKeyPressed
+  onKeyPressed,
 }: UseKeyboardShortcutArgs) {
   useEffect(() => {
-    function keyDownHandler(e: globalThis.KeyboardEvent) {
+    function keyDownHandler(e: KeyboardEvent) {
       if (e.key === key) {
-        e.preventDefault();
-        onKeyPressed();
+        e.preventDefault()
+        onKeyPressed()
       }
     }
 
-    document.addEventListener('keydown', keyDownHandler);
+    document.addEventListener('keydown', keyDownHandler)
 
     return () => {
-      document.removeEventListener('keydown', keyDownHandler);
-    };
-  }, []);
+      document.removeEventListener('keydown', keyDownHandler)
+    }
+  }, [])
+}
+
+export function useKeyboardShortcuts(shortcuts: UseKeyboardShortcutArgs[]) {
+  return shortcuts.map(shortcut => useKeyboardShortcut(shortcut))
 }
