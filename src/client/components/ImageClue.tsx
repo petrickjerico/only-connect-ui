@@ -26,7 +26,11 @@ export default function ImageClue({
         onError={onErrorPreloading}
         style={{
           opacity: hidden ? 0 : transparent ? 0.1 : 1,
-          height: '100%',
+          maxHeight: '100%',
+          minHeight: '100%',
+          maxWidth: '100%',
+          minWidth: '100%',
+          objectFit: 'contain'
         }}
       />
       <Modal open={enlargePicture} onClose={() => setEnlargePicture(false)}>
@@ -37,6 +41,8 @@ export default function ImageClue({
             style={{
               maxHeight: '100%',
               minHeight: '100%',
+              maxWidth: '100%',
+              minWidth: '100%',
               objectFit: 'contain'
             }}
           />
@@ -50,7 +56,8 @@ export default function ImageClue({
 const StyledSheet = styled(Sheet)(() => ({
   height: '100%',
   width: '100%',
-  alignContent: 'center',
+  justifyContent: 'center',
   background: 'none',
-  cursor: 'pointer'
+  cursor: 'pointer',
+  display: 'flex'
 }))
