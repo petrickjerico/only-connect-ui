@@ -33,7 +33,7 @@ body,
 @media (max-width: 1400px) {
   html {
     width: 1400px;
-    overflow: auto;
+    overflow: hidden;
   }
 }
 
