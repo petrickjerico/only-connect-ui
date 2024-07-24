@@ -29,6 +29,7 @@ export default function LevelStepperSnackBar({ currId }: { currId: number }) {
       <Stepper sx={{ width: '100%' }}>
         {['connections', 'sequences', 'connecting_walls', 'missing_vowels'].map((title, index) =>
           <Step
+            sx={{ opacity: index === currId - 1 ? '100%' : index < currId - 1 ? '25%' : '75%' }}
             key={title}
             orientation='vertical'
             indicator={
