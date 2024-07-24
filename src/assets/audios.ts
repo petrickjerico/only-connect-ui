@@ -41,7 +41,7 @@ export const IncorrectSFX = new Audio(Incorrect)
 export const TapSFX = new Audio(Tap)
 export const LifeReducedSFX = new Audio(LifeReduced)
 export const FailSFX = new Audio(Fail)
-FailSFX.volume = 0.2
+FailSFX.volume = 0.15
 
 export const ClickSFX = new Audio(Click)
 
