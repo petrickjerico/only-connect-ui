@@ -1,0 +1,251 @@
+{
+  "connections": {
+    "group1": {
+      "clue1": "Opening umbrella indoors",
+      "clue2": "Walking under a ladder",
+      "clue3": "Breaking a mirror",
+      "clue4": "Black cat crossing your path",
+      "description": "Bad luck superstitions",
+      "url1": "https://psychiclibrary.com/wp-content/uploads/2012/02/Open-Umbrella-in-House-grey2001.jpg",
+      "url2": "https://halloweenfm.com/wp-content/uploads/2019/10/ladder.jpg",
+      "url3": "https://www.twowaymirrors.com/wp-content/uploads/2020/01/broken-mirror-superstition.jpg",
+      "url4": "https://www.wfla.com/wp-content/uploads/sites/71/2021/10/Black-Cat-2.jpg?w=1280",
+      "type": "image"
+    },
+    "group2": {
+      "clue1": "The Pantheon",
+      "clue2": "Deck of cards",
+      "clue3": "Lotus flower",
+      "clue4": "DNA",
+      "description": "Inspired designs in Marina Bay"
+    },
+    "group3": {
+      "clue1": "Curse to journey",
+      "clue2": "Tend to stretch",
+      "clue3": "Plain to describe",
+      "clue4": "Press to communicate",
+      "description": "\"Ex______\" words and meaning"
+    },
+    "group4": {
+      "clue1": "N'Jobu",
+      "clue2": "Hamlet",
+      "clue3": "Mufasa",
+      "clue4": "Abel",
+      "description": "Murdered by own sibling"
+    },
+    "group5": {
+      "clue1": "tempoh → tempo",
+      "clue2": "Wakil2 → Atas nama",
+      "clue3": "Hal2 → Hal-hal",
+      "clue4": "17-8-'05 → hari 17 boelan 8 tahoen 05",
+      "description": "Indonesian proclamation script revisions"
+    },
+    "group6": {
+      "clue1": "ZOMBIFIED\n(by Falling In Reverse)",
+      "clue2": "ZOMBIE\n(by Day6)",
+      "clue3": "ZOMBIES on Your Lawn\n(by Laura Shigihara)",
+      "clue4": "ZOMBIE\n(by The Cranberries)",
+      "description": "Zombies",
+      "url1": "https://youtu.be/MP9ELP-bjMs?t=75",
+      "url2": "https://youtu.be/TnRdJcrCt6c?t=92",
+      "url3": "https://youtu.be/0N1_0SUGlDQ?t=4",
+      "url4": "https://youtu.be/YLybjQ995eY?t=40",
+      "type": "audio"
+    }
+  },
+  "sequences": {
+    "group1": {
+      "clue1": "Memories of our childhood",
+      "clue2": "Death reendows birth",
+      "clue3": "It works",
+      "clue4": "(e.g.) Done",
+      "description": "Num bers of words"
+    },
+    "group2": {
+      "clue1": "39ttrium",
+      "clue2": "92ranium",
+      "clue3": "53odine",
+      "clue4": "8xygen",
+      "description": "QWERTYodic table"
+    },
+    "group3": {
+      "clue1": "SPRING\n(by Antonio Vivaldi)",
+      "clue2": "Every SUMMERtime\n(by NIKI)",
+      "clue3": "AUTUMN Leaves\n(by Nat King Cole)",
+      "clue4": "(e.g.)\nWINTER Song\n(by Isyana Sarasvati)",
+      "description": "Seasonal music",
+      "url1": "https://youtu.be/mFWQgxXM_b8?t=172",
+      "url2": "https://youtu.be/MjWUT6xZSaA?t=36",
+      "url3": "https://youtu.be/YVedK1VUfLM?t=107",
+      "url4": "https://youtu.be/YVedK1VUfLM?t=107",
+      "type": "audio"
+    },
+    "group4": {
+      "clue1": "Eclair",
+      "clue2": "Froyo",
+      "clue3": "Gingerbread",
+      "clue4": "Honeycomb",
+      "description": "Android version names",
+      "url1": "https://attackofthefanboy.com/wp-content/uploads/2022/07/Eclair-Cookie-Toppings-build.jpg",
+      "url2": "https://img.grouponcdn.com/bynder/3ZvCVodoTqG59zwLVJWAHdWC7Szq/3Z-2048x1229/v1/c870x524.jpg",
+      "url3": "https://www.looper.com/img/gallery/why-the-star-behind-shreks-gingerbread-man-is-more-important-than-you-think/l-intro-1647890058.jpg",
+      "url4": "https://www.corriecooks.com/wp-content/uploads/2022/12/Honeycomb.jpg",
+      "type": "image"
+    },
+    "group5": {
+      "clue1": "Cyprus",
+      "clue2": "Borneo",
+      "clue3": "Ireland",
+      "clue4": "(e.g.) Iceland",
+      "description": "Island divisions"
+    },
+    "group6": {
+      "clue1": "Then drop on the deck and flop like a fish",
+      "clue2": "If nautical nonsense be something you wish",
+      "clue3": "Absorbant and yellow and porous is he",
+      "clue4": "Who lives in a pineapple under the sea?",
+      "description": "Spongebob Squarepants opening sequence"
+    }
+  },
+  "walls": {
+    "wall1": {
+      "group1": {
+        "clue1": "Lackey",
+        "clue2": "Brown noser",
+        "clue3": "Poodle",
+        "clue4": "Toady",
+        "description": "Slangs for obsequious people"
+      },
+      "group2": {
+        "clue1": "King Albert",
+        "clue2": "Outram",
+        "clue3": "Labrador",
+        "clue4": "Farrer",
+        "description": "\"_______ Park\" MRT Stations"
+      },
+      "group3": {
+        "clue1": "Fishbowl",
+        "clue2": "Engraven",
+        "clue3": "Beagle",
+        "clue4": "Baumkuchen",
+        "description": "Ends with birds"
+      },
+      "group4": {
+        "clue1": "Dobermann",
+        "clue2": "Pomeranian",
+        "clue3": "Rottweiler",
+        "clue4": "Papillon",
+        "description": "Dog breeds"
+      }
+    },
+    "wall2": {
+      "group1": {
+        "clue1": "Persian",
+        "clue2": "Chartreux",
+        "clue3": "Siamese",
+        "clue4": "Tabby",
+        "description": "Cat breeds"
+      },
+      "group2": {
+        "clue1": "Barkerville",
+        "clue2": "Calico",
+        "clue3": "Pripyat",
+        "clue4": "Chernobyl",
+        "description": "Ghost towns"
+      },
+      "group3": {
+        "clue1": "Chibi",
+        "clue2": "Munchkin",
+        "clue3": "Pygmy",
+        "clue4": "Bambino",
+        "description": "Refers to small individuals"
+      },
+      "group4": {
+        "clue1": "Linky",
+        "clue2": "Car",
+        "clue3": "Ven",
+        "clue4": "Titch",
+        "description": "\"S_______\" Disney characters"
+      }
+    }
+  },
+  "vowels": {
+    "group1": {
+      "clue1": "SN GP RN D CHN G",
+      "clue2": "S THK RN DN CHN",
+      "clue3": "NDN S NDN GR HR",
+      "clue4": "J PNN DN RT",
+      "solution1": "SINGAPORE AND CHANGI",
+      "solution2": "SOUTH KOREA AND INCHEON",
+      "solution3": "INDONESIA AND NGURAH RAI",
+      "solution4": "JAPAN AND NARITA",
+      "description": "Asian countries and their international airport"
+    },
+    "group2": {
+      "clue1": "GMB KND BTK",
+      "clue2": "TH MS NND CH NG",
+      "clue3": "YNDC H",
+      "clue4": "P PR NDR PR T",
+      "solution1": "GOMBAK AND BATOK",
+      "solution2": "THOMSON AND CHANGI",
+      "solution3": "YIO AND CHUA",
+      "solution4": "UPPER AND AIRPORT",
+      "description": "Two MRT stations with omitted shared words"
+    },
+    "group3": {
+      "clue1": "HRSSH",
+      "clue2": "FRL FC LVR",
+      "clue3": "R BBT SF T",
+      "clue4": "P RYN GMN TS",
+      "solution1": "HORSESHOE",
+      "solution2": "FOUR-LEAF CLOVER",
+      "solution3": "RABBIT'S FOOT/FEET",
+      "solution4": "PRAYING MANTIS",
+      "description": "Good luck superstitions"
+    },
+    "group4": {
+      "clue1": "S CR",
+      "clue2": "C LD S",
+      "clue3": "CN",
+      "clue4": "T CHK",
+      "solution1": "SCAR",
+      "solution2": "CLAUDIUS",
+      "solution3": "CAIN",
+      "solution4": "T'CHAKA",
+      "description": "Murdered their own sibling"
+    },
+    "group5": {
+      "clue1": "RTS CNCM SMN DLT SFL WR",
+      "clue2": "HL XBR DGN DD XYR BNCL CCD",
+      "clue3": "GL DNM LC MPL XN DTY PWR TR",
+      "clue4": "N TR LCNDJ NGB LCK S",
+      "solution1": "ARTSCIENCE MUSEUM AND LOTUS FLOWER",
+      "solution2": "HELIX BRIDGE AND DEOXYRIBONUCLEIC ACID",
+      "solution3": "GOLDEN MILE COMPLEX AND TYPEWRITER",
+      "solution4": "INTERLACE AND JENGA BLOCKS",
+      "description": "SG designs and what they resemble"
+    },
+    "group6": {
+      "clue1": "SR RM KNF RM",
+      "clue2": "N VM BRTN GNF RM",
+      "clue3": "NV MB RN FRM SRR",
+      "clue4": "SR RN FRMT NGD LT",
+      "solution1": "SIERRA MIKE UNIFORM",
+      "solution2": "NOVEMBER TANGO UNIFORM",
+      "solution3": "NOVEMBER UNIFORM SIERRA",
+      "solution4": "SIERRA UNIFORM TANGO DELTA",
+      "description": "SG universities in NATO acronyms"
+    },
+    "group7": {
+      "clue1": "H RTSP DCL BDM NDND CR DS TS",
+      "clue2": "BR NLN GST MC HKD NYN DBD YRG NS",
+      "clue3": "CXYT NDL TT R H MPH NS",
+      "clue4": "WJYDB ND NM LS",
+      "solution1": "HEART, SPADE, CLUB, DIAMOND, AND CARD SUITS",
+      "solution2": "BRAIN, LUNG, STOMACH, KIDNEY, AND BODY ORGANS",
+      "solution3": "CUE, AXE, EYE, TEA, AND LETTER HOMOPHONES",
+      "solution4": "EWE, JAY, DOE, BEE, AND ANIMALS",
+      "description": "4 clues and their connection from the wall tutorial"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import { Stack, Typography, Button, Modal, ModalDialog, Divider } from '@mui/joy'
 import { useState } from 'react'
-import DisplayClues from '../../layout/display/DisplayClues'
+import DisplayClues from '../display/layout/DisplayClues'
 import AccessTimeFilledRoundedIcon from '@mui/icons-material/AccessTimeFilledRounded'
 import HelpRoundedIcon from '@mui/icons-material/HelpRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'

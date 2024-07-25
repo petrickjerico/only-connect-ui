@@ -6,20 +6,20 @@ import {
 } from '@mui/joy'
 import './App.css'
 import GameProvider from './utils/context/GameProvider'
-import CreateGame from './pages/CreateGame'
-import DisplayGame from './pages/DisplayGame'
+import CreateGame from './pages/create/CreateGame'
+import DisplayGame from './pages/display/DisplayGame'
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
 } from 'react-router-dom'
-import DisplayConnectionRound from './pages/displays/DisplayConnectionRound'
-import DisplaySequenceRound from './pages/displays/DisplaySequenceRound'
-import DisplayWallRound from './pages/displays/DisplayWallRound'
-import DisplayVowelRound from './pages/displays/DisplayVowelRound'
-import DisplayStartScreen from './pages/displays/DisplayStartScreen'
-import DisplayEndScreen from './pages/displays/DisplayEndScreen'
+import DisplayConnectionRound from './pages/display/stages/DisplayConnectionRound'
+import DisplaySequenceRound from './pages/display/stages/DisplaySequenceRound'
+import DisplayWallRound from './pages/display/stages/DisplayWallRound'
+import DisplayVowelRound from './pages/display/stages/DisplayVowelRound'
+import DisplayStartScreen from './pages/display/stages/DisplayStartScreen'
+import DisplayEndScreen from './pages/display/stages/DisplayEndScreen'
 import HostProvider from './utils/context/HostProvider'
 
 export default function App() {

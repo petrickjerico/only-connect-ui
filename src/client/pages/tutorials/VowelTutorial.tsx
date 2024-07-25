@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 import i18n from '../../i18n'
 import { stopAllBGM } from '../../utils/audios'
 import { getTutorial } from '../../utils/tutorials'
-import DisplayVowel from '../../layout/display/DisplayVowel'
+import DisplayVowel from '../display/layout/DisplayVowel'
 
 export default function VowelTutorial({ verbose }: { verbose?: boolean }) {
   console.log(verbose)

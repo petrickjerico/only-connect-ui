@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import tiebreaker from '../../assets/mock/Tiebreaker.json'
+import tiebreaker from '../../assets/bank/Tiebreaker.json'
 
 export function getRandomTiebreaker(language: string): [string, string] {
   const tiebreakers = Object

@@ -1,7 +1,7 @@
 import React, { Dispatch, createContext, useContext, useReducer } from 'react'
 import { RoundTypeEnum } from '../types/attributes'
 import { GameDisplay } from '../types/display'
-import { DEFAULT_GAME } from '../../components/GamePicker'
+import { DEFAULT_GAME } from '../game'
 
 export type HostAction =
   | { type: 'UPDATE_GAME', payload: GameDisplay }

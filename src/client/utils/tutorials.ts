@@ -1,4 +1,4 @@
-import tutorials from '../../assets/mock/Tutorials.json'
+import tutorials from '../../assets/bank/Tutorials.json'
 import { ClueGroup, VowelRound, WallGroup } from './types/display';
 
 export function getTutorial(language: string) {
